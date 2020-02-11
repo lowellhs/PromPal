@@ -4,7 +4,7 @@
 
 #define MAXCHAR 10000
 
-int read_matrix(int n, double A[n][n], char *filename, char *delim) {
+int read_matrix(int m, int n, double A[m][n], char *filename, char *delim) {
   FILE *fp;
   char str[MAXCHAR];
   char *ptr;
@@ -55,9 +55,9 @@ int read_vector(int n, double v[n], char *filename, char *delim) {
   return 0;
 }
 
-void print_matrix(int n, double A[n][n]) {
+void print_matrix(int m, int n, double A[m][n]) {
   int i, j;
-  for (i=0; i<n; i++) {
+  for (i=0; i<m; i++) {
     for (j=0; j<n; j++) {
       printf("%f ", A[i][j]);
     }
