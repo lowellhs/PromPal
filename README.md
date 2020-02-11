@@ -16,7 +16,7 @@ mpirun -n 4 ./mpi_matvec_row.o -m 8 -n 4 -m1 a_matrix_8x4.txt -v1 a_vector_4.txt
 ~~~
 ___
 ## Contoh tes matriks-matriks :
-- Jika ingin melihat hasilnya Ax = b
+- Jika ingin melihat hasilnya AB = C
 ~~~
 mpirun -n 4 ./mpi_matmat_row.o -n 8 -m1 a_matrix_8x8.txt -m1 a_matrix_8x8.txt -p 1
 ~~~
