@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
   double A[ROWS_A][COLS_A];
   double x[VECSIZE_x];
   double b[VECSIZE_b];
+  double temp_b[VECSIZE_b];
 
   int num_procs,                          // Banyak proses yang ada
       my_rank,                            // id proses
@@ -33,6 +34,11 @@ int main(int argc, char *argv[]) {
       cols,                               // Ukuran chunk matriks yang dikirim ke masing2 proses
       cols_per_task, rem_cols, offset,    // Variabel bantuan
       i, j;                               // Keperluan indexing
+
+  for (i=0; i<VECSIZE_b; i++) {
+    b[i] = 0.0;
+    temp_b[i] = 0.0;
+  }
 
   MPI_Status status;
   MPI_Datatype column_type;
@@ -77,7 +83,10 @@ int main(int argc, char *argv[]) {
     for (source=1; source<=num_workers; source++) {
       MPI_Recv(&offset, 1, MPI_INT, source, 1, MPI_COMM_WORLD, &status);
       MPI_Recv(&cols, 1, MPI_INT, source, 1, MPI_COMM_WORLD, &status);
-      MPI_Recv(b, VECSIZE_b, MPI_DOUBLE, source, 3, MPI_COMM_WORLD, &status);
+      MPI_Recv(&temp_b, VECSIZE_b, MPI_DOUBLE, source, 1, MPI_COMM_WORLD, &status);
+      for (i=0; i<VECSIZE_b; i++) {
+        b[i] = b[i] + temp_b[i];
+      }
     }
     
     double total_time = MPI_Wtime() - start;
@@ -95,17 +104,15 @@ int main(int argc, char *argv[]) {
       MPI_Recv(&A[0][offset], ROWS_A*cols, column_type, 0, 0, MPI_COMM_WORLD, &status);
       MPI_Recv(&x, VECSIZE_x, MPI_DOUBLE, 0, 0, MPI_COMM_WORLD, &status);
 
-      double temp_b[VECSIZE_b];
       for (j=offset; j<offset+cols; j++) {
-        b[i] = 0;
         for (i=0; i<ROWS_A; i++) {
-         b[i] = b[i] + A[i][j] * x[j];
+          b[i] = b[i] + A[i][j] * x[j];
         }
       }
 
       MPI_Send(&offset, 1, MPI_INT, 0, 1, MPI_COMM_WORLD);
       MPI_Send(&cols, 1, MPI_INT, 0, 1, MPI_COMM_WORLD);
-      MPI_Send(temp_b, VECSIZE_b, MPI_DOUBLE, 0, 1, MPI_COMM_WORLD);
+      MPI_Send(&b, VECSIZE_b, MPI_DOUBLE, 0, 1, MPI_COMM_WORLD);
   }
 
   MPI_Finalize();
