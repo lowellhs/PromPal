@@ -1,6 +1,7 @@
 #include "mpi.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "file_reader.c"
 
 int main(int argc, char **argv) {
@@ -12,6 +13,7 @@ int main(int argc, char **argv) {
       rows,                               // Ukuran chunk matriks yang dikirim ke masing2 proses
       rows_per_task, rem_rows, offset,    // Variabel bantuan
       i, j, rc;                           // misc
+  struct timeval start, stop;
 
   MPI_Status status;
 
@@ -66,12 +68,7 @@ int main(int argc, char **argv) {
       }
     }
 
-    if (print_flag == 1) {
-      print_matrix(m, n, A);
-      print_vector(n, x);
-    }
-
-    double start = MPI_Wtime();
+    gettimeofday(&start, 0);
     offset = 0;
     rows_per_task = ROWS_A / num_workers;
     rem_rows = ROWS_A % num_workers;
@@ -95,12 +92,16 @@ int main(int argc, char **argv) {
       MPI_Recv(&rows, 1, MPI_INT, source, 1, MPI_COMM_WORLD, &status);
       MPI_Recv(&b[offset], rows, MPI_DOUBLE, source, 1, MPI_COMM_WORLD, &status);
     }
+    gettimeofday(&stop, 0);
 
-    double total_time = MPI_Wtime() - start;
     if (print_flag == 1) {
       print_vector(VECSIZE_b, b);
+    } else {
+      printf(
+        "Done in %.6f seconds.\n", 
+        (stop.tv_sec+stop.tv_usec*1e-6)-(start.tv_sec+start.tv_usec*1e-6)
+      );
     }
-    printf("Done in %f seconds.\n", total_time);
   } 
   
   if (my_rank > 0) {
