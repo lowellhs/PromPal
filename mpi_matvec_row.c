@@ -3,18 +3,37 @@
 #include <stdlib.h>
 #include "file_reader.c"
 
-int main(int argc, char *argv[]) {
-  if (argc != 11) {
-    return 0;
-  };
+int main(int argc, char **argv) {
+  int num_procs,                          // Banyak proses yang ada
+      my_rank,                            // id proses
+      num_workers,                        // Banyak proses selain master (selain id = 0)
+      source,                             // id proses sumber saat Recv
+      dest,                               // id proses tujuan saat Send 
+      rows,                               // Ukuran chunk matriks yang dikirim ke masing2 proses
+      rows_per_task, rem_rows, offset,    // Variabel bantuan
+      i, j, rc;                           // misc
 
-  int m = atoi(argv[2]);
-  int n = atoi(argv[4]);
-  char *file_matrix = argv[6];
-  char *file_vector = argv[8];
-  int print_flag = atoi(argv[10]);
-  char *delim = " ";
+  MPI_Status status;
 
+  MPI_Init(&argc, &argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
+  MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+
+  int m, n, print_flag, from_file;
+  if (argc == 7) {
+    m = atoi(argv[2]);
+    n = atoi(argv[4]);
+    from_file = 0;
+    print_flag = atoi(argv[6]);
+  } else if (argc == 11) {
+    m = atoi(argv[2]);
+    n = atoi(argv[4]);
+    from_file = 1;
+    print_flag = atoi(argv[10]);
+  } else {
+    MPI_Abort(MPI_COMM_WORLD, rc);
+    exit(1);
+  }
 
   int ROWS_A = m;     // Ukuran baris matriks A (n x n)
   int COLS_A = n;     // Ukuran kolom matriks A (n x n)
@@ -25,27 +44,27 @@ int main(int argc, char *argv[]) {
   double x[VECSIZE_x];
   double b[VECSIZE_b];
 
-  int num_procs,                          // Banyak proses yang ada
-      my_rank,                            // id proses
-      num_workers,                        // Banyak proses selain master (selain id = 0)
-      source,                             // id proses sumber saat Recv
-      dest,                               // id proses tujuan saat Send 
-      rows,                               // Ukuran chunk matriks yang dikirim ke masing2 proses
-      rows_per_task, rem_rows, offset,    // Variabel bantuan
-      i, j;                               // Keperluan indexing
-
-  MPI_Status status;
-
-  MPI_Init(NULL, NULL);
-  MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
-  MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
-
   // 1 process for master, (num_procs - 1) remaining
   num_workers = num_procs - 1;
 
   if (my_rank == 0) {
-    read_matrix(m, n, A, file_matrix, delim);
-    read_vector(n, x, file_vector, delim);
+    if (from_file) {
+      char *file_matrix = argv[6];
+      char *file_vector = argv[8];
+      char *delim = " ";
+
+      read_matrix(m, n, A, file_matrix, delim);
+      read_vector(n, x, file_vector, delim);
+    } else {
+      for (i=0; i<ROWS_A; i++) {
+        for (j=0; j<COLS_A; j++) {
+          A[i][j] = ((i + j) % 17) + 1;
+        }
+      }
+      for (i=0; i<VECSIZE_x; i++) {
+        x[i] = i;
+      }
+    }
 
     if (print_flag == 1) {
       print_matrix(m, n, A);

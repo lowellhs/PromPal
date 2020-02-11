@@ -3,21 +3,7 @@
 #include <stdlib.h>
 #include "file_reader.c"
 
-int main(int argc, char *argv[]) {
-  if (argc != 9) {
-    return 0;
-  };
-
-  int n = atoi(argv[2]);
-  char *file_matrix1 = argv[4];
-  char *file_matrix2 = argv[6];
-  int print_flag = atoi(argv[8]);
-  char *delim = " ";
-
-  double A[n][n];
-  double B[n][n];
-  double C[n][n];
-
+int main(int argc, char **argv) {
   int num_procs,                          // Banyak proses yang ada
       my_rank,                            // id proses
       num_workers,                        // Banyak proses selain master (selain id = 0)
@@ -25,20 +11,51 @@ int main(int argc, char *argv[]) {
       dest,                               // id proses tujuan saat Send 
       rows,                               // Ukuran chunk matriks yang dikirim ke masing2 proses
       rows_per_task, rem_rows, offset,    // Variabel bantuan
-      i, j, k;                            // Keperluan indexing
+      i, j, k, rc;                        // misc
 
   MPI_Status status;
 
-  MPI_Init(NULL, NULL);
+  MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+
+  int n, print_flag, from_file;
+  if (argc == 5) {
+    n = atoi(argv[2]);
+    from_file = 0;
+    print_flag = atoi(argv[4]);
+  } else if (argc == 9) {
+    n = atoi(argv[2]);
+    from_file = 1;
+    print_flag = atoi(argv[8]);
+  } else {
+    MPI_Abort(MPI_COMM_WORLD, rc);
+    exit(1);
+  }
+
+  double A[n][n];
+  double B[n][n];
+  double C[n][n];
 
   // 1 process for master, (num_procs - 1) remaining
   num_workers = num_procs - 1;
 
   if (my_rank == 0) {
-    read_matrix(n, n, A, file_matrix1, delim);
-    read_matrix(n, n, B, file_matrix2, delim);
+    if (from_file) {
+      char *file_matrix1 = argv[4];
+      char *file_matrix2= argv[6];
+      char *delim = " ";
+    
+      read_matrix(n, n, A, file_matrix1, delim);
+      read_matrix(n, n, B, file_matrix2, delim);
+    } else {
+      for (i=0; i<n; i++) {
+        for (j=0; j<n; j++) {
+          A[i][j] = ((i + j) % 17) + 1;
+          B[i][j] = ((i * j) % 19) + 1;
+        }
+      }
+    }
 
     if (print_flag == 1) {
       print_matrix(n, n, A);
