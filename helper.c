@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define MAXCHAR 10000
 
@@ -55,6 +56,55 @@ int read_vector(int n, double v[n], char *filename, char *delim) {
   return 0;
 }
 
+int matrix_equals(int m, int n, double A[m][n], double B[m][n]) {
+  int i,j,k;
+  k = 1;
+  for (i=0; i<m; i++) {
+    for (j=0; j<n; j++) {
+      k = k && ((A[i][j] - B[i][j]) <= 1e-12);
+    }
+  }
+  return k;
+}
+
+int vector_equals(int m, double a[m], double b[m]) {
+  int i,k;
+  k = 1;
+  for (i=0; i<m; i++) {
+    k = k && ((a[i] - b[i]) <= 1e-12);
+  }
+  return k;
+}
+
+void init_matrix(int m, int n, double A[m][n]) {
+  int i,j;
+  for (i=0; i<m; i++) {
+    for (j=0; j<n; j++) {
+      A[i][j] = (i + j) % 1024;
+    }
+  }
+}
+
+void init_matrix_i(int n, double A[n][n]) {
+  int i,j;
+  for (i=0; i<n; i++) {
+    for (j=0; j<n; j++) {
+      if (i == j) {
+        A[i][j] = 1.0;
+      } else {
+        A[i][j] = 0.0;
+      }
+    }
+  }
+}
+
+void init_vector(int n, double v[n]) {
+  int i;
+  for (i=0; i<n; i++) {
+    v[i] = i % 1024;
+  }
+}
+
 void print_matrix(int m, int n, double A[m][n]) {
   int i, j;
   for (i=0; i<m; i++) {
@@ -72,4 +122,8 @@ void print_vector(int n, double v[n]) {
     printf("%f\n", v[i]);
   }
   printf("%s\n", "");
+}
+
+double time_elapsed(struct timeval a, struct timeval b) {
+  return (a.tv_sec+a.tv_usec*1e-6) - (b.tv_sec+b.tv_usec*1e-6);
 }

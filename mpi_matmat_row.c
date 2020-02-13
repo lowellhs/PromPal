@@ -1,80 +1,48 @@
 #include "mpi.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include "file_reader.c"
+#include "helper.c"
+#include "init.c"
+
+MPI_Status status;
+double A[n][n], B[n][n], C[n][n];
 
 int main(int argc, char **argv) {
-  int num_procs,                          // Banyak proses yang ada
-      my_rank,                            // id proses
-      num_workers,                        // Banyak proses selain master (selain id = 0)
-      source,                             // id proses sumber saat Recv
-      dest,                               // id proses tujuan saat Send 
-      rows,                               // Ukuran chunk matriks yang dikirim ke masing2 proses
-      rows_per_task, rem_rows, offset,    // Variabel bantuan
-      i, j, k, rc;                        // misc
-  struct timeval start, stop;
-
-  MPI_Status status;
+  int num_procs, my_rank, num_workers, source, dest, rows, rows_per_task, rem_rows, offset;
+  int i, j, k, rc, from_file, print_flag;
 
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
 
-  int n, print_flag, from_file;
-  if (argc == 5) {
-    n = atoi(argv[2]);
-    from_file = 0;
-    print_flag = atoi(argv[4]);
-  } else if (argc == 9) {
-    n = atoi(argv[2]);
-    from_file = 1;
-    print_flag = atoi(argv[8]);
-  } else {
-    MPI_Abort(MPI_COMM_WORLD, rc);
-    exit(1);
-  }
-
-  double A[n][n];
-  double B[n][n];
-  double C[n][n];
-
-  // 1 process for master, (num_procs - 1) remaining
+  from_file = atoi(argv[1]);
+  print_flag = atoi(argv[2]);
   num_workers = num_procs - 1;
-
   if (my_rank == 0) {
     if (from_file) {
-      char *file_matrix1 = argv[4];
-      char *file_matrix2= argv[6];
-      char *delim = " ";
-    
-      read_matrix(n, n, A, file_matrix1, delim);
-      read_matrix(n, n, B, file_matrix2, delim);
+      read_matrix(n, n, A, argv[3], " ");
+      read_matrix(n, n, B, argv[4], " ");
     } else {
-      for (i=0; i<n; i++) {
-        for (j=0; j<n; j++) {
-          A[i][j] = ((i + j) % 17) + 1;
-          B[i][j] = ((i * j) % 19) + 1;
-        }
-      }
+      printf("Perkalian matriks (%dx%d) A . I = C\n...\n", n, n);
+      init_matrix(n, n, A);
+      init_matrix_i(n, B);
     }
+    struct timeval starts[num_procs], stops[num_procs];
 
-    gettimeofday(&start, 0);
+    gettimeofday(&starts[0], 0);
     offset = 0;
     rows_per_task = n / num_workers;
     rem_rows = n % num_workers;
-
     for (dest=1; dest<=num_workers; dest++) {
       rows = rows_per_task;
       if (dest == num_workers) {
         rows = rows + rem_rows;
       }
-
+      gettimeofday(&starts[dest], 0);
       MPI_Send(&offset, 1, MPI_INT, dest, 0, MPI_COMM_WORLD);
       MPI_Send(&rows, 1, MPI_INT, dest, 0, MPI_COMM_WORLD);
       MPI_Send(&A[offset][0], rows*n, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
       MPI_Send(&B, n*n, MPI_DOUBLE, dest, 0, MPI_COMM_WORLD);
-
       offset = offset + rows;
     }
 
@@ -82,16 +50,22 @@ int main(int argc, char **argv) {
       MPI_Recv(&offset, 1, MPI_INT, source, 1, MPI_COMM_WORLD, &status);
       MPI_Recv(&rows, 1, MPI_INT, source, 1, MPI_COMM_WORLD, &status);
       MPI_Recv(&C[offset], rows*n, MPI_DOUBLE, source, 1, MPI_COMM_WORLD, &status);
+      gettimeofday(&stops[source], 0);
     }
-    gettimeofday(&stop, 0);
+    gettimeofday(&stops[0], 0);
 
     if (print_flag == 1) {
       print_matrix(n, n, C);
-    } else {
-      printf(
-        "Done in %.6f seconds.\n", 
-        (stop.tv_sec+stop.tv_usec*1e-6)-(start.tv_sec+start.tv_usec*1e-6)
-      );
+    }
+    if (from_file == 0) {
+      char *equals_A_C = matrix_equals(n, n, A, C) ? "sama" : "berbeda";
+      printf("Perkalian A . I = C menghasilkan C %s dengan A\n", equals_A_C);
+    }
+    char *str_a = "Total time is %.9f seconds.\n";
+    char *str_b = "Process %d start after %.9f seconds, done in %.9f seconds.\n";
+    printf(str_a, time_elapsed(stops[0], starts[0]));
+    for (i=1; i<num_procs; i++) {
+      printf(str_b, i, time_elapsed(starts[i], starts[0]), time_elapsed(stops[i], starts[i]));
     }
   } 
   
@@ -116,6 +90,5 @@ int main(int argc, char **argv) {
   }
 
   MPI_Finalize();
-
   return 0;
 }
