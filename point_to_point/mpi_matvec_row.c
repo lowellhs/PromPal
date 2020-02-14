@@ -1,15 +1,15 @@
 #include "mpi.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "helper.c"
-#include "init.c"
+#include "../helper.c"
+#include "../init.c"
 
 MPI_Status status;
 double A[m][n], x[n], b[m];
 
 int main(int argc, char **argv) {
   int num_procs, my_rank, num_workers, source, dest, rows, rows_per_task, rem_rows, offset;
-  int i, j, rc, from_file, print_flag;
+  int i, j, rc, from_file, print_flag, detail_time_flag;
 
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
@@ -17,11 +17,12 @@ int main(int argc, char **argv) {
 
   from_file = atoi(argv[1]);
   print_flag = atoi(argv[2]);
+  detail_time_flag = atoi(argv[3]);
   num_workers = num_procs - 1;
   if (my_rank == 0) {
     if (from_file) {
-      read_matrix(m, n, A, argv[3], " ");
-      read_vector(n, x, argv[4], " ");
+      read_matrix(m, n, A, argv[4], " ");
+      read_vector(n, x, argv[5], " ");
     } else {
       printf("Perkalian matriks (%dx%d) vektor (%dx1) I . x = b\n...\n", n, n, n);
       init_matrix_i(n, A);
@@ -61,11 +62,13 @@ int main(int argc, char **argv) {
       char *equals_x_b = vector_equals(n, x, b) ? "sama" : "berbeda";
       printf("Perkalian I . x = b menghasilkan b %s dengan x\n", equals_x_b);
     }
-    char *str_a = "Total time is %.9f seconds.\n";
-    char *str_b = "Process %d start after %.9f seconds, done in %.9f seconds.\n";
-    printf(str_a, time_elapsed(stops[0], starts[0]));
-    for (i=1; i<num_procs; i++) {
-      printf(str_b, i, time_elapsed(starts[i], starts[0]), time_elapsed(stops[i], starts[i]));
+    printf("Total time is %.9f s\n", time_elapsed(stops[0], starts[0]));
+    printf("Average communication time is %.9f s\n", avg_time_elapsed(1, num_procs, stops, starts));
+    if (detail_time_flag == 1) {
+      char *str_b = "Process %d start after %.9f s, done in %.9f s\n";
+      for (i=1; i<num_procs; i++) {
+        printf(str_b, i, time_elapsed(starts[i], starts[0]), time_elapsed(stops[i], starts[i]));
+      }
     }
   } 
   

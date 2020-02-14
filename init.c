@@ -1,2 +1,2 @@
-#define m 8
-#define n 8
+#define m 512
+#define n 512

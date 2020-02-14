@@ -125,5 +125,14 @@ void print_vector(int n, double v[n]) {
 }
 
 double time_elapsed(struct timeval a, struct timeval b) {
-  return (a.tv_sec+a.tv_usec*1e-6) - (b.tv_sec+b.tv_usec*1e-6);
+  return ((a.tv_sec+a.tv_usec*1e-6) - (b.tv_sec+b.tv_usec*1e-6));
+}
+
+double avg_time_elapsed(int i, int n, struct timeval *a, struct timeval *b) {
+  double sum = 0;
+  int k;
+  for (k=0; k<n; k++) {
+    sum += time_elapsed(a[k], b[k]);
+  }
+  return sum / (n-i);
 }

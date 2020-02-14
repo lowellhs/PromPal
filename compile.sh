@@ -1,7 +1,12 @@
 #!/bin/bash
 
-mpicc -o mpi_matmat_row.o mpi_matmat_row.c
-mpicc -o mpi_matvec_row.o mpi_matvec_row.c
-mpicc -o mpi_matvec_col.o mpi_matvec_col.c
-gcc -o seq_matvec.o seq_matvec.c
-gcc -o seq_matmat.o seq_matmat.c
+d1=point_to_point
+d2=sequential
+d3=collective
+
+mpicc -o $d1/mpi_matmat_row.o $d1/mpi_matmat_row.c
+mpicc -o $d1/mpi_matvec_row.o $d1/mpi_matvec_row.c
+mpicc -o $d1/mpi_matvec_col.o $d1/mpi_matvec_col.c
+gcc -o $d2/seq_matvec.o $d2/seq_matvec.c
+gcc -o $d2/seq_matmat.o $d2/seq_matmat.c
+mpicc -o $d3/mpi_matvec_row.o $d3/mpi_matvec_row.c

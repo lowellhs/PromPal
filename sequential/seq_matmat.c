@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "helper.c"
-
-#define n 8
+#include "../helper.c"
+#include "../init.c"
 
 double A[n][n], B[n][n], C[n][n];
 
@@ -17,8 +16,9 @@ int main(int argc, char **argv) {
       read_matrix(n, n, A, argv[3], " ");
       read_matrix(n, n, B, argv[4], " ");
   } else {
+      printf("Perkalian matriks (%dx%d) A . I = C\n...\n", n, n);
       init_matrix(n, n, A);
-      init_matrix(n, n, B);
+      init_matrix_i(n, B);
   }
 
   gettimeofday(&start, 0);
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
   if (print_flag == 1) {
     print_matrix(n, n, C);
   } else {
-    char *str_a = "Total time is %.9f seconds.\n";
+    char *str_a = "Total time is %.9f s\n";
     printf(str_a, time_elapsed(stop, start));
   }
 

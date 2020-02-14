@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "helper.c"
-
-#define m 8
-#define n 8
+#include "../helper.c"
+#include "../init.c"
 
 double A[m][n], x[n], b[m];
 
@@ -19,8 +17,9 @@ int main(int argc, char **argv) {
     read_matrix(m, n, A, argv[3], " ");
     read_vector(n, x, argv[4], " ");
   } else {
-    init_matrix(m, n, A);
-    init_vector(n, x);
+      printf("Perkalian matriks (%dx%d) vektor (%dx1) I . x = b\n...\n", n, n, n);
+      init_matrix_i(n, A);
+      init_vector(n, x);
   }
 
   gettimeofday(&start, 0);
@@ -35,7 +34,7 @@ int main(int argc, char **argv) {
   if (print_flag == 1) {
     print_vector(m, b);
   } else {
-    char *str_a = "Total time is %.9f seconds.\n";
+    char *str_a = "Total time is %.9f s\n";
     printf(str_a, time_elapsed(stop, start));
   }
 
