@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 
 #define MAXCHAR 10000
 
@@ -80,7 +79,7 @@ void init_matrix(int m, int n, double A[m][n]) {
   int i,j;
   for (i=0; i<m; i++) {
     for (j=0; j<n; j++) {
-      A[i][j] = (i + j) % 1024;
+      A[i][j] = i + j;
     }
   }
 }
@@ -101,7 +100,7 @@ void init_matrix_i(int n, double A[n][n]) {
 void init_vector(int n, double v[n]) {
   int i;
   for (i=0; i<n; i++) {
-    v[i] = i % 1024;
+    v[i] = i;
   }
 }
 
@@ -122,17 +121,4 @@ void print_vector(int n, double v[n]) {
     printf("%f\n", v[i]);
   }
   printf("%s\n", "");
-}
-
-double time_elapsed(struct timeval a, struct timeval b) {
-  return ((a.tv_sec+a.tv_usec*1e-6) - (b.tv_sec+b.tv_usec*1e-6));
-}
-
-double avg_time_elapsed(int i, int n, struct timeval *a, struct timeval *b) {
-  double sum = 0;
-  int k;
-  for (k=0; k<n; k++) {
-    sum += time_elapsed(a[k], b[k]);
-  }
-  return sum / (n-i);
 }
