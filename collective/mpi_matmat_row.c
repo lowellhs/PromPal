@@ -5,11 +5,11 @@
 #include "../init.c"
 
 MPI_Status status;
-double A[m][n], x[n], b[m];
+double A[n][n], B[n][n], C[n][n];
 
 int main(int argc, char **argv) {
   int num_procs, my_rank, num_workers, rows_per_tasks, rem_rows;
-  int i, j, from_file, print_flag;
+  int i, j, k, from_file, print_flag;
   struct timeval starts[2], stops[2];
 
   MPI_Init(&argc, &argv);
