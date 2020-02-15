@@ -1,6 +1,6 @@
 #!/bin/bash
 
-n=2
+n=4
 
 d1=collective
 d2=point_to_point
@@ -15,11 +15,13 @@ f5=seq_matmat.o
 do=test_output
 
 mpirun -n $n $d1/$f1 0 0 > $do/$d1-$f1.txt
+mpirun -n $n $d1/$f2 0 0 > $do/$d1-$f2.txt
 mpirun -n $n $d2/$f1 0 0 > $do/$d2-$f1.txt
 mpirun -n $n $d2/$f2 0 0 > $do/$d2-$f2.txt
 mpirun -n 1 $d3/$f4 0 0 > $do/$d3-$f4.txt
 
 diff $do/$d3-$f4.txt $do/$d1-$f1.txt
+diff $do/$d3-$f4.txt $do/$d1-$f2.txt
 diff $do/$d3-$f4.txt $do/$d2-$f1.txt
 diff $do/$d3-$f4.txt $do/$d2-$f2.txt
 

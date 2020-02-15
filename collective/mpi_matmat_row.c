@@ -34,9 +34,6 @@ int main(int argc, char **argv) {
 
   start = MPI_Wtime();
   rows = m / num_procs;
-  if (my_rank == num_procs-1) {
-    rows = rows + (m % num_procs);
-  }
   double recA[rows][n];
   double sendC[rows][n];
 
@@ -51,6 +48,16 @@ int main(int argc, char **argv) {
       sendC[k][j] = 0;
       for (i=0; i<n; i++) {
         sendC[k][j] = sendC[k][j] + recA[k][i] * B[i][j];
+      }
+    }
+  }
+  if (my_rank == 0) {
+    for (k=rows*num_procs; k<m; k++) {
+      for (j=0; j<n; j++) {
+        C[k][j] = 0;
+        for (i=0; i<n; i++) {
+          C[k][j] = C[k][j] + A[k][i] * B[i][j];
+        }
       }
     }
   }

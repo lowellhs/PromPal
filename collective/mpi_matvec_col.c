@@ -5,10 +5,11 @@
 #include "../init.c"
 
 MPI_Status status;
+MPI_Datatype blocktype, blocktype2;
 double A[m][n], x[n], b[m];
 
 int main(int argc, char **argv) {
-  int num_procs, my_rank, num_workers, rows;
+  int num_procs, my_rank, num_workers, cols;
   int i, j, from_file, print_flag;
   double start, start_node, start_calc, start_comm_1, start_comm_2;
   double stop, stop_node, stop_calc, stop_comm_1, stop_comm_2;
@@ -33,34 +34,41 @@ int main(int argc, char **argv) {
   }
 
   start = MPI_Wtime();
-  rows = m / num_procs;
-  double recA[rows][n];
-  double sendb[rows];
+  cols = n / num_procs;
+  double recA[m][cols];
+  double sendb[m];
+  int scounts[num_procs], displs[num_procs];
 
+  for (i=0; i<num_procs; i++) {
+    scounts[i] = 1;
+    displs[i] = i*cols;
+  }
   start_comm_1 = MPI_Wtime();
   MPI_Bcast(&x, n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  MPI_Scatter(&A, rows*n, MPI_DOUBLE, &recA, rows*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Type_vector(m, cols, n, MPI_DOUBLE, &blocktype2);
+  MPI_Type_create_resized(blocktype2, 0, sizeof(double), &blocktype);
+  MPI_Type_commit(&blocktype);
+  MPI_Scatterv(&A, scounts, displs, blocktype, &recA, m*cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   stop_comm_1 = MPI_Wtime();
 
   start_calc = MPI_Wtime();
-  for (i=0; i<rows; i++) {
+  for (i=0; i<m; i++) {
     sendb[i] = 0.0;
-    for (j=0; j<n; j++) {
-      sendb[i] = sendb[i] + recA[i][j] * x[j];
+    for (j=0; j<cols; j++) {
+      sendb[i] = sendb[i] + recA[i][j] * x[my_rank*cols+j];
     }
   }
   if (my_rank == 0) {
-    for (i=rows*num_procs; i<m; i++) {
-      b[i] = 0.0;
-      for (j=0; j<n; j++) {
-        b[i] = b[i] + A[i][j] * x[j];
+    for (j=cols*num_procs; j<n; j++) {
+      for (i=0; i<m; i++) {
+        sendb[i] = sendb[i] + A[i][j] * x[j];
       }
     }
   }
   stop_calc = MPI_Wtime();
 
   start_comm_2 = MPI_Wtime();
-  MPI_Gather(&sendb, rows, MPI_DOUBLE, &b, rows, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Reduce(&sendb, &b, m, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
   stop_comm_2 = MPI_Wtime();
   stop = MPI_Wtime();
 
