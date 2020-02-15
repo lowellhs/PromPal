@@ -2,14 +2,14 @@
 m=$1
 n=$2
 
-echo "#define m $1"  > init.c
-echo "#define n $2" >> init.c
+echo "#define m ${m}"  > init.c
+echo "#define n ${n}" >> init.c
 
 bash compile.sh
 
 for i in 2 3 4
 do
-  echo "Validating..., size ${1}x${2} and ${i} processors"
+  echo "Validating..., size ${m}x${n} and ${i} processors"
   d1=collective
   d2=point_to_point
   d3=sequential
@@ -40,6 +40,8 @@ do
   diff $do/$d3-$f5.txt $do/$d1-$f3.txt
   diff $do/$d3-$f5.txt $do/$d2-$f3.txt
 
-  rm $do/*.txt
+  rm $do/*.o.txt
   echo "Validated"
 done
+
+rm init.c

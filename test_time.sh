@@ -1,16 +1,23 @@
+#!/bin/bash
+
 m=$1
 n=$2
+env=$3
+shift
+shift
+shift
+outDir="test_output"
 
-echo "#define m $1"  > init.c
-echo "#define n $2" >> init.c
+echo "#define m ${m}"  > init.c
+echo "#define n ${n}" >> init.c
 
 bash compile.sh
 
-for procs in 2 4 8 16
+for procs in $@
 do
   echo "PROCESSORS = ${procs}"
   echo "----------------------------------------------------------------------------------"
-  newFile="${3}_test_${m}x${n}_${procs}.txt"
+  newFile="${outDir}/${env}_test_${m}x${n}_${procs}.txt"
   echo "Test ${m}x${n} matrix with ${procs} processors" > $newFile
   echo "" >> $newFile
 
@@ -94,3 +101,5 @@ do
   done
   echo "----------------------------------------------------------------------------------"
 done
+
+rm init.c
