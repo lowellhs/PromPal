@@ -1,6 +1,5 @@
 m=$1
 n=$2
-procs=$3
 
 echo "#define m $1"  > init.c
 echo "#define n $2" >> init.c
@@ -11,7 +10,7 @@ for procs in 2 4 8 16
 do
   echo "PROCESSORS = ${procs}"
   echo "----------------------------------------------------------------------------------"
-  newFile="test_${m}x${n}_${procs}.txt"
+  newFile="${3}_test_${m}x${n}_${procs}.txt"
   echo "Test ${m}x${n} matrix with ${procs} processors" > $newFile
   echo "" >> $newFile
 
