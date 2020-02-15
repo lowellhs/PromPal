@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     read_vector(n, x, argv[4], " ");
   } else {
       if (print_flag) {
-        printf("Perkalian matriks (%dx%d) vektor (%dx1) I . x = b\n...\n", n, n, n);
+        printf("Perkalian matriks (%dx%d) vektor (%dx1) I . x = b\n", n, n, n);
       }
       init_matrix_i(n, A);
       init_vector(n, x);
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
   if (!print_flag) {
     print_vector(m, b);
   } else {
-    char *str_a = "Total time is %.9f s\n";
+    char *str_a = "TOTAL TIME : %.9f s\n";
     printf(str_a, stop - start);
   }
 

@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
       read_matrix(n, n, B, argv[4], " ");
     } else {
       if (print_flag) {
-        printf("Perkalian matriks (%dx%d) A . I = C\n---\n", n, n);
+        printf("Perkalian matriks (%dx%d) A . I = C\n", n, n);
       }
       init_matrix(n, n, A);
       init_matrix_i(n, B);
@@ -78,11 +78,7 @@ int main(int argc, char **argv) {
     if (!print_flag) {
       print_matrix(n, n, C);
     } else {
-      if (!from_file) {
-        char *equals_A_C = matrix_equals(n, n, A, C) ? "sama" : "berbeda";
-        printf("Perkalian A . I = C menghasilkan C %s dengan A\n", equals_A_C);
-      }
-      printf("Total time is %.9f s\n", stop - start);
+      printf("TOTAL TIME : %.9f s\n", stop - start);
     }
   }
   return 0;
