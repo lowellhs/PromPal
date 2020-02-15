@@ -1,0 +1,125 @@
+Test 1024x1024 matrix with 2 processors
+
+sequential matrix-vector multiplication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+TOTAL TIME : 0.004210508 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+TOTAL TIME : 0.004346934 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+TOTAL TIME : 0.005541966 s
+
+sequential matrix-matrix multiplication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) A . I = C
+TOTAL TIME : 4.219189293 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) A . I = C
+TOTAL TIME : 4.210560257 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) A . I = C
+TOTAL TIME : 4.210769871 s
+
+point-to-point matrix-vector multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, time elapse: 0.012338 s, calculation time: 0.004744 s
+Send-Receive time process 0 with process 1 is 0.008389 s
+TOTAL TIME : 0.008389206 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, time elapse: 0.010817 s, calculation time: 0.003340 s
+Send-Receive time process 0 with process 1 is 0.006778 s
+TOTAL TIME : 0.006778394 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, time elapse: 0.012235 s, calculation time: 0.004599 s
+Send-Receive time process 0 with process 1 is 0.007462 s
+TOTAL TIME : 0.007462478 s
+
+point-to-point matrix-vector multiplication (col)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, time elapse: 0.013106 s, calculation time: 0.005476 s
+Send-Receive time process 0 with process 1 is 0.009261 s
+TOTAL TIME : 0.009264017 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, time elapse: 0.013184 s, calculation time: 0.005341 s
+Send-Receive time process 0 with process 1 is 0.008499 s
+TOTAL TIME : 0.008501827 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, time elapse: 0.010043 s, calculation time: 0.003191 s
+Send-Receive time process 0 with process 1 is 0.005384 s
+TOTAL TIME : 0.005389409 s
+
+point-to-point matrix-matrix multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) A . I = C
+Process 1, time elapse: 4.491789 s, calculation time: 4.475413 s
+Send-Receive time process 0 with process 1 is 4.482799 s
+TOTAL TIME : 4.482798926 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) A . I = C
+Process 1, time elapse: 4.533707 s, calculation time: 4.518140 s
+Send-Receive time process 0 with process 1 is 4.525815 s
+TOTAL TIME : 4.525815894 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) A . I = C
+Process 1, time elapse: 4.485753 s, calculation time: 4.468659 s
+Send-Receive time process 0 with process 1 is 4.477969 s
+TOTAL TIME : 4.477969026 s
+
+collective matrix-vector multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, calculation: 0.001578772 s, Bcast-Scatter: 0.006983780 s, Gather: 0.000012904 s
+Process 0, calculation: 0.001507047 s, Bcast-Scatter: 0.002900080 s, Gather: 0.000084629 s
+TOTAL TIME : 0.004496073 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, calculation: 0.002090031 s, Bcast-Scatter: 0.006596683 s, Gather: 0.000019036 s
+Process 0, calculation: 0.002093647 s, Bcast-Scatter: 0.002661843 s, Gather: 0.000015439 s
+TOTAL TIME : 0.004774596 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, calculation: 0.001371613 s, Bcast-Scatter: 0.008492500 s, Gather: 0.000027501 s
+Process 0, calculation: 0.001386211 s, Bcast-Scatter: 0.002858301 s, Gather: 0.000013104 s
+TOTAL TIME : 0.004261313 s
+
+collective matrix-vector multiplication (col)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, calculation: 0.002550705 s, Bcast-Scatter: 0.005234579 s, Gather: 0.000025347 s
+Process 0, calculation: 0.001397512 s, Bcast-Scatter: 0.002363653 s, Gather: 0.001178891 s
+TOTAL TIME : 0.004942441 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, calculation: 0.002118353 s, Bcast-Scatter: 0.006461570 s, Gather: 0.000044894 s
+Process 0, calculation: 0.002140224 s, Bcast-Scatter: 0.002603122 s, Gather: 0.000023665 s
+TOTAL TIME : 0.004770909 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) vektor (1024x1) I . x = b
+Process 1, calculation: 0.002601851 s, Bcast-Scatter: 0.006830552 s, Gather: 0.000021500 s
+Process 0, calculation: 0.001676214 s, Bcast-Scatter: 0.002839426 s, Gather: 0.000947767 s
+TOTAL TIME : 0.005466403 s
+
+collective matrix-matrix multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) A . I = C
+--------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 0 on node riset-mpi exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) A . I = C
+--------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 0 on node riset-mpi exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (1024x1024) A . I = C
+--------------------------------------------------------------------------
+mpirun noticed that process rank 1 with PID 0 on node riset-mpi exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------
