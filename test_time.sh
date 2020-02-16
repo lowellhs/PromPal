@@ -13,6 +13,16 @@ echo "#define n ${n}" >> init.c
 
 bash compile.sh
 
+echo "sequential matrix-vector multiplication"
+seqmatvec1=$(mpirun -n 1 sequential/seq_matvec.o 0 1)
+seqmatvec2=$(mpirun -n 1 sequential/seq_matvec.o 0 1)
+seqmatvec3=$(mpirun -n 1 sequential/seq_matvec.o 0 1)
+
+echo "sequential matrix-matrix multiplication"
+seqmatmat1=$(mpirun -n 1 sequential/seq_matmat.o 0 1)
+seqmatmat2=$(mpirun -n 1 sequential/seq_matmat.o 0 1)
+seqmatmat3=$(mpirun -n 1 sequential/seq_matmat.o 0 1)
+
 for procs in $@
 do
   echo "PROCESSORS = ${procs}"
@@ -21,24 +31,22 @@ do
   echo "Test ${m}x${n} matrix with ${procs} processors" > $newFile
   echo "" >> $newFile
 
-  echo "sequential matrix-vector multiplication"
   echo "sequential matrix-vector multiplication" >> $newFile
-  for i in 1 2 3
-  do
-    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
-    time=$(mpirun -n 1 sequential/seq_matvec.o 0 1)
-    echo "$time" >> $newFile
-  done
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
+  echo "$seqmatvec1" >> $newFile
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
+  echo "$seqmatvec2" >> $newFile
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
+  echo "$seqmatvec3" >> $newFile
   echo >> $newFile
-
-  echo "sequential matrix-matrix multiplication"
+  
   echo "sequential matrix-matrix multiplication" >> $newFile
-  for i in 1 2 3
-  do
-    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
-    time=$(mpirun -n 1 sequential/seq_matmat.o 0 1)
-    echo "$time" >> $newFile
-  done
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
+  echo "$seqmatmat1" >> $newFile
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
+  echo "$seqmatmat2" >> $newFile
+  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
+  echo "$seqmatmat3" >> $newFile
   echo >> $newFile
 
   echo "point-to-point matrix-vector multiplication (row)"

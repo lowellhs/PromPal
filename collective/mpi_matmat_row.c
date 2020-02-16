@@ -34,12 +34,18 @@ int main(int argc, char **argv) {
 
   start = MPI_Wtime();
   rows = m / num_procs;
-  double recA[rows][n];
-  double sendC[rows][n];
+  double *recAdata = (double *)malloc(sizeof(double)*rows*n);
+  double **recA = (double **)malloc(sizeof(double *)*rows);
+  double *sendCdata = (double *)malloc(sizeof(double)*rows*n);
+  double **sendC = (double **)malloc(sizeof(double)*rows);
+  for (i=0; i<rows; i++) {
+    recA[i] = &(recAdata[i*n]);
+    sendC[i] = &(sendCdata[i*n]);
+  }
 
   start_comm_1 = MPI_Wtime();
   MPI_Bcast(&B, n*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  MPI_Scatter(&A, rows*n, MPI_DOUBLE, &recA, rows*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Scatter(&A, rows*n, MPI_DOUBLE, &(recA[0][0]), rows*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   stop_comm_1 = MPI_Wtime();
 
   start_calc = MPI_Wtime();
@@ -64,7 +70,7 @@ int main(int argc, char **argv) {
   stop_calc = MPI_Wtime();
 
   start_comm_2 = MPI_Wtime();
-  MPI_Gather(&sendC, rows*n, MPI_DOUBLE, &C, rows*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Gather(&(sendC[0][0]), rows*n, MPI_DOUBLE, &C, rows*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   stop_comm_2 = MPI_Wtime();
   stop = MPI_Wtime();
 
@@ -81,5 +87,9 @@ int main(int argc, char **argv) {
       printf("TOTAL TIME : %.9f s\n", stop - start);
     }
   }
+  free(recAdata);
+  free(recA);
+  free(sendCdata);
+  free(sendC);
   return 0;
 }
