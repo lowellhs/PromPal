@@ -14,7 +14,7 @@ min=$((
   head -n $tt3 $file | tail -n 1
 ) | awk 'BEGIN{a=1000}{if ($4<0+a) a=$4} END{print a}')
 echo "=> ${min} s"
-echo ""
+# echo ""
 
 point2pointcol=$(echo "$tt3 + 2" | bc -l)
 tt1=$(echo "$point2pointcol + 2 + 2*($procs-1) + 1" | bc -l)
@@ -27,7 +27,7 @@ min=$((
   head -n $tt3 $file | tail -n 1
 ) | awk 'BEGIN{a=1000}{if ($4<0+a) a=$4} END{print a}')
 echo "=> ${min} s"
-echo ""
+# echo ""
 
 point2pointmat=$(echo "$tt3 + 2" | bc -l)
 tt1=$(echo "$point2pointmat + 2 + 2*($procs-1) + 1" | bc -l)
@@ -40,7 +40,7 @@ min=$((
   head -n $tt3 $file | tail -n 1
 ) | awk 'BEGIN{a=1000}{if ($4<0+a) a=$4} END{print a}')
 echo "=> ${min} s"
-echo ""
+# echo ""
 
 collectiverow=$(echo "$tt3 + 2" | bc -l)
 tt1=$(echo "$collectiverow + 2 + ($procs) + 1" | bc -l)
@@ -53,7 +53,7 @@ min=$((
   head -n $tt3 $file | tail -n 1
 ) | awk 'BEGIN{a=1000}{if ($4<0+a) a=$4} END{print a}')
 echo "=> ${min} s"
-echo ""
+# echo ""
 
 collectivecol=$(echo "$tt3 + 2" | bc -l)
 tt1=$(echo "$collectivecol + 2 + ($procs) + 1" | bc -l)
@@ -66,7 +66,7 @@ min=$((
   head -n $tt3 $file | tail -n 1
 ) | awk 'BEGIN{a=1000}{if ($4<0+a) a=$4} END{print a}')
 echo "=> ${min} s"
-echo ""
+# echo ""
 
 collectivemat=$(echo "$tt3 + 2" | bc -l)
 tt1=$(echo "$collectivemat + 2 + ($procs) + 1" | bc -l)
@@ -79,4 +79,4 @@ min=$((
   head -n $tt3 $file | tail -n 1
 ) | awk 'BEGIN{a=1000}{if ($4<0+a) a=$4} END{print a}')
 echo "=> ${min} s"
-echo ""
+# echo ""
