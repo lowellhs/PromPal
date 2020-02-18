@@ -3,6 +3,8 @@
 m=$1
 n=$2
 env=$3
+hostfile=$4
+shift
 shift
 shift
 shift
@@ -14,14 +16,14 @@ echo "#define n ${n}" >> init.c
 bash compile.sh
 
 echo "sequential matrix-vector multiplication"
-seqmatvec1=$(mpirun -n 1 sequential/seq_matvec.o 0 1)
-seqmatvec2=$(mpirun -n 1 sequential/seq_matvec.o 0 1)
-seqmatvec3=$(mpirun -n 1 sequential/seq_matvec.o 0 1)
+seqmatvec1=$(mpirun --hostfile $hostfile -np 1 sequential/seq_matvec.o 0 1)
+seqmatvec2=$(mpirun --hostfile $hostfile -np 1 sequential/seq_matvec.o 0 1)
+seqmatvec3=$(mpirun --hostfile $hostfile -np 1 sequential/seq_matvec.o 0 1)
 
 echo "sequential matrix-matrix multiplication"
-seqmatmat1=$(mpirun -n 1 sequential/seq_matmat.o 0 1)
-seqmatmat2=$(mpirun -n 1 sequential/seq_matmat.o 0 1)
-seqmatmat3=$(mpirun -n 1 sequential/seq_matmat.o 0 1)
+seqmatmat1=$(mpirun --hostfile $hostfile -np 1 sequential/seq_matmat.o 0 1)
+seqmatmat2=$(mpirun --hostfile $hostfile -np 1 sequential/seq_matmat.o 0 1)
+seqmatmat3=$(mpirun --hostfile $hostfile -np 1 sequential/seq_matmat.o 0 1)
 
 for procs in $@
 do
@@ -54,7 +56,7 @@ do
   for i in 1 2 3
   do
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
-    time=$(mpirun -n $procs point_to_point/mpi_matvec_row.o 0 1)
+    time=$(mpirun --hostfile $hostfile -np $procs point_to_point/mpi_matvec_row.o 0 1)
     echo "$time" >> $newFile
   done
   echo >> $newFile
@@ -64,7 +66,7 @@ do
   for i in 1 2 3
   do
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
-    time=$(mpirun -n $procs point_to_point/mpi_matvec_col.o 0 1)
+    time=$(mpirun --hostfile $hostfile -np $procs point_to_point/mpi_matvec_col.o 0 1)
     echo "$time" >> $newFile
   done
   echo >> $newFile
@@ -74,7 +76,7 @@ do
   for i in 1 2 3
   do
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
-    time=$(mpirun -n $procs point_to_point/mpi_matmat_row.o 0 1)
+    time=$(mpirun --hostfile $hostfile -np $procs point_to_point/mpi_matmat_row.o 0 1)
     echo "$time" >> $newFile
   done
   echo >> $newFile
@@ -84,7 +86,7 @@ do
   for i in 1 2 3
   do
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
-    time=$(mpirun -n $procs collective/mpi_matvec_row.o 0 1)
+    time=$(mpirun --hostfile $hostfile -np $procs collective/mpi_matvec_row.o 0 1)
     echo "$time" >> $newFile
   done
   echo >> $newFile
@@ -94,7 +96,7 @@ do
   for i in 1 2 3
   do
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
-    time=$(mpirun -n $procs collective/mpi_matvec_col.o 0 1)
+    time=$(mpirun --hostfile $hostfile -np $procs collective/mpi_matvec_col.o 0 1)
     echo "$time" >> $newFile
   done
   echo >> $newFile
@@ -104,7 +106,7 @@ do
   for i in 1 2 3
   do
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> $newFile
-    time=$(mpirun -n $procs collective/mpi_matmat_row.o 0 1)
+    time=$(mpirun --hostfile $hostfile -np $procs collective/mpi_matmat_row.o 0 1)
     echo "$time" >> $newFile
   done
   echo "----------------------------------------------------------------------------------"

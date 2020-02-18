@@ -1,6 +1,7 @@
 #!/bin/bash
 m=$1
 n=$2
+hostfile=$3
 
 echo "#define m ${m}"  > init.c
 echo "#define n ${n}" >> init.c
@@ -22,20 +23,20 @@ do
 
   do=test_output
 
-  mpirun -n $n $d1/$f1 0 0 > $do/$d1-$f1.txt
-  mpirun -n $n $d1/$f2 0 0 > $do/$d1-$f2.txt
-  mpirun -n $n $d2/$f1 0 0 > $do/$d2-$f1.txt
-  mpirun -n $n $d2/$f2 0 0 > $do/$d2-$f2.txt
-  mpirun -n 1 $d3/$f4 0 0 > $do/$d3-$f4.txt
+  mpirun --hostfile $hostfile -np $n $d1/$f1 0 0 > $do/$d1-$f1.txt
+  mpirun --hostfile $hostfile -np $n $d1/$f2 0 0 > $do/$d1-$f2.txt
+  mpirun --hostfile $hostfile -np $n $d2/$f1 0 0 > $do/$d2-$f1.txt
+  mpirun --hostfile $hostfile -np $n $d2/$f2 0 0 > $do/$d2-$f2.txt
+  mpirun --hostfile $hostfile -np 1 $d3/$f4 0 0 > $do/$d3-$f4.txt
 
   diff $do/$d3-$f4.txt $do/$d1-$f1.txt
   diff $do/$d3-$f4.txt $do/$d1-$f2.txt
   diff $do/$d3-$f4.txt $do/$d2-$f1.txt
   diff $do/$d3-$f4.txt $do/$d2-$f2.txt
 
-  mpirun -n $n $d1/$f3 0 0 > $do/$d1-$f3.txt
-  mpirun -n $n $d2/$f3 0 0 > $do/$d2-$f3.txt
-  mpirun -n 1 $d3/$f5 0 0 > $do/$d3-$f5.txt
+  mpirun --hostfile $hostfile -np $n $d1/$f3 0 0 > $do/$d1-$f3.txt
+  mpirun --hostfile $hostfile -np $n $d2/$f3 0 0 > $do/$d2-$f3.txt
+  mpirun --hostfile $hostfile -np 1 $d3/$f5 0 0 > $do/$d3-$f5.txt
 
   diff $do/$d3-$f5.txt $do/$d1-$f3.txt
   diff $do/$d3-$f5.txt $do/$d2-$f3.txt
