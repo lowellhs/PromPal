@@ -18,7 +18,7 @@ int read_matrix(int m, int n, double A[m][n], char *filename, char *delim) {
   }
 
   i = 0;
-  while (fgets(str, MAXCHAR, fp) != NULL) {
+  while ((i < m) && (fgets(str, MAXCHAR, fp) != NULL)) {
 		ptr = strtok(str, delim);
     j = 0;
     while (ptr != NULL) {
@@ -46,7 +46,7 @@ int read_vector(int n, double v[n], char *filename, char *delim) {
   }
 
   i = 0;
-  while (fgets(str, MAXCHAR, fp) != NULL) {
+  while ((i < n) && (fgets(str, MAXCHAR, fp) != NULL)) {
     v[i] = strtod(str, NULL);
     i++;
   }
@@ -108,11 +108,13 @@ void print_matrix(int m, int n, double A[m][n]) {
   int i, j;
   for (i=0; i<m; i++) {
     for (j=0; j<n; j++) {
-      printf("%f ", A[i][j]);
+      if (j == n-1) {
+        printf("%f\n", A[i][j]);
+      } else {
+        printf("%f ", A[i][j]);
+      }
     }
-    printf("%s\n", "");
   }
-  printf("%s\n", "");
 }
 
 void print_vector(int n, double v[n]) {
@@ -120,5 +122,4 @@ void print_vector(int n, double v[n]) {
   for (i=0; i<n; i++) {
     printf("%f\n", v[i]);
   }
-  printf("%s\n", "");
 }
