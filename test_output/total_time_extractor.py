@@ -129,9 +129,9 @@ for size in ["128", "256", "512", "1024"]:
       algosCompTime[keys[i]].append(avgCompTimeF[i])
   
   if option == "0":
-    print(algosTotalTime[keys[int(select)]])
+    print(" ".join(["%.6f" % (x) for x in algosTotalTime[keys[int(select)]]]))
   elif option == "1":
-    print(algosCommTime[keys[int(select)]])
+    print(" ".join(["%.6f" % (x) for x in algosCommTime[keys[int(select)]]]))
   elif option == "2":
-    print(algosCompTime[keys[int(select)]])
+    print(" ".join(["%.6f" % (x) for x in algosCompTime[keys[int(select)]]]))
 
