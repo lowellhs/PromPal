@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #define MAXCHAR 10000
 
@@ -122,4 +123,15 @@ void print_vector(int n, double v[n]) {
   for (i=0; i<n; i++) {
     printf("%f\n", v[i]);
   }
+}
+
+double norm_vector(int n, double veca[n], double vecb[n]) {
+  int i;
+  double sum, diff;
+  sum = 0.0;
+  for (i=0; i<n; i++) {
+    diff = vecb[i] - veca[i];
+    sum = sum + diff*diff;
+  }
+  return sqrt(sum);
 }
