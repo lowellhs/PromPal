@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
     }
   }
 
+  start = MPI_Wtime();
   rows = n / num_procs;
   double recA[rows][n];
   double recb[rows], sendx[rows], x_iter_old[n];
@@ -48,17 +49,16 @@ int main(int argc, char **argv) {
     for (i=0; i<rows; i++) {
       temp = 0.0;
       for (j=0; j<n; j++) {
-        if (j != i) {
+        if (j != (my_rank*rows+i)) {
           temp = temp + recA[i][j] * x_iter[j];
         }
       }
-      sendx[i] = (recb[i] - temp) / recA[i][i];
+      sendx[i] = (recb[i] - temp) / recA[i][my_rank*rows+i];
     }
-    MPI_Barrier(MPI_COMM_WORLD);
     MPI_Allgather(&sendx, rows, MPI_DOUBLE, &x_iter, rows, MPI_DOUBLE, MPI_COMM_WORLD);
     dist = norm_vector(n, x_iter, x_iter_old);
   } while (k < limit_iter && dist > TOL);
-
+  stop = MPI_Wtime();
   MPI_Finalize();
 	
   if (my_rank == 0) {
