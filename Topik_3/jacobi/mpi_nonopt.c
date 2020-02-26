@@ -10,9 +10,8 @@
 double A[n][n], b[n], x_iter[n];
 
 int main(int argc, char **argv) {
-  int num_procs, my_rank, rows;
-  int i, j, k;
-  double temp;
+  int num_procs, my_rank, rows, from_file, print_flag, i, j, rc, k;
+  double temp, start, stop;
 
   k = 0;
 
@@ -20,15 +19,17 @@ int main(int argc, char **argv) {
   MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
   MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
 
-  if (my_rank == 0) {
-    A[0][0] = 1;
-    A[0][1] = 1;
-    A[1][0] = 1;
-    A[1][1] = -1;
-    b[0] = 10;
-    b[1] = 8;
-    x_iter[0] = 8;
-    x_iter[1] = 3;
+  from_file = atoi(argv[1]);
+  print_flag = atoi(argv[2]);
+  if (from_file) {
+    read_matrix(n, n, A, argv[3], " ");
+    read_vector(n, b, argv[4], " ");
+  } else {
+    init_matrix_i(n, A);
+    init_vector(n, b);
+  }
+  for (i=0; i<n; i++) {
+	x_iter[i] = 0;
   }
 
   rows = n / num_procs;
@@ -57,7 +58,15 @@ int main(int argc, char **argv) {
     MPI_Allgather(&sendx, rows, MPI_DOUBLE, &x_iter, rows, MPI_DOUBLE, MPI_COMM_WORLD);
     dist = norm_vector(n, x_iter, x_iter_old);
   } while (k < limit_iter && dist > TOL);
+	
+  if (my_rank == 0) {
+    if (!print_flag) {
+      print_vector(n, x_iter);
+    } else {
+      char *str_a = "TOTAL TIME : %.9f s, iteration count %d\n";
+      printf(str_a, stop - start, k);
+    }
+  }
 
-  MPI_Finalize();
   return 0;
 }
