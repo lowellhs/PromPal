@@ -12,6 +12,8 @@ def print_vector(A, fileObj=None):
         print("%.9f" % row, file=fileObj)
 
 A = np.random.rand(n, n)
+for i in range(n):
+    A[i][i] = A[i][i] + 1
 b = np.random.rand(n)
 x = np.dot(np.linalg.inv(A), b)
 
