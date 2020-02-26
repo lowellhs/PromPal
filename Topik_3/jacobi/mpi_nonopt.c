@@ -18,15 +18,17 @@ int main(int argc, char **argv) {
 
   from_file = atoi(argv[1]);
   print_flag = atoi(argv[2]);
-  if (from_file) {
-    read_matrix(n, n, A, argv[3], " ");
-    read_vector(n, b, argv[4], " ");
-  } else {
-    init_matrix_i(n, A);
-    init_vector(n, b);
-  }
-  for (i=0; i<n; i++) {
-	x_iter[i] = 0;
+  if (my_rank == 0) {
+    if (from_file) {
+      read_matrix(n, n, A, argv[3], " ");
+      read_vector(n, b, argv[4], " ");
+    } else {
+      init_matrix_i(n, A);
+      init_vector(n, b);
+    }
+    for (i=0; i<n; i++) {
+      x_iter[i] = 0;
+    }
   }
 
   rows = n / num_procs;
