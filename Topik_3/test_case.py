@@ -17,7 +17,7 @@ x = np.dot(np.linalg.inv(A), b)
 
 outA = "matrix_A_%dx%d.txt" % (n, n)
 outb = "vector_b_%dx1.txt" % (n)
-outx = "matrix_x_%dx1.txt" % (n)
+outx = "vector_x_%dx1.txt" % (n)
 
 with open(outA, "w") as fA:
     print_matrix(A, fA)
