@@ -26,6 +26,9 @@ int main(int argc, char **argv) {
   if (from_file) {
     read_matrix(n, n, A, argv[3], " ");
     read_vector(n, b, argv[4], " ");
+    for (i=0; i<n; i++) {
+      x_iter[i] = 0;
+    }
   } else {
     init_matrix_i(n, A);
     init_vector(n, b);
