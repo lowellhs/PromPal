@@ -2,10 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../helper.c"
-
-#define n 2
-#define limit_iter 100
-#define TOL 1e-6
+#include "../init_jacobi.c"
 
 double A[n][n], b[n], x_iter[n];
 
