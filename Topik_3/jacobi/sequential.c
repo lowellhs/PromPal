@@ -36,9 +36,6 @@ int main(int argc, char **argv) {
       x_iter[i] = 0;
     }
   }
-  
-  print_matrix(n, n, A);
-  print_vector(n, b);
 
   start = MPI_Wtime();
   double x_iter_old[n];
