@@ -54,7 +54,8 @@ int main(int argc, char **argv) {
       }
       sendx[i] = (recb[i] - temp) / recA[i][i];
     }
-    MPI_Allgather(&sendx, rows, MPI_DOUBLE, &x_iter[my_rank*rows], rows, MPI_DOUBLE, MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Allgather(&sendx, rows, MPI_DOUBLE, &x_iter, rows, MPI_DOUBLE, MPI_COMM_WORLD);
     dist = norm_vector(n, x_iter, x_iter_old);
   } while (k < limit_iter && dist > TOL);
 
