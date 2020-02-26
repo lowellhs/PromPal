@@ -13,7 +13,8 @@ def print_vector(A, fileObj=None):
 
 A = np.random.rand(n, n)
 for i in range(n):
-    A[i][i] = A[i][i] + 1
+    A[i][i] = A[i][i] + sum(A[i, 0:i]) + sum(A[i, i+1:n])
+
 b = np.random.rand(n)
 x = np.dot(np.linalg.inv(A), b)
 
