@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
 
   rows = n / num_procs;
   double recA[rows][n];
-  double recb[rows], sendx[n], x_iter_old[n];
+  double recb[rows], sendx[rows], x_iter_old[n];
   double dist;
 
   MPI_Bcast(&x_iter, n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
           temp = temp + recA[i][j] * x_iter[j];
         }
       }
-      sendx[my_rank*rows+i] = (recb[i] - temp) / recA[i][i];
+      sendx[i] = (recb[i] - temp) / recA[i][i];
     }
     MPI_Allgather(&sendx, rows, MPI_DOUBLE, &x_iter, rows, MPI_DOUBLE, MPI_COMM_WORLD);
     dist = norm_vector(n, x_iter, x_iter_old);
