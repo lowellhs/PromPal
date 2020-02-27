@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>
 
-#define MAXCHAR 10000
+#define MAXCHAR 20000
 
 int read_matrix(int m, int n, double A[m][n], char *filename, char *delim) {
   FILE *fp;
