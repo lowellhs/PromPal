@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../helper.c"
-#include "../init_jacobi.c"
+#include "init_jacobi.c"
 
 double A[n][n], b[n], x_iter[n];
 
 int main(int argc, char **argv) {
-  int num_procs, my_rank, rows, from_file, print_flag, i, j, rc, k;
-  double temp, start, stop;
+  int num_procs, my_rank, rows, from_file, print_flag, i, j, k, i_start, i_end;
+  double start, stop;
 
   k = 0;
 
@@ -33,30 +33,31 @@ int main(int argc, char **argv) {
 
   start = MPI_Wtime();
   rows = n / num_procs;
-  double recA[rows][n];
-  double recb[rows], sendx[rows], x_iter_old[n];
+  i_start = my_rank * rows;
+  i_end = i_start + rows;
+  double sendx[rows], x_iter_new[n];
   double dist;
 
   MPI_Bcast(&x_iter, n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  MPI_Scatter(&A, rows*n, MPI_DOUBLE, &recA, rows*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  MPI_Scatter(&b, rows, MPI_DOUBLE, &recb, rows, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Scatter(&A, rows*n, MPI_DOUBLE, &A[my_rank*rows], rows*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Scatter(&b, rows, MPI_DOUBLE, &b[my_rank*rows], rows, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
   do {
     k++;
-    for (i=0; i<n; i++) {
-      x_iter_old[i] = x_iter[i];
-    }
-    for (i=0; i<rows; i++) {
-      temp = 0.0;
+    for (i=i_start; i<i_end; i++) {
+      sendx[i-i_start] = b[i];
       for (j=0; j<n; j++) {
-        if (j != (my_rank*rows+i)) {
-          temp = temp + recA[i][j] * x_iter[j];
+        if (j != i) {
+          sendx[i-i_start] -= (A[i][j] * x_iter[j]);
         }
       }
-      sendx[i] = (recb[i] - temp) / recA[i][my_rank*rows+i];
+      sendx[i-i_start] /= A[i][i];
     }
-    MPI_Allgather(&sendx, rows, MPI_DOUBLE, &x_iter, rows, MPI_DOUBLE, MPI_COMM_WORLD);
-    dist = norm_vector(n, x_iter, x_iter_old);
+    MPI_Allgather(&sendx, rows, MPI_DOUBLE, &x_iter_new, rows, MPI_DOUBLE, MPI_COMM_WORLD);
+    dist = norm_vector(n, x_iter_new, x_iter);
+    for (i=0; i<n; i++) {
+      x_iter[i] = x_iter_new[i];
+    }
   } while (k < limit_iter && dist > TOL);
   stop = MPI_Wtime();
   MPI_Finalize();
@@ -65,8 +66,8 @@ int main(int argc, char **argv) {
     if (!print_flag) {
       print_vector(n, x_iter);
     } else {
-      char *str_a = "TOTAL TIME : %.9f s, iteration count %d\n";
-      printf(str_a, stop - start, k);
+      char *str_a = "TOTAL TIME : %.9f s, iteration count=%d, error=%.9f\n";
+      printf(str_a, stop - start, k, dist);
     }
   }
 

@@ -1,0 +1,16 @@
+
+--------------------------------------------------------------------------
+Open RTE detected a parse error in the hostfile:
+    ../hostfile
+It occured on line number 37 on token 1.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+Open RTE detected a parse error in the hostfile:
+    ../hostfile
+It occured on line number 37 on token 1.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+Open RTE detected a parse error in the hostfile:
+    ../hostfile
+It occured on line number 37 on token 1.
+--------------------------------------------------------------------------

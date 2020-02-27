@@ -2,7 +2,7 @@
 
 n=$1
 
-echo "#define n ${n}" >> init_jacobi.c
+echo "#define n ${n}" > init_jacobi.c
 echo >> init_jacobi.c
 
 mpicc -o jacobi/sequential.o jacobi/sequential.c -lm
