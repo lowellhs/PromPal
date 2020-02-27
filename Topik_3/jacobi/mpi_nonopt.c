@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../helper.c"
-#include "init_jacobi.c"
+#include "../init_jacobi.c"
 
 double A[n][n], b[n], x_iter[n];
 
 int main(int argc, char **argv) {
   int num_procs, my_rank, rows, from_file, print_flag, i, j, k, i_start, i_end;
-  double start, stop;
+  double start, stop, start_a, stop_a, start_b, stop_b, total_comm;
 
   k = 0;
 
@@ -38,9 +38,12 @@ int main(int argc, char **argv) {
   double sendx[rows], x_iter_new[n];
   double dist;
 
+  start_a = MPI_Wtime();
   MPI_Bcast(&x_iter, n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   MPI_Scatter(&A, rows*n, MPI_DOUBLE, &A[my_rank*rows], rows*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   MPI_Scatter(&b, rows, MPI_DOUBLE, &b[my_rank*rows], rows, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  stop_a = MPI_Wtime();
+  total_comm = stop_a - start_a;
 
   do {
     k++;
@@ -53,7 +56,10 @@ int main(int argc, char **argv) {
       }
       sendx[i-i_start] /= A[i][i];
     }
+    start_b = MPI_Wtime();
     MPI_Allgather(&sendx, rows, MPI_DOUBLE, &x_iter_new, rows, MPI_DOUBLE, MPI_COMM_WORLD);
+    stop_b = MPI_Wtime();
+    total_comm = stop_b - start_b;
     dist = norm_vector(n, x_iter_new, x_iter);
     for (i=0; i<n; i++) {
       x_iter[i] = x_iter_new[i];
@@ -62,6 +68,10 @@ int main(int argc, char **argv) {
   stop = MPI_Wtime();
   MPI_Finalize();
 	
+  if (print_flag) {
+    printf("Processor %d, communication time : %.9f s\n", my_rank, total_comm);
+  }
+
   if (my_rank == 0) {
     if (!print_flag) {
       print_vector(n, x_iter);

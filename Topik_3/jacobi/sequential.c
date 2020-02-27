@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../helper.c"
-#include "init_jacobi.c"
+#include "../init_jacobi.c"
 
 double A[n][n], b[n], x_iter[n];
 
