@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
     }
   }
 
+  total_comm = 0.0;
   start = MPI_Wtime();
   rows = n / num_procs;
   i_start = my_rank * rows;
@@ -43,7 +44,7 @@ int main(int argc, char **argv) {
   MPI_Scatter(&A, rows*n, MPI_DOUBLE, &A[my_rank*rows], rows*n, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   MPI_Scatter(&b, rows, MPI_DOUBLE, &b[my_rank*rows], rows, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   stop_a = MPI_Wtime();
-  total_comm = stop_a - start_a;
+  total_comm += (stop_a - start_a);
 
   do {
     k++;
@@ -59,7 +60,7 @@ int main(int argc, char **argv) {
     start_b = MPI_Wtime();
     MPI_Allgather(&sendx, rows, MPI_DOUBLE, &x_iter_new, rows, MPI_DOUBLE, MPI_COMM_WORLD);
     stop_b = MPI_Wtime();
-    total_comm = stop_b - start_b;
+    total_comm += (stop_b - start_b);
     dist = norm_vector(n, x_iter_new, x_iter);
     for (i=0; i<n; i++) {
       x_iter[i] = x_iter_new[i];
