@@ -100,7 +100,7 @@ void init_matrix_i(int n, double A[n][n]) {
   }
 }
 
-void init_vector(int n, double v[n]) {
+void init_vector(int n, int v[n]) {
   int i;
   for (i=0; i<n; i++) {
     v[i] = i;
@@ -126,6 +126,12 @@ void print_vector(int n, double v[n]) {
     printf("%f\n", v[i]);
   }
 }
+void print_vector_int(int n, int v[n]) {
+  int i;
+  for (i=0; i<n; i++) {
+    printf("%d\n", v[i]);
+  }
+}
 
 double norm_vector(int n, double veca[n], double vecb[n]) {
   int i;
@@ -136,4 +142,79 @@ double norm_vector(int n, double veca[n], double vecb[n]) {
     sum = sum + diff*diff;
   }
   return sqrt(sum);
+}
+
+int major_num(int n, int maks, int labels[n]) {
+  int i, indeks, maksValue, arr[maks];
+  for (i=0; i<maks; i++) {
+    arr[i] = 0;
+  }
+  for (i=0; i<n; i++) {
+    arr[labels[i]] += 1;
+  }
+  maksValue = -1;
+  for (i=0; i<maks; i++) {
+    if (arr[i] > maksValue) {
+      maksValue = arr[i];
+      indeks = i;
+    }
+  }
+  return indeks;
+}
+
+void merge(double arr[], int indices[], int l, int m, int r) {
+  int i,j,k;
+  int n1 = m - l + 1;
+  int n2 = r - m;
+
+  double L[n1], R[n2];
+  int Li[n1], Ri[n2];
+
+  for (i=0; i<n1; i++) {
+    L[i] = arr[l+i];
+    Li[i] = indices[l+i];
+  }
+  for (j=0; j<n2; j++) {
+    R[j] = arr[m+1+j];
+    Ri[j] = indices[m+1+j];
+  }
+
+  i = 0;
+  j = 0;
+  k = l;
+  while (i<n1 && j<n2) {
+    if (L[i] <= R[j]) {
+      arr[k] = L[i];
+      indices[k] = Li[i];
+      i++;
+    } else {
+      arr[k] = R[j];
+      indices[k] = Ri[j];
+      j++;
+    }
+    k++;
+  }
+
+  while (i<n1) {
+    arr[k] = L[i];
+    indices[k] = Li[i];
+    i++;
+    k++;
+  }
+
+  while (j<n2) {
+    arr[k] = R[j];
+    indices[k] = Ri[j];
+    j++;
+    k++;
+  }
+}
+
+void mergeSort(double arr[], int indices[], int l, int r) {
+  if (l < r) {
+    int m = l+(r-l)/2;
+    mergeSort(arr, indices, l, m);
+    mergeSort(arr, indices, m+1, r);
+    merge(arr, indices, l, m, r);
+  }
 }
