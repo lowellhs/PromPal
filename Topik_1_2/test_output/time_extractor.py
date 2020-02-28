@@ -81,9 +81,22 @@ def commpTimeExtractor(totalTimes, fileData):
   return results
 
 environment = sys.argv[1]
-option = sys.argv[2]
-select = sys.argv[3]
-for size in ["128", "256", "512", "1024"]:
+if len(sys.argv) > 2:
+  option = sys.argv[2]
+  select = sys.argv[3]
+
+mapping = {}
+sizes = ["128", "256", "512", "1024"]
+keys = [
+  "point-to-point matvec row",
+  "point-to-point matvec col",
+  "point-to-point matmat row",
+  "collective matvec row",
+  "collective matvec col",
+  "collective matmat row",
+]
+
+for size in sizes:
   files = {}
   for output in os.listdir():
     temp1 = output.split(".")
@@ -96,14 +109,6 @@ for size in ["128", "256", "512", "1024"]:
   algosCommTime = {}
   algosCompTime = {}
 
-  keys = [
-    "point-to-point matvec row",
-    "point-to-point matvec col",
-    "point-to-point matmat row",
-    "collective matvec row",
-    "collective matvec col",
-    "collective matmat row",
-  ]
   for i in [algosTotalTime, algosCommTime, algosCompTime]:
     for key in keys:
       i[key] = []
@@ -127,11 +132,23 @@ for size in ["128", "256", "512", "1024"]:
       algosTotalTime[keys[i]].append(totalTimeF[i])
       algosCommTime[keys[i]].append(avgCommTimeF[i])
       algosCompTime[keys[i]].append(avgCompTimeF[i])
-  
-  if option == "0":
-    print(" ".join(["%.6f" % (x) for x in algosTotalTime[keys[int(select)]]]))
-  elif option == "1":
-    print(" ".join(["%.6f" % (x) for x in algosCommTime[keys[int(select)]]]))
-  elif option == "2":
-    print(" ".join(["%.6f" % (x) for x in algosCompTime[keys[int(select)]]]))
 
+  for i in range(6):
+    selected = mapping.get(keys[i], {})
+    selected[size] = (algosTotalTime[keys[i]], algosCommTime[keys[i]])
+    mapping[keys[i]] = selected
+
+  if len(sys.argv) > 2:
+    if option == "0":
+      print(" ".join(["%.6f" % (x) for x in algosTotalTime[keys[int(select)]]]))
+    elif option == "1":
+      print(" ".join(["%.6f" % (x) for x in algosCommTime[keys[int(select)]]]))
+    elif option == "2":
+      print(" ".join(["%.6f" % (x) for x in algosCompTime[keys[int(select)]]]))
+
+if len(sys.argv) == 2:
+  for kunci in keys:
+    for size in sizes:
+      print(" ".join(["%.6f" % (x) for x in mapping[kunci][size][0]]))
+      print(" ".join(["%.6f" % (x) for x in mapping[kunci][size][1]]))
+    print()

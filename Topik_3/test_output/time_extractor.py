@@ -26,8 +26,8 @@ def extractTime(lines):
         totals.append(float(splitted[3]))
         allIter.append(float(splitted[6].replace("count=", "").replace(",", "")))
         allError.append(float(splitted[7].replace("error=", "")))
-      elif len(splitted) >= 3 and splitted[2] == "communication":
-        commTimes[ctr] += (float(splitted[5]))
+      elif len(splitted) >= 3 and splitted[2] == "communication" and splitted[0] == "Processor" and splitted[1] == "0,":
+        commTimes[ctr] = (float(splitted[5]))
       elif lines[currLine] == "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~":
         ctr += 1
       currLine += 1

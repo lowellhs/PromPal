@@ -5,30 +5,32 @@
 
 #define MAXCHAR 10000
 
-int read_matrix(int m, int n, double A[m][n], char *filename, char *delim) {
+int read_csv(int m, int n, int maxLen, char A[m][n][maxLen], char *filename) {
   FILE *fp;
-  char str[MAXCHAR];
-  char *ptr;
-  double value;
-  int i,j;
-
+  int c, currRow, currCol, currChar, i, j;
   fp = fopen(filename, "r");
-  if (fp == NULL) {
-    printf("Could not open file %s\n", filename);
-    return 1;
-  }
 
-  i = 0;
-  while ((i < m) && (fgets(str, MAXCHAR, fp) != NULL)) {
-		ptr = strtok(str, delim);
-    j = 0;
-    while (ptr != NULL) {
-      value = strtod(ptr, NULL);
-      A[i][j] = value;
-      ptr = strtok(NULL, delim);
-      j++;
+  currRow = 0;
+  currCol = 0;
+  currChar = 0;
+  while(1) {
+    c = fgetc(fp);
+    if (feof(fp)) {
+      break;
     }
-    i++;
+    if (c == ',') {
+      A[currRow][currCol][currChar] = '\0';
+      currChar = 0;
+      currCol += 1;
+    } else if (c == '\n') {
+      A[currRow][currCol][currChar] = '\0';
+      currChar = 0;
+      currCol = 0;
+      currRow += 1;
+    } else {
+      A[currRow][currCol][currChar] = c;
+      currChar += 1;
+    }
   }
 
   fclose(fp);
