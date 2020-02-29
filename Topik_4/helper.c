@@ -143,6 +143,16 @@ double norm_vector(int n, double veca[n], double vecb[n]) {
   }
   return sqrt(sum);
 }
+double norm_vector_int(int n, int veca[n], int vecb[n]) {
+  int i;
+  double sum, diff;
+  sum = 0.0;
+  for (i=0; i<n; i++) {
+    diff = vecb[i] - veca[i];
+    sum = sum + diff*diff;
+  }
+  return sqrt(sum);
+}
 
 int major_num(int n, int maks, int labels[n]) {
   int i, indeks, maksValue, arr[maks];

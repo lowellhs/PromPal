@@ -1,13 +1,10 @@
 #include "mpi.h"
 #include "./helper.c"
+#include "./init.c"
 
 #define MAX_LEN     100
 #define K           4
-#define file_train  "Iris.csv"
-#define file_test   "Iris_test_3.csv"
 #define num_labels  3
-#define rows_train  150
-#define rows_test   3
 #define cols        5
 
 int     labels_to_num(char[]);
@@ -75,8 +72,8 @@ int main(int argc, char **argv) {
     if (!print_flag) {
       print_vector_int(rows_test, y_predict);
     } else {
-      char *str_a = "TOTAL TIME : %.9f s\n";
-      printf(str_a, comp_time);
+      char *str_a = "TOTAL TIME : %.9f s, difference y_test and y_predict : %.9f\n";
+      printf(str_a, comp_time, norm_vector_int(rows_test, y_predict, y_test));
     }
   }
   return 0;
