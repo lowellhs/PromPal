@@ -4,10 +4,10 @@
 #define MAX_LEN     100
 #define K           4
 #define file_train  "Iris.csv"
-#define file_test   "Iris_test_30.csv"
+#define file_test   "Iris_test_3.csv"
 #define num_labels  3
 #define rows_train  150
-#define rows_test   30
+#define rows_test   3
 #define cols        5
 
 int     labels_to_num(char[]);
@@ -84,11 +84,11 @@ int main(int argc, char **argv) {
 
 void sequential(int num_procs, int my_rank, int test_idx) {
   int i, selected[K];
-
+  
+  init_vector(rows_train, indices);
   for (i=0; i<rows_train; i++) {
     distance_vector[i] = norm_vector(cols-1, X_test[test_idx], X_train[i]);
   }
-  init_vector(rows_train, indices);
   mergeSort(distance_vector, indices, 0, rows_train-1);
   for (i=0; i<K; i++) {
     selected[i] = y_train[indices[i]];
@@ -97,23 +97,25 @@ void sequential(int num_procs, int my_rank, int test_idx) {
 }
 
 void parallel(int num_procs, int my_rank, int test_idx) {
-  int i, j, rows, selected[K];
+  int i, j, rows, selected[K], dist_vec_par_indices[K*num_procs];
+  double dist_vec_par[K*num_procs];
 
+  if (my_rank == 0) { init_vector(rows_train, indices); }
   rows = rows_train / num_procs;
   MPI_Bcast(&X_test[test_idx], cols-1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Bcast(&indices, rows_train, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   MPI_Scatter(&X_train, rows*(cols-1), MPI_DOUBLE, &X_train[my_rank*rows], rows*(cols-1), MPI_DOUBLE, 0, MPI_COMM_WORLD);
-
   for (i=my_rank*rows; i<(my_rank*rows+rows); i++) {
     distance_vector[i] = norm_vector(cols-1, X_test[test_idx], X_train[i]);
   }
-
-  MPI_Gather(&distance_vector[my_rank*rows], rows, MPI_DOUBLE, &distance_vector, rows, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  mergeSort(distance_vector, indices, my_rank*rows, my_rank*rows+rows-1);
+  MPI_Gather(&distance_vector[my_rank*rows], K, MPI_DOUBLE, &dist_vec_par, K, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Gather(&indices[my_rank*rows], K, MPI_INT, &dist_vec_par_indices, K, MPI_INT, 0, MPI_COMM_WORLD);
 
   if (my_rank == 0) {
-    init_vector(rows_train, indices);
-    mergeSort(distance_vector, indices, 0, rows_train-1);
+    mergeSort(dist_vec_par, dist_vec_par_indices, 0, K*num_procs-1);
     for (i=0; i<K; i++) {
-      selected[i] = y_train[indices[i]];
+      selected[i] = y_train[dist_vec_par_indices[i]];
     }
     y_predict[test_idx] = major_num(K, num_labels, selected);
   }
