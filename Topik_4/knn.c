@@ -9,7 +9,7 @@
 
 int     labels_to_num(char[]);
 void    sequential(int, int, int);
-void    parallel(int, int, int);
+void    parallel(int, int, int, int, int, int);
 
 char    data_train[rows_train][cols][MAX_LEN];
 char    data_test[rows_test][cols][MAX_LEN];
@@ -24,7 +24,7 @@ int     indices[rows_train];
 
 int main(int argc, char **argv) {
   double dist, start, comp_time;
-  int    i, j, num_procs, my_rank, print_flag;
+  int    i, j, num_procs, my_rank, print_flag, rows, row_start, row_limit;
 
   print_flag = atoi(argv[1]);
 
@@ -53,17 +53,22 @@ int main(int argc, char **argv) {
   }
 
   if (num_procs == 1) {
+    start = MPI_Wtime();
     for (i=0; i<rows_test; i++) {
-      start = MPI_Wtime();
       sequential(num_procs, my_rank, i);
-      comp_time += (MPI_Wtime() - start);
     }
+    comp_time += (MPI_Wtime() - start);
   } else {
+    start = MPI_Wtime();
+    rows = rows_train / num_procs;
+    row_start = my_rank*rows;
+    row_limit = row_start+rows;
+    MPI_Bcast(&X_test, rows_test*(cols-1), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Scatter(&X_train, rows*(cols-1), MPI_DOUBLE, &X_train[row_start], rows*(cols-1), MPI_DOUBLE, 0, MPI_COMM_WORLD);
     for (i=0; i<rows_test; i++) {
-      start = MPI_Wtime();
-      parallel(num_procs, my_rank, i);
-      comp_time += (MPI_Wtime() - start);
+      parallel(num_procs, my_rank, i, rows, row_start, row_limit);
     }
+    comp_time += (MPI_Wtime() - start);
   }
 
   MPI_Finalize();
@@ -93,21 +98,17 @@ void sequential(int num_procs, int my_rank, int test_idx) {
   y_predict[test_idx] = major_num(K, num_labels, selected);
 }
 
-void parallel(int num_procs, int my_rank, int test_idx) {
-  int i, j, rows, selected[K], dist_vec_par_indices[K*num_procs];
+void parallel(int num_procs, int my_rank, int test_idx, int rows, int row_start, int row_limit) {
+  int i, selected[K], dist_vec_par_indices[K*num_procs];
   double dist_vec_par[K*num_procs];
 
-  if (my_rank == 0) { init_vector(rows_train, indices); }
-  rows = rows_train / num_procs;
-  MPI_Bcast(&X_test[test_idx], cols-1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  MPI_Bcast(&indices, rows_train, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  MPI_Scatter(&X_train, rows*(cols-1), MPI_DOUBLE, &X_train[my_rank*rows], rows*(cols-1), MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  for (i=my_rank*rows; i<(my_rank*rows+rows); i++) {
+  init_vector_part(rows_train, indices, row_start, row_limit-1);
+  for (i=row_start; i<row_limit; i++) {
     distance_vector[i] = norm_vector(cols-1, X_test[test_idx], X_train[i]);
   }
-  mergeSort(distance_vector, indices, my_rank*rows, my_rank*rows+rows-1);
-  MPI_Gather(&distance_vector[my_rank*rows], K, MPI_DOUBLE, &dist_vec_par, K, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  MPI_Gather(&indices[my_rank*rows], K, MPI_INT, &dist_vec_par_indices, K, MPI_INT, 0, MPI_COMM_WORLD);
+  mergeSort(distance_vector, indices, row_start, row_limit-1);
+  MPI_Gather(&distance_vector[row_start], K, MPI_DOUBLE, &dist_vec_par, K, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Gather(&indices[row_start], K, MPI_INT, &dist_vec_par_indices, K, MPI_INT, 0, MPI_COMM_WORLD);
 
   if (my_rank == 0) {
     mergeSort(dist_vec_par, dist_vec_par_indices, 0, K*num_procs-1);

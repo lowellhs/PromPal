@@ -106,6 +106,12 @@ void init_vector(int n, int v[n]) {
     v[i] = i;
   }
 }
+void init_vector_part(int n, int v[n], int l, int r) {
+  int i;
+  for (i=l; i<=r; i++) {
+    v[i] = i;
+  }
+}
 
 void print_matrix(int m, int n, double A[m][n]) {
   int i, j;
