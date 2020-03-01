@@ -13,7 +13,7 @@ test="test_input/Iris_test.csv"
 echo "#define file_train  \"${train}\"" >   init.c
 echo "#define file_test   \"${test}\""  >>  init.c
 echo "#define rows_train  ${n}"         >>  init.c
-echo "#define rows_test   1"            >>  init.c
+echo "#define rows_test   $(cat $test | wc -l)"            >>  init.c
 
 mpicc -o knn.o knn.c -lm
 
@@ -35,5 +35,5 @@ do
   echo >> $fileOut
 done
 
-rm init.c
+#rm init.c
 rm knn.o
