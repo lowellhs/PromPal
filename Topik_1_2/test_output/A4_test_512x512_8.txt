@@ -1,0 +1,287 @@
+Test 512x512 matrix with 8 processors
+
+sequential matrix-vector multiplication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+TOTAL TIME : 0.000890017 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+TOTAL TIME : 0.001604795 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+TOTAL TIME : 0.001210928 s
+
+sequential matrix-matrix multiplication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) A . I = C
+TOTAL TIME : 0.788195133 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) A . I = C
+TOTAL TIME : 0.617820024 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) A . I = C
+TOTAL TIME : 0.654599905 s
+
+point-to-point matrix-vector multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, time elapse: 0.054929 s, calculation time: 0.000171 s
+Process 4, time elapse: 0.071395 s, calculation time: 0.000080 s
+Process 2, time elapse: 0.070931 s, calculation time: 0.000082 s
+Process 3, time elapse: 0.075497 s, calculation time: 0.000081 s
+Process 5, time elapse: 0.085682 s, calculation time: 0.000083 s
+Process 6, time elapse: 0.091329 s, calculation time: 0.000081 s
+Process 7, time elapse: 0.093573 s, calculation time: 0.000082 s
+Send-Receive time process 0 with process 1 is 0.059576 s
+Send-Receive time process 0 with process 2 is 0.044958 s
+Send-Receive time process 0 with process 3 is 0.034472 s
+Send-Receive time process 0 with process 4 is 0.021661 s
+Send-Receive time process 0 with process 5 is 0.021196 s
+Send-Receive time process 0 with process 6 is 0.013102 s
+Send-Receive time process 0 with process 7 is 0.006103 s
+TOTAL TIME : 0.061355114 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, time elapse: 0.035335 s, calculation time: 0.000171 s
+Process 2, time elapse: 0.053408 s, calculation time: 0.000174 s
+Process 4, time elapse: 0.087193 s, calculation time: 0.000081 s
+Process 3, time elapse: 0.089234 s, calculation time: 0.000082 s
+Process 5, time elapse: 0.108959 s, calculation time: 0.000080 s
+Process 6, time elapse: 0.108270 s, calculation time: 0.000081 s
+Process 7, time elapse: 0.115162 s, calculation time: 0.000082 s
+Send-Receive time process 0 with process 1 is 0.102893 s
+Send-Receive time process 0 with process 2 is 0.083865 s
+Send-Receive time process 0 with process 3 is 0.068081 s
+Send-Receive time process 0 with process 4 is 0.026382 s
+Send-Receive time process 0 with process 5 is 0.026244 s
+Send-Receive time process 0 with process 6 is 0.013157 s
+Send-Receive time process 0 with process 7 is 0.005186 s
+TOTAL TIME : 0.104792118 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, time elapse: 0.037464 s, calculation time: 0.000109 s
+Process 4, time elapse: 0.049416 s, calculation time: 0.000108 s
+Process 2, time elapse: 0.048374 s, calculation time: 0.000109 s
+Process 3, time elapse: 0.053922 s, calculation time: 0.000109 s
+Process 5, time elapse: 0.067914 s, calculation time: 0.000082 s
+Process 6, time elapse: 0.074449 s, calculation time: 0.000081 s
+Process 7, time elapse: 0.082355 s, calculation time: 0.000082 s
+Send-Receive time process 0 with process 1 is 0.074892 s
+Send-Receive time process 0 with process 2 is 0.058491 s
+Send-Receive time process 0 with process 3 is 0.036185 s
+Send-Receive time process 0 with process 4 is 0.029409 s
+Send-Receive time process 0 with process 5 is 0.028749 s
+Send-Receive time process 0 with process 6 is 0.021655 s
+Send-Receive time process 0 with process 7 is 0.015719 s
+TOTAL TIME : 0.079832077 s
+
+point-to-point matrix-vector multiplication (col)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 2, time elapse: 0.041842 s, calculation time: 0.000170 s
+Process 1, time elapse: 0.040858 s, calculation time: 0.000178 s
+Process 3, time elapse: 0.049167 s, calculation time: 0.000270 s
+Process 5, time elapse: 0.057206 s, calculation time: 0.000225 s
+Process 4, time elapse: 0.057017 s, calculation time: 0.000523 s
+Process 6, time elapse: 0.060492 s, calculation time: 0.000272 s
+Process 7, time elapse: 0.064480 s, calculation time: 0.000165 s
+Send-Receive time process 0 with process 1 is 0.051220 s
+Send-Receive time process 0 with process 2 is 0.040124 s
+Send-Receive time process 0 with process 3 is 0.028824 s
+Send-Receive time process 0 with process 4 is 0.020016 s
+Send-Receive time process 0 with process 5 is 0.016724 s
+Send-Receive time process 0 with process 6 is 0.010750 s
+Send-Receive time process 0 with process 7 is 0.008021 s
+TOTAL TIME : 0.055160046 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, time elapse: 0.032701 s, calculation time: 0.000274 s
+Process 2, time elapse: 0.048909 s, calculation time: 0.000166 s
+Process 3, time elapse: 0.052866 s, calculation time: 0.000285 s
+Process 5, time elapse: 0.060626 s, calculation time: 0.000155 s
+Process 4, time elapse: 0.064822 s, calculation time: 0.000121 s
+Process 6, time elapse: 0.062147 s, calculation time: 0.000145 s
+Process 7, time elapse: 0.067170 s, calculation time: 0.000122 s
+Send-Receive time process 0 with process 1 is 0.056531 s
+Send-Receive time process 0 with process 2 is 0.041430 s
+Send-Receive time process 0 with process 3 is 0.027069 s
+Send-Receive time process 0 with process 4 is 0.020252 s
+Send-Receive time process 0 with process 5 is 0.018241 s
+Send-Receive time process 0 with process 6 is 0.012197 s
+Send-Receive time process 0 with process 7 is 0.007413 s
+TOTAL TIME : 0.058635950 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, time elapse: 0.034080 s, calculation time: 0.000441 s
+Process 2, time elapse: 0.039496 s, calculation time: 0.000305 s
+Process 3, time elapse: 0.052952 s, calculation time: 0.000134 s
+Process 6, time elapse: 0.053617 s, calculation time: 0.000224 s
+Process 5, time elapse: 0.058338 s, calculation time: 0.000318 s
+Process 4, time elapse: 0.060093 s, calculation time: 0.000269 s
+Process 7, time elapse: 0.062442 s, calculation time: 0.000173 s
+Send-Receive time process 0 with process 1 is 0.048700 s
+Send-Receive time process 0 with process 2 is 0.037012 s
+Send-Receive time process 0 with process 3 is 0.028262 s
+Send-Receive time process 0 with process 4 is 0.019434 s
+Send-Receive time process 0 with process 5 is 0.016956 s
+Send-Receive time process 0 with process 6 is 0.010221 s
+Send-Receive time process 0 with process 7 is 0.008259 s
+TOTAL TIME : 0.050714970 s
+
+point-to-point matrix-matrix multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) A . I = C
+Process 1, time elapse: 0.603990 s, calculation time: 0.260025 s
+Process 2, time elapse: 0.619766 s, calculation time: 0.255771 s
+Process 3, time elapse: 0.643418 s, calculation time: 0.248234 s
+Process 4, time elapse: 0.657329 s, calculation time: 0.229295 s
+Process 5, time elapse: 0.669193 s, calculation time: 0.213425 s
+Process 6, time elapse: 0.679997 s, calculation time: 0.167936 s
+Process 7, time elapse: 0.719996 s, calculation time: 0.122277 s
+Send-Receive time process 0 with process 1 is 0.593107 s
+Send-Receive time process 0 with process 2 is 0.507505 s
+Send-Receive time process 0 with process 3 is 0.450816 s
+Send-Receive time process 0 with process 4 is 0.372268 s
+Send-Receive time process 0 with process 5 is 0.383077 s
+Send-Receive time process 0 with process 6 is 0.279011 s
+Send-Receive time process 0 with process 7 is 0.215823 s
+TOTAL TIME : 0.701537132 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) A . I = C
+Process 1, time elapse: 0.568947 s, calculation time: 0.244073 s
+Process 2, time elapse: 0.594538 s, calculation time: 0.243698 s
+Process 3, time elapse: 0.620282 s, calculation time: 0.246972 s
+Process 4, time elapse: 0.633401 s, calculation time: 0.219231 s
+Process 5, time elapse: 0.638718 s, calculation time: 0.214042 s
+Process 6, time elapse: 0.677344 s, calculation time: 0.182074 s
+Process 7, time elapse: 0.701417 s, calculation time: 0.123456 s
+Send-Receive time process 0 with process 1 is 0.568898 s
+Send-Receive time process 0 with process 2 is 0.503033 s
+Send-Receive time process 0 with process 3 is 0.447679 s
+Send-Receive time process 0 with process 4 is 0.347736 s
+Send-Receive time process 0 with process 5 is 0.362105 s
+Send-Receive time process 0 with process 6 is 0.300637 s
+Send-Receive time process 0 with process 7 is 0.216277 s
+TOTAL TIME : 0.683576107 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) A . I = C
+Process 1, time elapse: 0.573936 s, calculation time: 0.234218 s
+Process 2, time elapse: 0.608434 s, calculation time: 0.238624 s
+Process 3, time elapse: 0.631272 s, calculation time: 0.235612 s
+Process 4, time elapse: 0.642108 s, calculation time: 0.216089 s
+Process 5, time elapse: 0.651334 s, calculation time: 0.215428 s
+Process 6, time elapse: 0.673092 s, calculation time: 0.165865 s
+Process 7, time elapse: 0.714049 s, calculation time: 0.119646 s
+Send-Receive time process 0 with process 1 is 0.576740 s
+Send-Receive time process 0 with process 2 is 0.514830 s
+Send-Receive time process 0 with process 3 is 0.437120 s
+Send-Receive time process 0 with process 4 is 0.355377 s
+Send-Receive time process 0 with process 5 is 0.368983 s
+Send-Receive time process 0 with process 6 is 0.284990 s
+Send-Receive time process 0 with process 7 is 0.219784 s
+TOTAL TIME : 0.690632105 s
+
+collective matrix-vector multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, calculation: 0.000149965 s, Bcast-Scatter: 0.057121038 s, Gather: 0.000296831 s
+Process 4, calculation: 0.000070095 s, Bcast-Scatter: 0.062679052 s, Gather: 0.000005960 s
+Process 3, calculation: 0.000069857 s, Bcast-Scatter: 0.063828945 s, Gather: 0.000018120 s
+Process 2, calculation: 0.004143953 s, Bcast-Scatter: 0.061629057 s, Gather: 0.000087976 s
+Process 5, calculation: 0.000070095 s, Bcast-Scatter: 0.075726986 s, Gather: 0.000065088 s
+Process 6, calculation: 0.000095844 s, Bcast-Scatter: 0.079262972 s, Gather: 0.000022173 s
+Process 0, calculation: 0.000468016 s, Bcast-Scatter: 0.064908981 s, Gather: 0.000225067 s
+Process 7, calculation: 0.000071049 s, Bcast-Scatter: 0.081014156 s, Gather: 0.000020981 s
+TOTAL TIME : 0.065756083 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, calculation: 0.000094891 s, Bcast-Scatter: 0.044459820 s, Gather: 0.000183105 s
+Process 4, calculation: 0.000094175 s, Bcast-Scatter: 0.056437016 s, Gather: 0.000006914 s
+Process 2, calculation: 0.000095129 s, Bcast-Scatter: 0.055903912 s, Gather: 0.000165939 s
+Process 3, calculation: 0.000094175 s, Bcast-Scatter: 0.059761047 s, Gather: 0.000062943 s
+Process 5, calculation: 0.000093937 s, Bcast-Scatter: 0.070568800 s, Gather: 0.000267982 s
+Process 6, calculation: 0.000070095 s, Bcast-Scatter: 0.073652983 s, Gather: 0.000016928 s
+Process 7, calculation: 0.000070095 s, Bcast-Scatter: 0.075901031 s, Gather: 0.000020981 s
+Process 0, calculation: 0.000128031 s, Bcast-Scatter: 0.062832832 s, Gather: 0.000579119 s
+TOTAL TIME : 0.063652992 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, calculation: 0.000169039 s, Bcast-Scatter: 0.048445940 s, Gather: 0.000127792 s
+Process 2, calculation: 0.000154018 s, Bcast-Scatter: 0.051136017 s, Gather: 0.000079870 s
+Process 4, calculation: 0.000148773 s, Bcast-Scatter: 0.056329012 s, Gather: 0.000010014 s
+Process 3, calculation: 0.000149965 s, Bcast-Scatter: 0.063407898 s, Gather: 0.000031948 s
+Process 5, calculation: 0.000071049 s, Bcast-Scatter: 0.069005966 s, Gather: 0.000019789 s
+Process 6, calculation: 0.000070095 s, Bcast-Scatter: 0.073704004 s, Gather: 0.000019073 s
+Process 7, calculation: 0.000070095 s, Bcast-Scatter: 0.077300072 s, Gather: 0.000020981 s
+Process 0, calculation: 0.000072002 s, Bcast-Scatter: 0.064635038 s, Gather: 0.002524137 s
+TOTAL TIME : 0.067238092 s
+
+collective matrix-vector multiplication (col)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, calculation: 0.000089884 s, Bcast-Scatter: 0.047863960 s, Gather: 0.000144005 s
+Process 3, calculation: 0.000088930 s, Bcast-Scatter: 0.056643963 s, Gather: 0.002084017 s
+Process 2, calculation: 0.000089884 s, Bcast-Scatter: 0.049441099 s, Gather: 0.009034157 s
+Process 5, calculation: 0.000089884 s, Bcast-Scatter: 0.067096949 s, Gather: 0.007060051 s
+Process 7, calculation: 0.000098944 s, Bcast-Scatter: 0.081924915 s, Gather: 0.001171112 s
+Process 6, calculation: 0.000073195 s, Bcast-Scatter: 0.074881792 s, Gather: 0.010231972 s
+Process 4, calculation: 0.000090122 s, Bcast-Scatter: 0.050126076 s, Gather: 0.037909985 s
+Process 0, calculation: 0.000072002 s, Bcast-Scatter: 0.064607143 s, Gather: 0.011292934 s
+TOTAL TIME : 0.075975895 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, calculation: 0.000072002 s, Bcast-Scatter: 0.061902046 s, Gather: 0.000123024 s
+Process 3, calculation: 0.000072002 s, Bcast-Scatter: 0.077275991 s, Gather: 0.003586054 s
+Process 2, calculation: 0.000071049 s, Bcast-Scatter: 0.063595057 s, Gather: 0.017055988 s
+Process 5, calculation: 0.000071049 s, Bcast-Scatter: 0.081526041 s, Gather: 0.001254797 s
+Process 7, calculation: 0.000069857 s, Bcast-Scatter: 0.090870142 s, Gather: 0.001729012 s
+Process 4, calculation: 0.000069857 s, Bcast-Scatter: 0.065973997 s, Gather: 0.027340174 s
+Process 6, calculation: 0.000072002 s, Bcast-Scatter: 0.086318970 s, Gather: 0.007458925 s
+Process 0, calculation: 0.000072002 s, Bcast-Scatter: 0.068794012 s, Gather: 0.008522034 s
+TOTAL TIME : 0.077397823 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) vektor (512x1) I . x = b
+Process 1, calculation: 0.000112057 s, Bcast-Scatter: 0.041617870 s, Gather: 0.000164986 s
+Process 3, calculation: 0.000072002 s, Bcast-Scatter: 0.059312105 s, Gather: 0.001653910 s
+Process 2, calculation: 0.000071049 s, Bcast-Scatter: 0.050081015 s, Gather: 0.010516882 s
+Process 5, calculation: 0.000072002 s, Bcast-Scatter: 0.062644958 s, Gather: 0.001221895 s
+Process 7, calculation: 0.000071049 s, Bcast-Scatter: 0.068881035 s, Gather: 0.001232862 s
+Process 6, calculation: 0.000072002 s, Bcast-Scatter: 0.066297054 s, Gather: 0.004514933 s
+Process 4, calculation: 0.000069857 s, Bcast-Scatter: 0.050733089 s, Gather: 0.021844149 s
+Process 0, calculation: 0.000072002 s, Bcast-Scatter: 0.062086821 s, Gather: 0.006559849 s
+TOTAL TIME : 0.068724871 s
+
+collective matrix-matrix multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) A . I = C
+Process 1, calculation: 0.310513020 s, Bcast-Scatter: 0.085593939 s, Gather: 0.014203787 s
+Process 2, calculation: 0.309441090 s, Bcast-Scatter: 0.089711905 s, Gather: 0.011558056 s
+Process 4, calculation: 0.272818089 s, Bcast-Scatter: 0.098399878 s, Gather: 0.040565968 s
+Process 3, calculation: 0.292181969 s, Bcast-Scatter: 0.107897043 s, Gather: 0.011595964 s
+Process 5, calculation: 0.300066948 s, Bcast-Scatter: 0.124576092 s, Gather: 0.002413034 s
+Process 6, calculation: 0.294570923 s, Bcast-Scatter: 0.132737160 s, Gather: 0.004452944 s
+Process 7, calculation: 0.284772873 s, Bcast-Scatter: 0.139131784 s, Gather: 0.018258095 s
+Process 0, calculation: 0.256457090 s, Bcast-Scatter: 0.126013994 s, Gather: 0.055207968 s
+TOTAL TIME : 0.437697887 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) A . I = C
+Process 1, calculation: 0.319453001 s, Bcast-Scatter: 0.129368067 s, Gather: 0.015061855 s
+Process 4, calculation: 0.273067951 s, Bcast-Scatter: 0.136395931 s, Gather: 0.055865049 s
+Process 2, calculation: 0.302753210 s, Bcast-Scatter: 0.129019022 s, Gather: 0.031540871 s
+Process 3, calculation: 0.299069166 s, Bcast-Scatter: 0.147022009 s, Gather: 0.019763947 s
+Process 5, calculation: 0.285495043 s, Bcast-Scatter: 0.175461054 s, Gather: 0.007102966 s
+Process 6, calculation: 0.285982132 s, Bcast-Scatter: 0.189203024 s, Gather: 0.002772093 s
+Process 7, calculation: 0.275338173 s, Bcast-Scatter: 0.200466871 s, Gather: 0.004813910 s
+Process 0, calculation: 0.247287989 s, Bcast-Scatter: 0.163827181 s, Gather: 0.044042110 s
+TOTAL TIME : 0.455207109 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (512x512) A . I = C
+Process 1, calculation: 0.326375961 s, Bcast-Scatter: 0.132210016 s, Gather: 0.011387110 s
+Process 2, calculation: 0.339021921 s, Bcast-Scatter: 0.128277063 s, Gather: 0.006453037 s
+Process 4, calculation: 0.251394033 s, Bcast-Scatter: 0.136976957 s, Gather: 0.088500023 s
+Process 5, calculation: 0.301953077 s, Bcast-Scatter: 0.162481070 s, Gather: 0.014419079 s
+Process 3, calculation: 0.303701162 s, Bcast-Scatter: 0.143885851 s, Gather: 0.031179905 s
+Process 6, calculation: 0.302205086 s, Bcast-Scatter: 0.178206921 s, Gather: 0.001980066 s
+Process 7, calculation: 0.302654028 s, Bcast-Scatter: 0.183687925 s, Gather: 0.000715017 s
+Process 0, calculation: 0.263820887 s, Bcast-Scatter: 0.153059006 s, Gather: 0.051706076 s
+TOTAL TIME : 0.468626022 s
