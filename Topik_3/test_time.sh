@@ -9,14 +9,14 @@ shift
 
 bash compile.sh $n
 
-A="test_input/matrix_A_${n}x${n}.txt"
-x="test_input/vector_x_${n}x1.txt"
-b="test_input/vector_b_${n}x1.txt"
+A="$PWD/test_input/matrix_A_${n}x${n}.txt"
+x="$PWD/test_input/vector_x_${n}x1.txt"
+b="$PWD/test_input/vector_b_${n}x1.txt"
 
-seq="jacobi/sequential.o"
-mpi="jacobi/mpi_nonopt.o"
+seq="$PWD/jacobi/sequential.o"
+mpi="$PWD/jacobi/mpi_nonopt.o"
 
-fileOut="test_output/${env}_time_${n}.txt"
+fileOut="$PWD/test_output/${env}_time_${n}.txt"
 
 echo > $fileOut
 

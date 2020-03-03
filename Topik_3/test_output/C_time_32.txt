@@ -1,0 +1,235 @@
+
+SEQUENTIAL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.003488064 s, iteration count=374, error=0.000000989
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.003489971 s, iteration count=374, error=0.000000989
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.003485918 s, iteration count=374, error=0.000000989
+
+PROCESSOR 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 1, communication time : 0.000834227 s
+Processor 0, communication time : 0.000412703 s
+TOTAL TIME : 0.002459049 s, iteration count=374, error=0.000000989
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 1, communication time : 0.000793934 s
+Processor 0, communication time : 0.000414133 s
+TOTAL TIME : 0.002439022 s, iteration count=374, error=0.000000989
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 1, communication time : 0.000832319 s
+Processor 0, communication time : 0.000404596 s
+TOTAL TIME : 0.002442122 s, iteration count=374, error=0.000000989
+
+PROCESSOR 4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 0, communication time : 0.014195681 s
+TOTAL TIME : 0.015315056 s, iteration count=374, error=0.000000989
+Processor 1, communication time : 0.014675856 s
+Processor 2, communication time : 0.014570713 s
+Processor 3, communication time : 0.014521599 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 1, communication time : 0.001092434 s
+Processor 2, communication time : 0.001092911 s
+Processor 3, communication time : 0.001091480 s
+Processor 0, communication time : 0.000631332 s
+TOTAL TIME : 0.001744032 s, iteration count=374, error=0.000000989
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 1, communication time : 0.001081228 s
+Processor 2, communication time : 0.001086235 s
+Processor 3, communication time : 0.001057148 s
+Processor 0, communication time : 0.000621796 s
+TOTAL TIME : 0.001741171 s, iteration count=374, error=0.000000989
+
+PROCESSOR 8
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 0, communication time : 0.017000914 s
+TOTAL TIME : 0.017499208 s, iteration count=374, error=0.000000989
+Processor 3, communication time : 0.017041206 s
+Processor 7, communication time : 0.017012596 s
+Processor 1, communication time : 0.017398119 s
+Processor 2, communication time : 0.017262220 s
+Processor 4, communication time : 0.016880035 s
+Processor 6, communication time : 0.017021894 s
+Processor 5, communication time : 0.017020702 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 0, communication time : 0.012469769 s
+TOTAL TIME : 0.012824059 s, iteration count=374, error=0.000000989
+Processor 1, communication time : 0.012440920 s
+Processor 4, communication time : 0.012401342 s
+Processor 2, communication time : 0.012453556 s
+Processor 3, communication time : 0.012416840 s
+Processor 7, communication time : 0.012383223 s
+Processor 5, communication time : 0.012395382 s
+Processor 6, communication time : 0.012386322 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 1, communication time : 0.010461092 s
+Processor 0, communication time : 0.009894371 s
+TOTAL TIME : 0.010422945 s, iteration count=374, error=0.000000989
+Processor 2, communication time : 0.010238886 s
+Processor 7, communication time : 0.010252237 s
+Processor 4, communication time : 0.010246992 s
+Processor 6, communication time : 0.010234356 s
+Processor 3, communication time : 0.010162115 s
+Processor 5, communication time : 0.010299206 s
+
+PROCESSOR 16
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 4, communication time : 0.101145506 s
+Processor 1, communication time : 0.101193428 s
+Processor 6, communication time : 0.101179600 s
+Processor 3, communication time : 0.101193190 s
+Processor 7, communication time : 0.101149559 s
+Processor 9, communication time : 0.101210117 s
+Processor 11, communication time : 0.101082802 s
+Processor 13, communication time : 0.101098061 s
+Processor 14, communication time : 0.100917578 s
+Processor 8, communication time : 0.101267576 s
+Processor 15, communication time : 0.101126194 s
+Processor 5, communication time : 0.101185560 s
+Processor 2, communication time : 0.101186514 s
+Processor 10, communication time : 0.101177454 s
+Processor 0, communication time : 0.100480795 s
+TOTAL TIME : 0.100902796 s, iteration count=374, error=0.000000989
+Processor 12, communication time : 0.100947618 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 4, communication time : 0.101554632 s
+Processor 8, communication time : 0.101672411 s
+Processor 7, communication time : 0.101546764 s
+Processor 13, communication time : 0.101488352 s
+Processor 0, communication time : 0.100803614 s
+TOTAL TIME : 0.101197004 s, iteration count=374, error=0.000000989
+Processor 10, communication time : 0.101528883 s
+Processor 2, communication time : 0.101540089 s
+Processor 11, communication time : 0.101483583 s
+Processor 3, communication time : 0.101521969 s
+Processor 12, communication time : 0.101494074 s
+Processor 1, communication time : 0.101663828 s
+Processor 15, communication time : 0.101527214 s
+Processor 6, communication time : 0.101571083 s
+Processor 14, communication time : 0.101488113 s
+Processor 5, communication time : 0.101416349 s
+Processor 9, communication time : 0.101544619 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 2, communication time : 0.108743906 s
+Processor 4, communication time : 0.108775377 s
+Processor 0, communication time : 0.108431101 s
+TOTAL TIME : 0.108772993 s, iteration count=374, error=0.000000989
+Processor 3, communication time : 0.108683825 s
+Processor 7, communication time : 0.108637571 s
+Processor 8, communication time : 0.108695269 s
+Processor 12, communication time : 0.108686209 s
+Processor 9, communication time : 0.108768940 s
+Processor 1, communication time : 0.108911276 s
+Processor 11, communication time : 0.108657837 s
+Processor 15, communication time : 0.108533621 s
+Processor 13, communication time : 0.108650923 s
+Processor 10, communication time : 0.108718872 s
+Processor 6, communication time : 0.108771563 s
+Processor 14, communication time : 0.108642340 s
+Processor 5, communication time : 0.108700991 s
+
+PROCESSOR 32
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 0, communication time : 0.119544268 s
+TOTAL TIME : 0.119848013 s, iteration count=374, error=0.000000989
+Processor 4, communication time : 0.119656801 s
+Processor 20, communication time : 0.119600773 s
+Processor 22, communication time : 0.119732857 s
+Processor 2, communication time : 0.119707346 s
+Processor 6, communication time : 0.119567871 s
+Processor 19, communication time : 0.119835615 s
+Processor 8, communication time : 0.119400024 s
+Processor 15, communication time : 0.119387150 s
+Processor 21, communication time : 0.119836569 s
+Processor 31, communication time : 0.119269609 s
+Processor 1, communication time : 0.119568825 s
+Processor 9, communication time : 0.119433880 s
+Processor 3, communication time : 0.119765043 s
+Processor 14, communication time : 0.119315386 s
+Processor 16, communication time : 0.119635820 s
+Processor 28, communication time : 0.119323254 s
+Processor 17, communication time : 0.119787931 s
+Processor 29, communication time : 0.119491577 s
+Processor 23, communication time : 0.119926214 s
+Processor 10, communication time : 0.119669199 s
+Processor 7, communication time : 0.119796753 s
+Processor 12, communication time : 0.119195938 s
+Processor 5, communication time : 0.119639397 s
+Processor 13, communication time : 0.119361639 s
+Processor 24, communication time : 0.119465828 s
+Processor 25, communication time : 0.119349480 s
+Processor 27, communication time : 0.119056463 s
+Processor 30, communication time : 0.119284868 s
+Processor 11, communication time : 0.119425297 s
+Processor 18, communication time : 0.119564056 s
+Processor 26, communication time : 0.119576693 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 2, communication time : 0.122618675 s
+Processor 28, communication time : 0.115366220 s
+Processor 3, communication time : 0.122716188 s
+Processor 10, communication time : 0.115937471 s
+Processor 21, communication time : 0.122542143 s
+Processor 23, communication time : 0.122718811 s
+Processor 22, communication time : 0.122685432 s
+Processor 7, communication time : 0.122619390 s
+Processor 13, communication time : 0.116140604 s
+Processor 26, communication time : 0.115799189 s
+Processor 29, communication time : 0.115845919 s
+Processor 11, communication time : 0.115951300 s
+Processor 31, communication time : 0.115717411 s
+Processor 16, communication time : 0.122749805 s
+Processor 19, communication time : 0.122625113 s
+Processor 24, communication time : 0.115803242 s
+Processor 18, communication time : 0.122666597 s
+Processor 4, communication time : 0.122694492 s
+Processor 17, communication time : 0.122698307 s
+Processor 20, communication time : 0.122768402 s
+Processor 6, communication time : 0.122653723 s
+Processor 12, communication time : 0.115896463 s
+Processor 14, communication time : 0.115795374 s
+Processor 27, communication time : 0.116003513 s
+Processor 8, communication time : 0.115874052 s
+Processor 9, communication time : 0.115980148 s
+Processor 5, communication time : 0.122608662 s
+Processor 25, communication time : 0.115972996 s
+Processor 0, communication time : 0.122293949 s
+TOTAL TIME : 0.122628927 s, iteration count=374, error=0.000000989
+Processor 15, communication time : 0.115584612 s
+Processor 30, communication time : 0.115239382 s
+Processor 1, communication time : 0.122816324 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Processor 1, communication time : 0.114768267 s
+Processor 5, communication time : 0.114811897 s
+Processor 16, communication time : 0.114727020 s
+Processor 17, communication time : 0.114690065 s
+Processor 0, communication time : 0.114444971 s
+TOTAL TIME : 0.114744902 s, iteration count=374, error=0.000000989
+Processor 3, communication time : 0.114729166 s
+Processor 21, communication time : 0.114699602 s
+Processor 8, communication time : 0.114130735 s
+Processor 22, communication time : 0.114613295 s
+Processor 10, communication time : 0.114040852 s
+Processor 14, communication time : 0.114123821 s
+Processor 31, communication time : 0.113762140 s
+Processor 11, communication time : 0.114022732 s
+Processor 19, communication time : 0.114739180 s
+Processor 24, communication time : 0.113929749 s
+Processor 29, communication time : 0.113852501 s
+Processor 2, communication time : 0.114812136 s
+Processor 6, communication time : 0.114696503 s
+Processor 7, communication time : 0.114816427 s
+Processor 18, communication time : 0.114888906 s
+Processor 20, communication time : 0.115149736 s
+Processor 9, communication time : 0.114047289 s
+Processor 25, communication time : 0.113622427 s
+Processor 27, communication time : 0.114076614 s
+Processor 13, communication time : 0.114133835 s
+Processor 26, communication time : 0.114152193 s
+Processor 30, communication time : 0.114116430 s
+Processor 15, communication time : 0.114040136 s
+Processor 12, communication time : 0.114362240 s
+Processor 23, communication time : 0.114791155 s
+Processor 4, communication time : 0.115013123 s
+Processor 28, communication time : 0.114296913 s
+
