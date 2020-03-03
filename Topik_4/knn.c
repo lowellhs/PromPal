@@ -1,15 +1,18 @@
 #include "mpi.h"
 #include "./helper.c"
-#include "./init.c"
 
 #define MAX_LEN     100
 #define K           4
 #define num_labels  3
 #define cols        5
+#define file_train  "test_input/Iris_150.csv"
+#define file_test   "test_input/Iris_test.csv"
+#define rows_train  150
+#define rows_test   15
 
 int     labels_to_num(char[]);
 void    sequential(int, int, int);
-void    parallel(int, int, int, int, int, int);
+void    parallel(int, int, int, int, int, int, double **);
 
 char    data_train[rows_train][cols][MAX_LEN];
 char    data_test[rows_test][cols][MAX_LEN];
@@ -63,10 +66,15 @@ int main(int argc, char **argv) {
     rows = rows_train / num_procs;
     row_start = my_rank*rows;
     row_limit = row_start+rows;
+    double *recAdata = (double *)malloc(sizeof(double)*rows*(cols-1));
+    double **recA = (double **)malloc(sizeof(double *)*rows);
+    for (i=0; i<rows; i++) {
+      recA[i] = &(recAdata[i*(cols-1)]);
+    }
     MPI_Bcast(&X_test, rows_test*(cols-1), MPI_DOUBLE, 0, MPI_COMM_WORLD);
-    MPI_Scatter(&X_train, rows*(cols-1), MPI_DOUBLE, &X_train[row_start], rows*(cols-1), MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    MPI_Scatter(&X_train, rows*(cols-1), MPI_DOUBLE, &(recA[0][0]), rows*(cols-1), MPI_DOUBLE, 0, MPI_COMM_WORLD);
     for (i=0; i<rows_test; i++) {
-      parallel(num_procs, my_rank, i, rows, row_start, row_limit);
+      parallel(num_procs, my_rank, i, rows, row_start, row_limit, recA);
     }
     comp_time += (MPI_Wtime() - start);
   }
@@ -98,13 +106,21 @@ void sequential(int num_procs, int my_rank, int test_idx) {
   y_predict[test_idx] = major_num(K, num_labels, selected);
 }
 
-void parallel(int num_procs, int my_rank, int test_idx, int rows, int row_start, int row_limit) {
-  int i, selected[K], dist_vec_par_indices[K*num_procs];
+void parallel(int num_procs, int my_rank, int test_idx, int rows, int row_start, int row_limit, double **recA) {
+  int i, j, selected[K], dist_vec_par_indices[K*num_procs];
   double dist_vec_par[K*num_procs];
 
+  // for (i=0; i<rows; i++){
+  //   printf("Process %d, ", my_rank);
+  //   for (j=0; j<(cols-1); j++){
+  //     printf("%.9f ", recA[i][j]);
+  //   }
+  //   printf("\n");
+  // }
+  
   init_vector_part(rows_train, indices, row_start, row_limit-1);
   for (i=row_start; i<row_limit; i++) {
-    distance_vector[i] = norm_vector(cols-1, X_test[test_idx], X_train[i]);
+    distance_vector[i] = norm_vector(cols-1, X_test[test_idx], recA[i-rows]);
   }
   mergeSort(distance_vector, indices, row_start, row_limit-1);
   MPI_Gather(&distance_vector[row_start], K, MPI_DOUBLE, &dist_vec_par, K, MPI_DOUBLE, 0, MPI_COMM_WORLD);
