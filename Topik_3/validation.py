@@ -4,6 +4,7 @@ import re
 
 fileX = sys.argv[1]
 env = sys.argv[2]
+size = sys.argv[3]
 
 def fileToVector(f_obj):
   return [float(x.strip()) for x in f_obj.readlines()]
@@ -16,7 +17,7 @@ def distanceVector(vecA, vecB):
 
 with open(fileX, "r") as f_obj:
   validVectorX = fileToVector(f_obj)
-pattern = re.compile("^{0}_[0-9]+_output_[0-9]+.txt$".format(env))
+pattern = re.compile("^{0}_[0-9]+_output_{1}.txt$".format(env, size))
 outputFile = [f for f in os.listdir("test_output/") if pattern.match(f)]
 
 procsToFile = {}
@@ -32,5 +33,5 @@ for keyFile in sorted(procsToFile.keys()):
     x_hat = fileToVector(f_obj)
   stdOutStr = stdOut % (int(splitted[3]), int(splitted[3]), int(splitted[1]), splitted[0])
   stdOutStr2 = "%.9f" % (distanceVector(x_hat, validVectorX))
-  print('{:98s} : {}'.format(stdOutStr, stdOutStr2))
+  print('{:105s} : {}'.format(stdOutStr, stdOutStr2))
   

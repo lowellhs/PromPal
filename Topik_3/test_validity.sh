@@ -26,5 +26,5 @@ do
   echo "$(mpirun --hostfile $hostfile -np $procs $mpi 1 0 $A $b)" > $fileOutPar
 done
 
-python3 validation.py $x $env
+python3 validation.py $x $env $n
 
