@@ -12,7 +12,7 @@
 
 int     labels_to_num(char[]);
 void    sequential(int, int, int);
-void    parallel(int, int, int, int, int, int, double **);
+void    parallel(int, int, int, int, double **);
 
 char    data_train[rows_train][cols][MAX_LEN];
 char    data_test[rows_test][cols][MAX_LEN];
@@ -64,8 +64,6 @@ int main(int argc, char **argv) {
   } else {
     start = MPI_Wtime();
     rows = rows_train / num_procs;
-    row_start = my_rank*rows;
-    row_limit = row_start+rows;
     double *recAdata = (double *)malloc(sizeof(double)*rows*(cols-1));
     double **recA = (double **)malloc(sizeof(double *)*rows);
     for (i=0; i<rows; i++) {
@@ -74,7 +72,7 @@ int main(int argc, char **argv) {
     MPI_Bcast(&X_test, rows_test*(cols-1), MPI_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Scatter(&X_train, rows*(cols-1), MPI_DOUBLE, &(recA[0][0]), rows*(cols-1), MPI_DOUBLE, 0, MPI_COMM_WORLD);
     for (i=0; i<rows_test; i++) {
-      parallel(num_procs, my_rank, i, rows, row_start, row_limit, recA);
+      parallel(num_procs, my_rank, i, rows, recA);
     }
     comp_time += (MPI_Wtime() - start);
   }
@@ -106,25 +104,17 @@ void sequential(int num_procs, int my_rank, int test_idx) {
   y_predict[test_idx] = major_num(K, num_labels, selected);
 }
 
-void parallel(int num_procs, int my_rank, int test_idx, int rows, int row_start, int row_limit, double **recA) {
-  int i, j, selected[K], dist_vec_par_indices[K*num_procs];
-  double dist_vec_par[K*num_procs];
-
-  // for (i=0; i<rows; i++){
-  //   printf("Process %d, ", my_rank);
-  //   for (j=0; j<(cols-1); j++){
-  //     printf("%.9f ", recA[i][j]);
-  //   }
-  //   printf("\n");
-  // }
+void parallel(int num_procs, int my_rank, int test_idx, int rows, double **recA) {
+  int i, j, selected[K], dist_vec_par_indices[K*num_procs], sendIndices[rows];
+  double dist_vec_par[K*num_procs], sendDistVect[rows];
   
-  init_vector_part(rows_train, indices, row_start, row_limit-1);
-  for (i=row_start; i<row_limit; i++) {
-    distance_vector[i] = norm_vector(cols-1, X_test[test_idx], recA[i-rows]);
+  init_vector_part(rows, sendIndices, my_rank*rows);
+  for (i=0; i<rows; i++) {
+    sendDistVect[i] = norm_vector(cols-1, X_test[test_idx], recA[i]);
   }
-  mergeSort(distance_vector, indices, row_start, row_limit-1);
-  MPI_Gather(&distance_vector[row_start], K, MPI_DOUBLE, &dist_vec_par, K, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-  MPI_Gather(&indices[row_start], K, MPI_INT, &dist_vec_par_indices, K, MPI_INT, 0, MPI_COMM_WORLD);
+  mergeSort(sendDistVect, sendIndices, 0, rows-1);
+  MPI_Gather(&sendDistVect, K, MPI_DOUBLE, &dist_vec_par, K, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_Gather(&sendIndices, K, MPI_INT, &dist_vec_par_indices, K, MPI_INT, 0, MPI_COMM_WORLD);
 
   if (my_rank == 0) {
     mergeSort(dist_vec_par, dist_vec_par_indices, 0, K*num_procs-1);

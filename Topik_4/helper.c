@@ -106,10 +106,10 @@ void init_vector(int n, int v[n]) {
     v[i] = i;
   }
 }
-void init_vector_part(int n, int v[n], int l, int r) {
+void init_vector_part(int n, int v[n], int start) {
   int i;
-  for (i=l; i<=r; i++) {
-    v[i] = i;
+  for (i=0; i<n; i++) {
+    v[i] = start+i;
   }
 }
 

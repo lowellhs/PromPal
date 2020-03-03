@@ -35,5 +35,5 @@ do
   echo >> $fileOut
 done
 
-#rm init.c
+rm init.c
 rm knn.o
