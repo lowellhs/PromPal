@@ -1,0 +1,935 @@
+Test 256x256 matrix with 32 processors
+
+sequential matrix-vector multiplication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+TOTAL TIME : 0.000406027 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+TOTAL TIME : 0.000405073 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+TOTAL TIME : 0.000408173 s
+
+sequential matrix-matrix multiplication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) A . I = C
+TOTAL TIME : 0.087333918 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) A . I = C
+TOTAL TIME : 0.087406874 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) A . I = C
+TOTAL TIME : 0.087030172 s
+
+point-to-point matrix-vector multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 1, time elapse: 0.001038 s, calculation time: 0.000020 s
+Process 2, time elapse: 0.000977 s, calculation time: 0.000020 s
+Process 3, time elapse: 0.001145 s, calculation time: 0.000019 s
+Process 4, time elapse: 0.001089 s, calculation time: 0.000019 s
+Process 5, time elapse: 0.000979 s, calculation time: 0.000019 s
+Process 7, time elapse: 0.001218 s, calculation time: 0.000020 s
+Process 6, time elapse: 0.001287 s, calculation time: 0.000020 s
+Process 8, time elapse: 0.000890 s, calculation time: 0.000011 s
+Process 9, time elapse: 0.001365 s, calculation time: 0.000009 s
+Process 10, time elapse: 0.001802 s, calculation time: 0.000009 s
+Process 11, time elapse: 0.002218 s, calculation time: 0.000009 s
+Process 12, time elapse: 0.002835 s, calculation time: 0.000009 s
+Process 13, time elapse: 0.003199 s, calculation time: 0.000009 s
+Process 14, time elapse: 0.003686 s, calculation time: 0.000009 s
+Process 16, time elapse: 0.007050 s, calculation time: 0.000020 s
+Process 17, time elapse: 0.007122 s, calculation time: 0.000021 s
+Process 19, time elapse: 0.007239 s, calculation time: 0.000021 s
+Process 20, time elapse: 0.007264 s, calculation time: 0.000019 s
+Process 21, time elapse: 0.007277 s, calculation time: 0.000019 s
+Process 18, time elapse: 0.007293 s, calculation time: 0.000043 s
+Process 15, time elapse: 0.004220 s, calculation time: 0.000009 s
+Process 22, time elapse: 0.007434 s, calculation time: 0.000020 s
+Process 23, time elapse: 0.007681 s, calculation time: 0.000023 s
+Process 24, time elapse: 0.005099 s, calculation time: 0.000009 s
+Process 25, time elapse: 0.005472 s, calculation time: 0.000009 s
+Process 26, time elapse: 0.005792 s, calculation time: 0.000009 s
+Process 27, time elapse: 0.006491 s, calculation time: 0.000009 s
+Process 28, time elapse: 0.006943 s, calculation time: 0.000009 s
+Process 29, time elapse: 0.007389 s, calculation time: 0.000018 s
+Process 30, time elapse: 0.007712 s, calculation time: 0.000009 s
+Process 31, time elapse: 0.008613 s, calculation time: 0.000018 s
+Send-Receive time process 0 with process 1 is 0.010263 s
+Send-Receive time process 0 with process 2 is 0.010221 s
+Send-Receive time process 0 with process 3 is 0.010205 s
+Send-Receive time process 0 with process 4 is 0.010190 s
+Send-Receive time process 0 with process 5 is 0.010173 s
+Send-Receive time process 0 with process 6 is 0.010154 s
+Send-Receive time process 0 with process 7 is 0.010133 s
+Send-Receive time process 0 with process 8 is 0.010119 s
+Send-Receive time process 0 with process 9 is 0.007471 s
+Send-Receive time process 0 with process 10 is 0.007007 s
+Send-Receive time process 0 with process 11 is 0.006486 s
+Send-Receive time process 0 with process 12 is 0.006044 s
+Send-Receive time process 0 with process 13 is 0.005538 s
+Send-Receive time process 0 with process 14 is 0.005054 s
+Send-Receive time process 0 with process 15 is 0.004617 s
+Send-Receive time process 0 with process 16 is 0.004174 s
+Send-Receive time process 0 with process 17 is 0.004151 s
+Send-Receive time process 0 with process 18 is 0.004129 s
+Send-Receive time process 0 with process 19 is 0.004110 s
+Send-Receive time process 0 with process 20 is 0.004093 s
+Send-Receive time process 0 with process 21 is 0.004079 s
+Send-Receive time process 0 with process 22 is 0.004064 s
+Send-Receive time process 0 with process 23 is 0.004045 s
+Send-Receive time process 0 with process 24 is 0.004022 s
+Send-Receive time process 0 with process 25 is 0.003324 s
+Send-Receive time process 0 with process 26 is 0.002876 s
+Send-Receive time process 0 with process 27 is 0.002418 s
+Send-Receive time process 0 with process 28 is 0.001886 s
+Send-Receive time process 0 with process 29 is 0.001431 s
+Send-Receive time process 0 with process 30 is 0.000997 s
+Send-Receive time process 0 with process 31 is 0.001178 s
+TOTAL TIME : 0.010964870 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 1, time elapse: 0.000987 s, calculation time: 0.000013 s
+Process 2, time elapse: 0.000825 s, calculation time: 0.000019 s
+Process 3, time elapse: 0.001050 s, calculation time: 0.000018 s
+Process 5, time elapse: 0.000939 s, calculation time: 0.000019 s
+Process 7, time elapse: 0.000973 s, calculation time: 0.000019 s
+Process 6, time elapse: 0.000846 s, calculation time: 0.000020 s
+Process 4, time elapse: 0.001075 s, calculation time: 0.000020 s
+Process 8, time elapse: 0.008853 s, calculation time: 0.000009 s
+Process 9, time elapse: 0.009268 s, calculation time: 0.000009 s
+Process 10, time elapse: 0.009701 s, calculation time: 0.000006 s
+Process 11, time elapse: 0.010186 s, calculation time: 0.000010 s
+Process 12, time elapse: 0.010475 s, calculation time: 0.000022 s
+Process 13, time elapse: 0.010968 s, calculation time: 0.000009 s
+Process 14, time elapse: 0.011396 s, calculation time: 0.000009 s
+Process 17, time elapse: 0.004906 s, calculation time: 0.000019 s
+Process 18, time elapse: 0.004927 s, calculation time: 0.000020 s
+Process 19, time elapse: 0.004980 s, calculation time: 0.000019 s
+Process 20, time elapse: 0.004680 s, calculation time: 0.000020 s
+Process 22, time elapse: 0.004914 s, calculation time: 0.000020 s
+Process 16, time elapse: 0.004953 s, calculation time: 0.000020 s
+Process 21, time elapse: 0.004852 s, calculation time: 0.000020 s
+Process 23, time elapse: 0.005186 s, calculation time: 0.000013 s
+Process 15, time elapse: 0.012109 s, calculation time: 0.000009 s
+Process 24, time elapse: 0.012728 s, calculation time: 0.000009 s
+Process 25, time elapse: 0.012960 s, calculation time: 0.000009 s
+Process 26, time elapse: 0.013402 s, calculation time: 0.000009 s
+Process 27, time elapse: 0.013887 s, calculation time: 0.000009 s
+Process 28, time elapse: 0.014122 s, calculation time: 0.000009 s
+Process 29, time elapse: 0.014536 s, calculation time: 0.000009 s
+Process 30, time elapse: 0.014870 s, calculation time: 0.000009 s
+Process 31, time elapse: 0.015720 s, calculation time: 0.000018 s
+Send-Receive time process 0 with process 1 is 0.007438 s
+Send-Receive time process 0 with process 2 is 0.007394 s
+Send-Receive time process 0 with process 3 is 0.007375 s
+Send-Receive time process 0 with process 4 is 0.007355 s
+Send-Receive time process 0 with process 5 is 0.007335 s
+Send-Receive time process 0 with process 6 is 0.007321 s
+Send-Receive time process 0 with process 7 is 0.007302 s
+Send-Receive time process 0 with process 8 is 0.007284 s
+Send-Receive time process 0 with process 9 is 0.006598 s
+Send-Receive time process 0 with process 10 is 0.006114 s
+Send-Receive time process 0 with process 11 is 0.005719 s
+Send-Receive time process 0 with process 12 is 0.005280 s
+Send-Receive time process 0 with process 13 is 0.004840 s
+Send-Receive time process 0 with process 14 is 0.004429 s
+Send-Receive time process 0 with process 15 is 0.003981 s
+Send-Receive time process 0 with process 16 is 0.003543 s
+Send-Receive time process 0 with process 17 is 0.003520 s
+Send-Receive time process 0 with process 18 is 0.003504 s
+Send-Receive time process 0 with process 19 is 0.003486 s
+Send-Receive time process 0 with process 20 is 0.003467 s
+Send-Receive time process 0 with process 21 is 0.003450 s
+Send-Receive time process 0 with process 22 is 0.003426 s
+Send-Receive time process 0 with process 23 is 0.003409 s
+Send-Receive time process 0 with process 24 is 0.003289 s
+Send-Receive time process 0 with process 25 is 0.002800 s
+Send-Receive time process 0 with process 26 is 0.002423 s
+Send-Receive time process 0 with process 27 is 0.001986 s
+Send-Receive time process 0 with process 28 is 0.001556 s
+Send-Receive time process 0 with process 29 is 0.001212 s
+Send-Receive time process 0 with process 30 is 0.000846 s
+Send-Receive time process 0 with process 31 is 0.001065 s
+TOTAL TIME : 0.008067131 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 1, time elapse: 0.000558 s, calculation time: 0.000009 s
+Process 3, time elapse: 0.000586 s, calculation time: 0.000010 s
+Process 2, time elapse: 0.000576 s, calculation time: 0.000009 s
+Process 4, time elapse: 0.000611 s, calculation time: 0.000008 s
+Process 5, time elapse: 0.000605 s, calculation time: 0.000008 s
+Process 6, time elapse: 0.000665 s, calculation time: 0.000009 s
+Process 7, time elapse: 0.000559 s, calculation time: 0.000009 s
+Process 8, time elapse: 0.000581 s, calculation time: 0.000020 s
+Process 9, time elapse: 0.001024 s, calculation time: 0.000020 s
+Process 10, time elapse: 0.001575 s, calculation time: 0.000021 s
+Process 11, time elapse: 0.002109 s, calculation time: 0.000020 s
+Process 12, time elapse: 0.002606 s, calculation time: 0.000020 s
+Process 13, time elapse: 0.002998 s, calculation time: 0.000020 s
+Process 17, time elapse: 0.006524 s, calculation time: 0.000020 s
+Process 18, time elapse: 0.006552 s, calculation time: 0.000009 s
+Process 14, time elapse: 0.003377 s, calculation time: 0.000020 s
+Process 22, time elapse: 0.006586 s, calculation time: 0.000010 s
+Process 19, time elapse: 0.006341 s, calculation time: 0.000009 s
+Process 20, time elapse: 0.006513 s, calculation time: 0.000009 s
+Process 21, time elapse: 0.006591 s, calculation time: 0.000009 s
+Process 23, time elapse: 0.006683 s, calculation time: 0.000012 s
+Process 16, time elapse: 0.006722 s, calculation time: 0.000317 s
+Process 15, time elapse: 0.003884 s, calculation time: 0.000020 s
+Process 24, time elapse: 0.004304 s, calculation time: 0.000020 s
+Process 25, time elapse: 0.004931 s, calculation time: 0.000024 s
+Process 26, time elapse: 0.005012 s, calculation time: 0.000020 s
+Process 27, time elapse: 0.005693 s, calculation time: 0.000020 s
+Process 28, time elapse: 0.006193 s, calculation time: 0.000020 s
+Process 29, time elapse: 0.006587 s, calculation time: 0.000019 s
+Process 30, time elapse: 0.007229 s, calculation time: 0.000019 s
+Process 31, time elapse: 0.008271 s, calculation time: 0.000039 s
+Send-Receive time process 0 with process 1 is 0.009856 s
+Send-Receive time process 0 with process 2 is 0.009835 s
+Send-Receive time process 0 with process 3 is 0.009824 s
+Send-Receive time process 0 with process 4 is 0.009818 s
+Send-Receive time process 0 with process 5 is 0.009806 s
+Send-Receive time process 0 with process 6 is 0.009799 s
+Send-Receive time process 0 with process 7 is 0.009789 s
+Send-Receive time process 0 with process 8 is 0.009778 s
+Send-Receive time process 0 with process 9 is 0.007092 s
+Send-Receive time process 0 with process 10 is 0.006672 s
+Send-Receive time process 0 with process 11 is 0.006224 s
+Send-Receive time process 0 with process 12 is 0.005734 s
+Send-Receive time process 0 with process 13 is 0.005233 s
+Send-Receive time process 0 with process 14 is 0.004810 s
+Send-Receive time process 0 with process 15 is 0.004315 s
+Send-Receive time process 0 with process 16 is 0.003912 s
+Send-Receive time process 0 with process 17 is 0.003899 s
+Send-Receive time process 0 with process 18 is 0.003889 s
+Send-Receive time process 0 with process 19 is 0.003878 s
+Send-Receive time process 0 with process 20 is 0.003856 s
+Send-Receive time process 0 with process 21 is 0.003847 s
+Send-Receive time process 0 with process 22 is 0.003838 s
+Send-Receive time process 0 with process 23 is 0.003828 s
+Send-Receive time process 0 with process 24 is 0.003818 s
+Send-Receive time process 0 with process 25 is 0.003390 s
+Send-Receive time process 0 with process 26 is 0.002870 s
+Send-Receive time process 0 with process 27 is 0.002437 s
+Send-Receive time process 0 with process 28 is 0.002065 s
+Send-Receive time process 0 with process 29 is 0.001646 s
+Send-Receive time process 0 with process 30 is 0.001164 s
+Send-Receive time process 0 with process 31 is 0.001570 s
+TOTAL TIME : 0.010738134 s
+
+point-to-point matrix-vector multiplication (col)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 1, time elapse: 0.000620 s, calculation time: 0.000013 s
+Process 2, time elapse: 0.000628 s, calculation time: 0.000013 s
+Process 5, time elapse: 0.000726 s, calculation time: 0.000014 s
+Process 6, time elapse: 0.000730 s, calculation time: 0.000013 s
+Process 4, time elapse: 0.000766 s, calculation time: 0.000018 s
+Process 3, time elapse: 0.000888 s, calculation time: 0.000013 s
+Process 7, time elapse: 0.000864 s, calculation time: 0.000013 s
+Process 8, time elapse: 0.001014 s, calculation time: 0.000013 s
+Process 9, time elapse: 0.001375 s, calculation time: 0.000013 s
+Process 10, time elapse: 0.002085 s, calculation time: 0.000013 s
+Process 11, time elapse: 0.002522 s, calculation time: 0.000013 s
+Process 12, time elapse: 0.002864 s, calculation time: 0.000013 s
+Process 13, time elapse: 0.003476 s, calculation time: 0.000013 s
+Process 14, time elapse: 0.003918 s, calculation time: 0.000013 s
+Process 16, time elapse: 0.009293 s, calculation time: 0.000013 s
+Process 18, time elapse: 0.009252 s, calculation time: 0.000014 s
+Process 17, time elapse: 0.008642 s, calculation time: 0.000013 s
+Process 20, time elapse: 0.009337 s, calculation time: 0.000013 s
+Process 19, time elapse: 0.009326 s, calculation time: 0.000013 s
+Process 15, time elapse: 0.004357 s, calculation time: 0.000013 s
+Process 23, time elapse: 0.008865 s, calculation time: 0.000013 s
+Process 22, time elapse: 0.009730 s, calculation time: 0.000013 s
+Process 21, time elapse: 0.009317 s, calculation time: 0.000013 s
+Process 24, time elapse: 0.004849 s, calculation time: 0.000013 s
+Process 25, time elapse: 0.005244 s, calculation time: 0.000013 s
+Process 26, time elapse: 0.005728 s, calculation time: 0.000013 s
+Process 27, time elapse: 0.006116 s, calculation time: 0.000013 s
+Process 28, time elapse: 0.006451 s, calculation time: 0.000013 s
+Process 29, time elapse: 0.006718 s, calculation time: 0.000012 s
+Process 30, time elapse: 0.007396 s, calculation time: 0.000013 s
+Process 31, time elapse: 0.007982 s, calculation time: 0.000025 s
+Send-Receive time process 0 with process 1 is 0.012184 s
+Send-Receive time process 0 with process 2 is 0.012134 s
+Send-Receive time process 0 with process 3 is 0.012125 s
+Send-Receive time process 0 with process 4 is 0.012113 s
+Send-Receive time process 0 with process 5 is 0.012071 s
+Send-Receive time process 0 with process 6 is 0.012061 s
+Send-Receive time process 0 with process 7 is 0.012050 s
+Send-Receive time process 0 with process 8 is 0.012037 s
+Send-Receive time process 0 with process 9 is 0.006805 s
+Send-Receive time process 0 with process 10 is 0.006425 s
+Send-Receive time process 0 with process 11 is 0.005774 s
+Send-Receive time process 0 with process 12 is 0.005354 s
+Send-Receive time process 0 with process 13 is 0.004925 s
+Send-Receive time process 0 with process 14 is 0.004343 s
+Send-Receive time process 0 with process 15 is 0.003904 s
+Send-Receive time process 0 with process 16 is 0.003540 s
+Send-Receive time process 0 with process 17 is 0.003525 s
+Send-Receive time process 0 with process 18 is 0.003508 s
+Send-Receive time process 0 with process 19 is 0.003496 s
+Send-Receive time process 0 with process 20 is 0.003483 s
+Send-Receive time process 0 with process 21 is 0.003470 s
+Send-Receive time process 0 with process 22 is 0.003454 s
+Send-Receive time process 0 with process 23 is 0.003433 s
+Send-Receive time process 0 with process 24 is 0.003413 s
+Send-Receive time process 0 with process 25 is 0.002927 s
+Send-Receive time process 0 with process 26 is 0.002547 s
+Send-Receive time process 0 with process 27 is 0.002147 s
+Send-Receive time process 0 with process 28 is 0.001772 s
+Send-Receive time process 0 with process 29 is 0.001336 s
+Send-Receive time process 0 with process 30 is 0.000934 s
+Send-Receive time process 0 with process 31 is 0.001188 s
+TOTAL TIME : 0.012977123 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 1, time elapse: 0.000599 s, calculation time: 0.000013 s
+Process 8, time elapse: 0.003093 s, calculation time: 0.000013 s
+Process 2, time elapse: 0.000690 s, calculation time: 0.000013 s
+Process 3, time elapse: 0.000722 s, calculation time: 0.000013 s
+Process 4, time elapse: 0.000732 s, calculation time: 0.000013 s
+Process 5, time elapse: 0.000932 s, calculation time: 0.000013 s
+Process 6, time elapse: 0.000750 s, calculation time: 0.000013 s
+Process 7, time elapse: 0.001089 s, calculation time: 0.000013 s
+Process 9, time elapse: 0.006671 s, calculation time: 0.000013 s
+Process 10, time elapse: 0.007366 s, calculation time: 0.000013 s
+Process 11, time elapse: 0.007781 s, calculation time: 0.000013 s
+Process 12, time elapse: 0.008108 s, calculation time: 0.000013 s
+Process 13, time elapse: 0.008855 s, calculation time: 0.000018 s
+Process 14, time elapse: 0.009274 s, calculation time: 0.000014 s
+Process 16, time elapse: 0.008036 s, calculation time: 0.000015 s
+Process 17, time elapse: 0.008038 s, calculation time: 0.000014 s
+Process 18, time elapse: 0.007962 s, calculation time: 0.000014 s
+Process 19, time elapse: 0.008166 s, calculation time: 0.000013 s
+Process 20, time elapse: 0.008054 s, calculation time: 0.000014 s
+Process 22, time elapse: 0.007998 s, calculation time: 0.000014 s
+Process 23, time elapse: 0.008180 s, calculation time: 0.000013 s
+Process 21, time elapse: 0.008361 s, calculation time: 0.000013 s
+Process 15, time elapse: 0.009850 s, calculation time: 0.000013 s
+Process 24, time elapse: 0.010499 s, calculation time: 0.000013 s
+Process 25, time elapse: 0.010973 s, calculation time: 0.000013 s
+Process 26, time elapse: 0.011300 s, calculation time: 0.000013 s
+Process 27, time elapse: 0.011699 s, calculation time: 0.000013 s
+Process 28, time elapse: 0.012162 s, calculation time: 0.000013 s
+Process 29, time elapse: 0.012524 s, calculation time: 0.000013 s
+Process 30, time elapse: 0.012910 s, calculation time: 0.000013 s
+Process 31, time elapse: 0.013896 s, calculation time: 0.000025 s
+Send-Receive time process 0 with process 1 is 0.010965 s
+Send-Receive time process 0 with process 2 is 0.010914 s
+Send-Receive time process 0 with process 3 is 0.010902 s
+Send-Receive time process 0 with process 4 is 0.010893 s
+Send-Receive time process 0 with process 5 is 0.010848 s
+Send-Receive time process 0 with process 6 is 0.010835 s
+Send-Receive time process 0 with process 7 is 0.010824 s
+Send-Receive time process 0 with process 8 is 0.010809 s
+Send-Receive time process 0 with process 9 is 0.010345 s
+Send-Receive time process 0 with process 10 is 0.006749 s
+Send-Receive time process 0 with process 11 is 0.006060 s
+Send-Receive time process 0 with process 12 is 0.005627 s
+Send-Receive time process 0 with process 13 is 0.005205 s
+Send-Receive time process 0 with process 14 is 0.004568 s
+Send-Receive time process 0 with process 15 is 0.004130 s
+Send-Receive time process 0 with process 16 is 0.003657 s
+Send-Receive time process 0 with process 17 is 0.003642 s
+Send-Receive time process 0 with process 18 is 0.003631 s
+Send-Receive time process 0 with process 19 is 0.003618 s
+Send-Receive time process 0 with process 20 is 0.003604 s
+Send-Receive time process 0 with process 21 is 0.003593 s
+Send-Receive time process 0 with process 22 is 0.003578 s
+Send-Receive time process 0 with process 23 is 0.003564 s
+Send-Receive time process 0 with process 24 is 0.003542 s
+Send-Receive time process 0 with process 25 is 0.002891 s
+Send-Receive time process 0 with process 26 is 0.002521 s
+Send-Receive time process 0 with process 27 is 0.002122 s
+Send-Receive time process 0 with process 28 is 0.001684 s
+Send-Receive time process 0 with process 29 is 0.001276 s
+Send-Receive time process 0 with process 30 is 0.001007 s
+Send-Receive time process 0 with process 31 is 0.001493 s
+TOTAL TIME : 0.012053967 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 1, time elapse: 0.000642 s, calculation time: 0.000014 s
+Process 4, time elapse: 0.000676 s, calculation time: 0.000014 s
+Process 5, time elapse: 0.000764 s, calculation time: 0.000015 s
+Process 6, time elapse: 0.000850 s, calculation time: 0.000014 s
+Process 7, time elapse: 0.000821 s, calculation time: 0.000013 s
+Process 3, time elapse: 0.000890 s, calculation time: 0.000019 s
+Process 2, time elapse: 0.001213 s, calculation time: 0.000015 s
+Process 8, time elapse: 0.007912 s, calculation time: 0.000013 s
+Process 9, time elapse: 0.008408 s, calculation time: 0.000013 s
+Process 10, time elapse: 0.008710 s, calculation time: 0.000008 s
+Process 11, time elapse: 0.009087 s, calculation time: 0.000013 s
+Process 12, time elapse: 0.009470 s, calculation time: 0.000013 s
+Process 13, time elapse: 0.009956 s, calculation time: 0.000012 s
+Process 14, time elapse: 0.010394 s, calculation time: 0.000012 s
+Process 16, time elapse: 0.004160 s, calculation time: 0.000014 s
+Process 18, time elapse: 0.004127 s, calculation time: 0.000014 s
+Process 19, time elapse: 0.004211 s, calculation time: 0.000014 s
+Process 20, time elapse: 0.004212 s, calculation time: 0.000014 s
+Process 21, time elapse: 0.004245 s, calculation time: 0.000013 s
+Process 17, time elapse: 0.004351 s, calculation time: 0.000013 s
+Process 22, time elapse: 0.004483 s, calculation time: 0.000014 s
+Process 23, time elapse: 0.004541 s, calculation time: 0.000013 s
+Process 15, time elapse: 0.010917 s, calculation time: 0.000013 s
+Process 24, time elapse: 0.011485 s, calculation time: 0.000012 s
+Process 25, time elapse: 0.011796 s, calculation time: 0.000013 s
+Process 26, time elapse: 0.012264 s, calculation time: 0.000013 s
+Process 27, time elapse: 0.012584 s, calculation time: 0.000013 s
+Process 28, time elapse: 0.013154 s, calculation time: 0.000012 s
+Process 29, time elapse: 0.013557 s, calculation time: 0.000012 s
+Process 30, time elapse: 0.013862 s, calculation time: 0.000012 s
+Process 31, time elapse: 0.014950 s, calculation time: 0.000026 s
+Send-Receive time process 0 with process 1 is 0.006952 s
+Send-Receive time process 0 with process 2 is 0.006901 s
+Send-Receive time process 0 with process 3 is 0.006889 s
+Send-Receive time process 0 with process 4 is 0.006876 s
+Send-Receive time process 0 with process 5 is 0.006836 s
+Send-Receive time process 0 with process 6 is 0.006824 s
+Send-Receive time process 0 with process 7 is 0.006814 s
+Send-Receive time process 0 with process 8 is 0.006803 s
+Send-Receive time process 0 with process 9 is 0.006357 s
+Send-Receive time process 0 with process 10 is 0.005933 s
+Send-Receive time process 0 with process 11 is 0.005632 s
+Send-Receive time process 0 with process 12 is 0.005215 s
+Send-Receive time process 0 with process 13 is 0.004801 s
+Send-Receive time process 0 with process 14 is 0.004427 s
+Send-Receive time process 0 with process 15 is 0.004009 s
+Send-Receive time process 0 with process 16 is 0.003552 s
+Send-Receive time process 0 with process 17 is 0.003538 s
+Send-Receive time process 0 with process 18 is 0.003527 s
+Send-Receive time process 0 with process 19 is 0.003514 s
+Send-Receive time process 0 with process 20 is 0.003503 s
+Send-Receive time process 0 with process 21 is 0.003489 s
+Send-Receive time process 0 with process 22 is 0.003477 s
+Send-Receive time process 0 with process 23 is 0.003461 s
+Send-Receive time process 0 with process 24 is 0.003436 s
+Send-Receive time process 0 with process 25 is 0.002799 s
+Send-Receive time process 0 with process 26 is 0.002480 s
+Send-Receive time process 0 with process 27 is 0.002036 s
+Send-Receive time process 0 with process 28 is 0.001693 s
+Send-Receive time process 0 with process 29 is 0.001308 s
+Send-Receive time process 0 with process 30 is 0.000883 s
+Send-Receive time process 0 with process 31 is 0.001548 s
+TOTAL TIME : 0.008134127 s
+
+point-to-point matrix-matrix multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) A . I = C
+Process 1, time elapse: 0.005872 s, calculation time: 0.004728 s
+Process 2, time elapse: 0.006176 s, calculation time: 0.004766 s
+Process 3, time elapse: 0.006394 s, calculation time: 0.004733 s
+Process 4, time elapse: 0.011787 s, calculation time: 0.005100 s
+Process 5, time elapse: 0.012105 s, calculation time: 0.005108 s
+Process 7, time elapse: 0.012974 s, calculation time: 0.005296 s
+Process 6, time elapse: 0.015560 s, calculation time: 0.008318 s
+Process 8, time elapse: 0.015823 s, calculation time: 0.004720 s
+Process 9, time elapse: 0.021057 s, calculation time: 0.004734 s
+Process 10, time elapse: 0.030885 s, calculation time: 0.004697 s
+Process 11, time elapse: 0.036373 s, calculation time: 0.004767 s
+Process 12, time elapse: 0.041992 s, calculation time: 0.004930 s
+Process 13, time elapse: 0.047654 s, calculation time: 0.005504 s
+Process 14, time elapse: 0.051946 s, calculation time: 0.004817 s
+Process 15, time elapse: 0.057350 s, calculation time: 0.004772 s
+Process 17, time elapse: 0.059989 s, calculation time: 0.004795 s
+Process 19, time elapse: 0.061921 s, calculation time: 0.004827 s
+Process 21, time elapse: 0.062403 s, calculation time: 0.004873 s
+Process 22, time elapse: 0.062740 s, calculation time: 0.004998 s
+Process 23, time elapse: 0.062843 s, calculation time: 0.004891 s
+Process 20, time elapse: 0.063149 s, calculation time: 0.005831 s
+Process 18, time elapse: 0.065634 s, calculation time: 0.010155 s
+Process 16, time elapse: 0.066281 s, calculation time: 0.011310 s
+Process 24, time elapse: 0.066960 s, calculation time: 0.005485 s
+Process 25, time elapse: 0.071615 s, calculation time: 0.004716 s
+Process 26, time elapse: 0.077454 s, calculation time: 0.005262 s
+Process 27, time elapse: 0.081799 s, calculation time: 0.004737 s
+Process 28, time elapse: 0.091906 s, calculation time: 0.004716 s
+Process 29, time elapse: 0.097338 s, calculation time: 0.004788 s
+Process 30, time elapse: 0.102472 s, calculation time: 0.004859 s
+Process 31, time elapse: 0.112569 s, calculation time: 0.009415 s
+Send-Receive time process 0 with process 1 is 0.104108 s
+Send-Receive time process 0 with process 2 is 0.103843 s
+Send-Receive time process 0 with process 3 is 0.103609 s
+Send-Receive time process 0 with process 4 is 0.103363 s
+Send-Receive time process 0 with process 5 is 0.098272 s
+Send-Receive time process 0 with process 6 is 0.098038 s
+Send-Receive time process 0 with process 7 is 0.097631 s
+Send-Receive time process 0 with process 8 is 0.097378 s
+Send-Receive time process 0 with process 9 is 0.092268 s
+Send-Receive time process 0 with process 10 is 0.087013 s
+Send-Receive time process 0 with process 11 is 0.076966 s
+Send-Receive time process 0 with process 12 is 0.071476 s
+Send-Receive time process 0 with process 13 is 0.066168 s
+Send-Receive time process 0 with process 14 is 0.061280 s
+Send-Receive time process 0 with process 15 is 0.056064 s
+Send-Receive time process 0 with process 16 is 0.050531 s
+Send-Receive time process 0 with process 17 is 0.050109 s
+Send-Receive time process 0 with process 18 is 0.049867 s
+Send-Receive time process 0 with process 19 is 0.049586 s
+Send-Receive time process 0 with process 20 is 0.048023 s
+Send-Receive time process 0 with process 21 is 0.047788 s
+Send-Receive time process 0 with process 22 is 0.047549 s
+Send-Receive time process 0 with process 23 is 0.047325 s
+Send-Receive time process 0 with process 24 is 0.047097 s
+Send-Receive time process 0 with process 25 is 0.041768 s
+Send-Receive time process 0 with process 26 is 0.036789 s
+Send-Receive time process 0 with process 27 is 0.031476 s
+Send-Receive time process 0 with process 28 is 0.026244 s
+Send-Receive time process 0 with process 29 is 0.016230 s
+Send-Receive time process 0 with process 30 is 0.010855 s
+Send-Receive time process 0 with process 31 is 0.015795 s
+TOTAL TIME : 0.114410877 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) A . I = C
+Process 2, time elapse: 0.012517 s, calculation time: 0.009504 s
+Process 4, time elapse: 0.013186 s, calculation time: 0.009126 s
+Process 6, time elapse: 0.016243 s, calculation time: 0.004699 s
+Process 3, time elapse: 0.016948 s, calculation time: 0.013499 s
+Process 1, time elapse: 0.017659 s, calculation time: 0.015307 s
+Process 7, time elapse: 0.021586 s, calculation time: 0.004722 s
+Process 5, time elapse: 0.026499 s, calculation time: 0.022065 s
+Process 8, time elapse: 0.027711 s, calculation time: 0.004696 s
+Process 9, time elapse: 0.035896 s, calculation time: 0.007254 s
+Process 10, time elapse: 0.038617 s, calculation time: 0.004788 s
+Process 11, time elapse: 0.043899 s, calculation time: 0.004871 s
+Process 12, time elapse: 0.049849 s, calculation time: 0.005480 s
+Process 14, time elapse: 0.059611 s, calculation time: 0.004700 s
+Process 13, time elapse: 0.062557 s, calculation time: 0.012767 s
+Process 16, time elapse: 0.064129 s, calculation time: 0.004896 s
+Process 15, time elapse: 0.064875 s, calculation time: 0.004703 s
+Process 17, time elapse: 0.064306 s, calculation time: 0.004732 s
+Process 18, time elapse: 0.064693 s, calculation time: 0.004871 s
+Process 19, time elapse: 0.064847 s, calculation time: 0.004756 s
+Process 20, time elapse: 0.065113 s, calculation time: 0.004808 s
+Process 21, time elapse: 0.069297 s, calculation time: 0.004770 s
+Process 23, time elapse: 0.100143 s, calculation time: 0.004794 s
+Process 22, time elapse: 0.100175 s, calculation time: 0.005746 s
+Process 24, time elapse: 0.109852 s, calculation time: 0.004710 s
+Process 25, time elapse: 0.115291 s, calculation time: 0.004851 s
+Process 26, time elapse: 0.120367 s, calculation time: 0.004714 s
+Process 28, time elapse: 0.132114 s, calculation time: 0.005514 s
+Process 27, time elapse: 0.135243 s, calculation time: 0.014093 s
+Process 29, time elapse: 0.136470 s, calculation time: 0.004792 s
+Process 30, time elapse: 0.141671 s, calculation time: 0.004710 s
+Process 31, time elapse: 0.151922 s, calculation time: 0.009383 s
+Send-Receive time process 0 with process 1 is 0.139370 s
+Send-Receive time process 0 with process 2 is 0.138780 s
+Send-Receive time process 0 with process 3 is 0.138270 s
+Send-Receive time process 0 with process 4 is 0.137756 s
+Send-Receive time process 0 with process 5 is 0.137219 s
+Send-Receive time process 0 with process 6 is 0.136711 s
+Send-Receive time process 0 with process 7 is 0.129451 s
+Send-Receive time process 0 with process 8 is 0.124390 s
+Send-Receive time process 0 with process 9 is 0.119111 s
+Send-Receive time process 0 with process 10 is 0.113771 s
+Send-Receive time process 0 with process 11 is 0.108574 s
+Send-Receive time process 0 with process 12 is 0.103434 s
+Send-Receive time process 0 with process 13 is 0.097800 s
+Send-Receive time process 0 with process 14 is 0.092545 s
+Send-Receive time process 0 with process 15 is 0.087404 s
+Send-Receive time process 0 with process 16 is 0.082300 s
+Send-Receive time process 0 with process 17 is 0.082008 s
+Send-Receive time process 0 with process 18 is 0.081739 s
+Send-Receive time process 0 with process 19 is 0.081493 s
+Send-Receive time process 0 with process 20 is 0.081208 s
+Send-Receive time process 0 with process 21 is 0.080928 s
+Send-Receive time process 0 with process 22 is 0.076630 s
+Send-Receive time process 0 with process 23 is 0.047040 s
+Send-Receive time process 0 with process 24 is 0.045861 s
+Send-Receive time process 0 with process 25 is 0.037246 s
+Send-Receive time process 0 with process 26 is 0.031963 s
+Send-Receive time process 0 with process 27 is 0.026963 s
+Send-Receive time process 0 with process 28 is 0.021286 s
+Send-Receive time process 0 with process 29 is 0.016021 s
+Send-Receive time process 0 with process 30 is 0.011042 s
+Send-Receive time process 0 with process 31 is 0.015753 s
+TOTAL TIME : 0.149938822 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) A . I = C
+Process 1, time elapse: 0.005890 s, calculation time: 0.004746 s
+Process 2, time elapse: 0.006231 s, calculation time: 0.004894 s
+Process 3, time elapse: 0.006388 s, calculation time: 0.004713 s
+Process 5, time elapse: 0.007415 s, calculation time: 0.005248 s
+Process 4, time elapse: 0.008262 s, calculation time: 0.006411 s
+Process 6, time elapse: 0.016289 s, calculation time: 0.004691 s
+Process 7, time elapse: 0.022081 s, calculation time: 0.004879 s
+Process 9, time elapse: 0.031343 s, calculation time: 0.004682 s
+Process 10, time elapse: 0.036695 s, calculation time: 0.004786 s
+Process 8, time elapse: 0.038784 s, calculation time: 0.017564 s
+Process 11, time elapse: 0.041963 s, calculation time: 0.004879 s
+Process 12, time elapse: 0.047983 s, calculation time: 0.005515 s
+Process 13, time elapse: 0.052313 s, calculation time: 0.004749 s
+Process 14, time elapse: 0.057524 s, calculation time: 0.004744 s
+Process 16, time elapse: 0.064782 s, calculation time: 0.004688 s
+Process 17, time elapse: 0.070036 s, calculation time: 0.004825 s
+Process 19, time elapse: 0.070522 s, calculation time: 0.004864 s
+Process 21, time elapse: 0.072808 s, calculation time: 0.006602 s
+Process 20, time elapse: 0.073032 s, calculation time: 0.007083 s
+Process 18, time elapse: 0.073688 s, calculation time: 0.008186 s
+Process 15, time elapse: 0.072102 s, calculation time: 0.014008 s
+Process 22, time elapse: 0.075837 s, calculation time: 0.004831 s
+Process 23, time elapse: 0.080550 s, calculation time: 0.009290 s
+Process 24, time elapse: 0.080978 s, calculation time: 0.004692 s
+Process 25, time elapse: 0.090657 s, calculation time: 0.004707 s
+Process 26, time elapse: 0.095893 s, calculation time: 0.004788 s
+Process 27, time elapse: 0.113985 s, calculation time: 0.016575 s
+Process 29, time elapse: 0.116704 s, calculation time: 0.004773 s
+Process 28, time elapse: 0.117103 s, calculation time: 0.010649 s
+Process 30, time elapse: 0.122070 s, calculation time: 0.004862 s
+Process 31, time elapse: 0.131716 s, calculation time: 0.009388 s
+Send-Receive time process 0 with process 1 is 0.123801 s
+Send-Receive time process 0 with process 2 is 0.123490 s
+Send-Receive time process 0 with process 3 is 0.123251 s
+Send-Receive time process 0 with process 4 is 0.122987 s
+Send-Receive time process 0 with process 5 is 0.122749 s
+Send-Receive time process 0 with process 6 is 0.122498 s
+Send-Receive time process 0 with process 7 is 0.112470 s
+Send-Receive time process 0 with process 8 is 0.107439 s
+Send-Receive time process 0 with process 9 is 0.101767 s
+Send-Receive time process 0 with process 10 is 0.096136 s
+Send-Receive time process 0 with process 11 is 0.091062 s
+Send-Receive time process 0 with process 12 is 0.085595 s
+Send-Receive time process 0 with process 13 is 0.080357 s
+Send-Receive time process 0 with process 14 is 0.075466 s
+Send-Receive time process 0 with process 15 is 0.070276 s
+Send-Receive time process 0 with process 16 is 0.064823 s
+Send-Receive time process 0 with process 17 is 0.064542 s
+Send-Receive time process 0 with process 18 is 0.059493 s
+Send-Receive time process 0 with process 19 is 0.059257 s
+Send-Receive time process 0 with process 20 is 0.059014 s
+Send-Receive time process 0 with process 21 is 0.058774 s
+Send-Receive time process 0 with process 22 is 0.058518 s
+Send-Receive time process 0 with process 23 is 0.053753 s
+Send-Receive time process 0 with process 24 is 0.053491 s
+Send-Receive time process 0 with process 25 is 0.046682 s
+Send-Receive time process 0 with process 26 is 0.036643 s
+Send-Receive time process 0 with process 27 is 0.031542 s
+Send-Receive time process 0 with process 28 is 0.025577 s
+Send-Receive time process 0 with process 29 is 0.016075 s
+Send-Receive time process 0 with process 30 is 0.011027 s
+Send-Receive time process 0 with process 31 is 0.016263 s
+TOTAL TIME : 0.134320021 s
+
+collective matrix-vector multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 2, calculation: 0.000010014 s, Bcast-Scatter: 0.003025055 s, Gather: 0.000008106 s
+Process 3, calculation: 0.000010014 s, Bcast-Scatter: 0.002943993 s, Gather: 0.000013828 s
+Process 1, calculation: 0.000035048 s, Bcast-Scatter: 0.003000975 s, Gather: 0.000015974 s
+Process 5, calculation: 0.000010014 s, Bcast-Scatter: 0.003132820 s, Gather: 0.000014067 s
+Process 6, calculation: 0.000010967 s, Bcast-Scatter: 0.003191948 s, Gather: 0.000025034 s
+Process 7, calculation: 0.000011206 s, Bcast-Scatter: 0.003197908 s, Gather: 0.000012875 s
+Process 4, calculation: 0.000010014 s, Bcast-Scatter: 0.003057957 s, Gather: 0.000149965 s
+Process 17, calculation: 0.000009775 s, Bcast-Scatter: 0.004171133 s, Gather: 0.000017166 s
+Process 18, calculation: 0.000010967 s, Bcast-Scatter: 0.004133224 s, Gather: 0.000022888 s
+Process 19, calculation: 0.000010014 s, Bcast-Scatter: 0.004213095 s, Gather: 0.000015020 s
+Process 21, calculation: 0.000010967 s, Bcast-Scatter: 0.004201174 s, Gather: 0.000015974 s
+Process 22, calculation: 0.000010967 s, Bcast-Scatter: 0.004293919 s, Gather: 0.000009060 s
+Process 23, calculation: 0.000010014 s, Bcast-Scatter: 0.004337072 s, Gather: 0.000013113 s
+Process 20, calculation: 0.000010014 s, Bcast-Scatter: 0.004136801 s, Gather: 0.000171900 s
+Process 9, calculation: 0.000023127 s, Bcast-Scatter: 0.002820969 s, Gather: 0.000031948 s
+Process 10, calculation: 0.000022888 s, Bcast-Scatter: 0.003353119 s, Gather: 0.000017166 s
+Process 11, calculation: 0.000021935 s, Bcast-Scatter: 0.003330946 s, Gather: 0.000030041 s
+Process 13, calculation: 0.000021935 s, Bcast-Scatter: 0.003397942 s, Gather: 0.000030041 s
+Process 15, calculation: 0.000022173 s, Bcast-Scatter: 0.003338814 s, Gather: 0.000030041 s
+Process 25, calculation: 0.000023127 s, Bcast-Scatter: 0.003813982 s, Gather: 0.000030041 s
+Process 27, calculation: 0.000022888 s, Bcast-Scatter: 0.004245043 s, Gather: 0.000030994 s
+Process 26, calculation: 0.000021935 s, Bcast-Scatter: 0.003874063 s, Gather: 0.000375032 s
+Process 29, calculation: 0.000022888 s, Bcast-Scatter: 0.004480124 s, Gather: 0.000030994 s
+Process 30, calculation: 0.000022888 s, Bcast-Scatter: 0.004656076 s, Gather: 0.000034094 s
+Process 31, calculation: 0.000023127 s, Bcast-Scatter: 0.004486799 s, Gather: 0.000032902 s
+Process 14, calculation: 0.000021935 s, Bcast-Scatter: 0.002974987 s, Gather: 0.001111031 s
+Process 12, calculation: 0.000022888 s, Bcast-Scatter: 0.003609180 s, Gather: 0.001268148 s
+Process 8, calculation: 0.000022888 s, Bcast-Scatter: 0.003216028 s, Gather: 0.001616955 s
+Process 28, calculation: 0.000022888 s, Bcast-Scatter: 0.004312992 s, Gather: 0.001255035 s
+Process 16, calculation: 0.000010014 s, Bcast-Scatter: 0.004039049 s, Gather: 0.002744913 s
+Process 24, calculation: 0.000021935 s, Bcast-Scatter: 0.004113913 s, Gather: 0.001649141 s
+Process 0, calculation: 0.000010014 s, Bcast-Scatter: 0.002624035 s, Gather: 0.004023075 s
+TOTAL TIME : 0.006658077 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 3, calculation: 0.000010014 s, Bcast-Scatter: 0.003617048 s, Gather: 0.000015974 s
+Process 2, calculation: 0.000026226 s, Bcast-Scatter: 0.003644943 s, Gather: 0.000007868 s
+Process 5, calculation: 0.000010014 s, Bcast-Scatter: 0.003690958 s, Gather: 0.000014067 s
+Process 7, calculation: 0.000009060 s, Bcast-Scatter: 0.003574848 s, Gather: 0.000014067 s
+Process 1, calculation: 0.000010014 s, Bcast-Scatter: 0.003780842 s, Gather: 0.000015020 s
+Process 4, calculation: 0.000010014 s, Bcast-Scatter: 0.003597975 s, Gather: 0.000205994 s
+Process 6, calculation: 0.000010014 s, Bcast-Scatter: 0.003663063 s, Gather: 0.000173092 s
+Process 13, calculation: 0.000023127 s, Bcast-Scatter: 0.002585888 s, Gather: 0.000030994 s
+Process 9, calculation: 0.000020981 s, Bcast-Scatter: 0.002443075 s, Gather: 0.000029087 s
+Process 10, calculation: 0.000022888 s, Bcast-Scatter: 0.002541065 s, Gather: 0.000106096 s
+Process 11, calculation: 0.000023127 s, Bcast-Scatter: 0.002604961 s, Gather: 0.000033855 s
+Process 14, calculation: 0.000020981 s, Bcast-Scatter: 0.002635956 s, Gather: 0.000241995 s
+Process 15, calculation: 0.000021935 s, Bcast-Scatter: 0.002324104 s, Gather: 0.000025988 s
+Process 12, calculation: 0.000084877 s, Bcast-Scatter: 0.002597094 s, Gather: 0.000275135 s
+Process 8, calculation: 0.000020981 s, Bcast-Scatter: 0.002362013 s, Gather: 0.000492811 s
+Process 17, calculation: 0.000010014 s, Bcast-Scatter: 0.005413055 s, Gather: 0.000015974 s
+Process 20, calculation: 0.000010014 s, Bcast-Scatter: 0.005515099 s, Gather: 0.000032902 s
+Process 21, calculation: 0.000010014 s, Bcast-Scatter: 0.005396128 s, Gather: 0.000015020 s
+Process 22, calculation: 0.000010014 s, Bcast-Scatter: 0.005452871 s, Gather: 0.000012159 s
+Process 23, calculation: 0.000010014 s, Bcast-Scatter: 0.005527973 s, Gather: 0.000015020 s
+Process 19, calculation: 0.000010014 s, Bcast-Scatter: 0.005502939 s, Gather: 0.000049114 s
+Process 18, calculation: 0.000010014 s, Bcast-Scatter: 0.005444050 s, Gather: 0.000237942 s
+Process 29, calculation: 0.000023127 s, Bcast-Scatter: 0.004762888 s, Gather: 0.000030041 s
+Process 25, calculation: 0.000021935 s, Bcast-Scatter: 0.004148960 s, Gather: 0.000029087 s
+Process 26, calculation: 0.000022888 s, Bcast-Scatter: 0.005115986 s, Gather: 0.000072956 s
+Process 27, calculation: 0.000021935 s, Bcast-Scatter: 0.004994154 s, Gather: 0.000033140 s
+Process 31, calculation: 0.000021935 s, Bcast-Scatter: 0.004259109 s, Gather: 0.000029087 s
+Process 28, calculation: 0.000022888 s, Bcast-Scatter: 0.004163980 s, Gather: 0.000471115 s
+Process 30, calculation: 0.000022888 s, Bcast-Scatter: 0.005182028 s, Gather: 0.000208139 s
+Process 24, calculation: 0.000022888 s, Bcast-Scatter: 0.004567146 s, Gather: 0.001300097 s
+Process 16, calculation: 0.000010967 s, Bcast-Scatter: 0.005387068 s, Gather: 0.002837896 s
+Process 0, calculation: 0.000010967 s, Bcast-Scatter: 0.003186941 s, Gather: 0.004631996 s
+TOTAL TIME : 0.007833004 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 2, calculation: 0.000010014 s, Bcast-Scatter: 0.003488064 s, Gather: 0.000015974 s
+Process 3, calculation: 0.000010014 s, Bcast-Scatter: 0.003413916 s, Gather: 0.000020027 s
+Process 5, calculation: 0.000010014 s, Bcast-Scatter: 0.003482819 s, Gather: 0.000015974 s
+Process 1, calculation: 0.000010014 s, Bcast-Scatter: 0.003561974 s, Gather: 0.000015974 s
+Process 6, calculation: 0.000009060 s, Bcast-Scatter: 0.003588915 s, Gather: 0.000011921 s
+Process 7, calculation: 0.000010014 s, Bcast-Scatter: 0.003605127 s, Gather: 0.000015020 s
+Process 4, calculation: 0.000010014 s, Bcast-Scatter: 0.003453970 s, Gather: 0.000211954 s
+Process 17, calculation: 0.000010014 s, Bcast-Scatter: 0.004362106 s, Gather: 0.000012875 s
+Process 18, calculation: 0.000010014 s, Bcast-Scatter: 0.004428864 s, Gather: 0.000008106 s
+Process 19, calculation: 0.000010014 s, Bcast-Scatter: 0.004280090 s, Gather: 0.000012875 s
+Process 9, calculation: 0.000010014 s, Bcast-Scatter: 0.007400990 s, Gather: 0.000020027 s
+Process 10, calculation: 0.000010014 s, Bcast-Scatter: 0.007415056 s, Gather: 0.000012875 s
+Process 13, calculation: 0.000010014 s, Bcast-Scatter: 0.007409096 s, Gather: 0.000014067 s
+Process 11, calculation: 0.000010967 s, Bcast-Scatter: 0.007417202 s, Gather: 0.000016928 s
+Process 21, calculation: 0.000010014 s, Bcast-Scatter: 0.004544973 s, Gather: 0.000015020 s
+Process 12, calculation: 0.000010014 s, Bcast-Scatter: 0.007420063 s, Gather: 0.000108004 s
+Process 14, calculation: 0.000008821 s, Bcast-Scatter: 0.007429123 s, Gather: 0.000091076 s
+Process 15, calculation: 0.000009060 s, Bcast-Scatter: 0.007346869 s, Gather: 0.000014067 s
+Process 22, calculation: 0.000009775 s, Bcast-Scatter: 0.004599094 s, Gather: 0.000013113 s
+Process 23, calculation: 0.000010967 s, Bcast-Scatter: 0.004619122 s, Gather: 0.000015020 s
+Process 20, calculation: 0.000010014 s, Bcast-Scatter: 0.004606962 s, Gather: 0.000223875 s
+Process 25, calculation: 0.000010967 s, Bcast-Scatter: 0.008265018 s, Gather: 0.000012875 s
+Process 27, calculation: 0.000010014 s, Bcast-Scatter: 0.007786989 s, Gather: 0.000011921 s
+Process 8, calculation: 0.000010014 s, Bcast-Scatter: 0.007252932 s, Gather: 0.001167059 s
+Process 29, calculation: 0.000010967 s, Bcast-Scatter: 0.007829905 s, Gather: 0.000014067 s
+Process 30, calculation: 0.000010014 s, Bcast-Scatter: 0.008301020 s, Gather: 0.000022888 s
+Process 31, calculation: 0.000010967 s, Bcast-Scatter: 0.008486032 s, Gather: 0.000014067 s
+Process 26, calculation: 0.000010967 s, Bcast-Scatter: 0.008419037 s, Gather: 0.000470161 s
+Process 28, calculation: 0.000010014 s, Bcast-Scatter: 0.008409023 s, Gather: 0.000288010 s
+Process 24, calculation: 0.000009775 s, Bcast-Scatter: 0.007968187 s, Gather: 0.000721216 s
+Process 0, calculation: 0.000011206 s, Bcast-Scatter: 0.002997875 s, Gather: 0.002733946 s
+Process 16, calculation: 0.000010967 s, Bcast-Scatter: 0.004413843 s, Gather: 0.001764059 s
+TOTAL TIME : 0.005745173 s
+
+collective matrix-vector multiplication (col)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 2, calculation: 0.000013113 s, Bcast-Scatter: 0.007992983 s, Gather: 0.000061035 s
+Process 3, calculation: 0.000012159 s, Bcast-Scatter: 0.008075953 s, Gather: 0.000021935 s
+Process 7, calculation: 0.000011921 s, Bcast-Scatter: 0.008111000 s, Gather: 0.000017881 s
+Process 6, calculation: 0.000012159 s, Bcast-Scatter: 0.007994890 s, Gather: 0.000062943 s
+Process 5, calculation: 0.000013113 s, Bcast-Scatter: 0.008016825 s, Gather: 0.000015974 s
+Process 4, calculation: 0.000012159 s, Bcast-Scatter: 0.008039951 s, Gather: 0.000164032 s
+Process 1, calculation: 0.000015974 s, Bcast-Scatter: 0.008154869 s, Gather: 0.000020027 s
+Process 17, calculation: 0.000012875 s, Bcast-Scatter: 0.008795977 s, Gather: 0.000017166 s
+Process 19, calculation: 0.000011921 s, Bcast-Scatter: 0.008944035 s, Gather: 0.000017881 s
+Process 21, calculation: 0.000012875 s, Bcast-Scatter: 0.008927107 s, Gather: 0.000036955 s
+Process 23, calculation: 0.000013113 s, Bcast-Scatter: 0.008980989 s, Gather: 0.000018835 s
+Process 22, calculation: 0.000013113 s, Bcast-Scatter: 0.008888006 s, Gather: 0.000155926 s
+Process 20, calculation: 0.000012875 s, Bcast-Scatter: 0.008922815 s, Gather: 0.000194073 s
+Process 18, calculation: 0.000013113 s, Bcast-Scatter: 0.009129047 s, Gather: 0.000018835 s
+Process 16, calculation: 0.000012159 s, Bcast-Scatter: 0.008920908 s, Gather: 0.000255823 s
+Process 9, calculation: 0.000027895 s, Bcast-Scatter: 0.004895926 s, Gather: 0.000039101 s
+Process 25, calculation: 0.000027180 s, Bcast-Scatter: 0.006098032 s, Gather: 0.000040054 s
+Process 11, calculation: 0.000028133 s, Bcast-Scatter: 0.006089926 s, Gather: 0.000043869 s
+Process 10, calculation: 0.000026941 s, Bcast-Scatter: 0.005721092 s, Gather: 0.000553131 s
+Process 14, calculation: 0.000026941 s, Bcast-Scatter: 0.006085157 s, Gather: 0.000190973 s
+Process 15, calculation: 0.000025988 s, Bcast-Scatter: 0.005129814 s, Gather: 0.000042915 s
+Process 26, calculation: 0.000026941 s, Bcast-Scatter: 0.005970955 s, Gather: 0.000272036 s
+Process 27, calculation: 0.000025988 s, Bcast-Scatter: 0.006199121 s, Gather: 0.000091076 s
+Process 31, calculation: 0.000026941 s, Bcast-Scatter: 0.006198168 s, Gather: 0.000041008 s
+Process 29, calculation: 0.000027180 s, Bcast-Scatter: 0.006557941 s, Gather: 0.000042915 s
+Process 12, calculation: 0.000028133 s, Bcast-Scatter: 0.006083012 s, Gather: 0.000593901 s
+Process 13, calculation: 0.000033140 s, Bcast-Scatter: 0.006612062 s, Gather: 0.000038862 s
+Process 30, calculation: 0.000025988 s, Bcast-Scatter: 0.005928040 s, Gather: 0.000535965 s
+Process 28, calculation: 0.000027895 s, Bcast-Scatter: 0.006371975 s, Gather: 0.000359058 s
+Process 24, calculation: 0.000028133 s, Bcast-Scatter: 0.006232023 s, Gather: 0.000689030 s
+Process 8, calculation: 0.000028133 s, Bcast-Scatter: 0.003197908 s, Gather: 0.003998995 s
+Process 0, calculation: 0.000011921 s, Bcast-Scatter: 0.009706974 s, Gather: 0.002928972 s
+TOTAL TIME : 0.012650967 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 1, calculation: 0.000012875 s, Bcast-Scatter: 0.002043009 s, Gather: 0.000021935 s
+Process 2, calculation: 0.000011921 s, Bcast-Scatter: 0.002130032 s, Gather: 0.000018120 s
+Process 3, calculation: 0.000011921 s, Bcast-Scatter: 0.002110958 s, Gather: 0.000021935 s
+Process 6, calculation: 0.000013113 s, Bcast-Scatter: 0.002162933 s, Gather: 0.000036955 s
+Process 7, calculation: 0.000013828 s, Bcast-Scatter: 0.002195120 s, Gather: 0.000021219 s
+Process 4, calculation: 0.000010967 s, Bcast-Scatter: 0.002192020 s, Gather: 0.000136137 s
+Process 5, calculation: 0.000011921 s, Bcast-Scatter: 0.002225161 s, Gather: 0.000016928 s
+Process 19, calculation: 0.000012875 s, Bcast-Scatter: 0.002974033 s, Gather: 0.000020981 s
+Process 17, calculation: 0.000013113 s, Bcast-Scatter: 0.003062010 s, Gather: 0.000016928 s
+Process 23, calculation: 0.000011921 s, Bcast-Scatter: 0.003042936 s, Gather: 0.000018120 s
+Process 22, calculation: 0.000012875 s, Bcast-Scatter: 0.002953053 s, Gather: 0.000031948 s
+Process 18, calculation: 0.000011921 s, Bcast-Scatter: 0.003174067 s, Gather: 0.000019073 s
+Process 20, calculation: 0.000012159 s, Bcast-Scatter: 0.002963781 s, Gather: 0.000095844 s
+Process 21, calculation: 0.000011921 s, Bcast-Scatter: 0.003061056 s, Gather: 0.000017166 s
+Process 16, calculation: 0.000012875 s, Bcast-Scatter: 0.002990961 s, Gather: 0.000213146 s
+Process 9, calculation: 0.000013113 s, Bcast-Scatter: 0.004319906 s, Gather: 0.000016928 s
+Process 11, calculation: 0.000006914 s, Bcast-Scatter: 0.004625082 s, Gather: 0.000019073 s
+Process 10, calculation: 0.000011921 s, Bcast-Scatter: 0.004620075 s, Gather: 0.000024080 s
+Process 13, calculation: 0.000012875 s, Bcast-Scatter: 0.004631042 s, Gather: 0.000024080 s
+Process 25, calculation: 0.000013113 s, Bcast-Scatter: 0.004635096 s, Gather: 0.000017881 s
+Process 27, calculation: 0.000012875 s, Bcast-Scatter: 0.004565954 s, Gather: 0.000020027 s
+Process 26, calculation: 0.000012159 s, Bcast-Scatter: 0.004668951 s, Gather: 0.000019789 s
+Process 31, calculation: 0.000012875 s, Bcast-Scatter: 0.004677057 s, Gather: 0.000020027 s
+Process 29, calculation: 0.000012875 s, Bcast-Scatter: 0.004542112 s, Gather: 0.000016928 s
+Process 15, calculation: 0.000011921 s, Bcast-Scatter: 0.004709959 s, Gather: 0.000020027 s
+Process 30, calculation: 0.000012159 s, Bcast-Scatter: 0.004724979 s, Gather: 0.000017881 s
+Process 28, calculation: 0.000012875 s, Bcast-Scatter: 0.004754066 s, Gather: 0.000159979 s
+Process 24, calculation: 0.000013113 s, Bcast-Scatter: 0.004688978 s, Gather: 0.000201941 s
+Process 14, calculation: 0.000011921 s, Bcast-Scatter: 0.004679918 s, Gather: 0.000420094 s
+Process 12, calculation: 0.000013113 s, Bcast-Scatter: 0.004689932 s, Gather: 0.000334978 s
+Process 8, calculation: 0.000012159 s, Bcast-Scatter: 0.000831842 s, Gather: 0.004204035 s
+Process 0, calculation: 0.000012875 s, Bcast-Scatter: 0.004101038 s, Gather: 0.002434015 s
+TOTAL TIME : 0.006548882 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) vektor (256x1) I . x = b
+Process 1, calculation: 0.000013113 s, Bcast-Scatter: 0.000711918 s, Gather: 0.000020027 s
+Process 2, calculation: 0.000011921 s, Bcast-Scatter: 0.000744820 s, Gather: 0.000036955 s
+Process 3, calculation: 0.000011921 s, Bcast-Scatter: 0.000813961 s, Gather: 0.000020027 s
+Process 5, calculation: 0.000012159 s, Bcast-Scatter: 0.000771999 s, Gather: 0.000016928 s
+Process 7, calculation: 0.000011921 s, Bcast-Scatter: 0.000931025 s, Gather: 0.000020027 s
+Process 6, calculation: 0.000011921 s, Bcast-Scatter: 0.000777960 s, Gather: 0.000147820 s
+Process 4, calculation: 0.000012159 s, Bcast-Scatter: 0.001056910 s, Gather: 0.000021935 s
+Process 17, calculation: 0.000013113 s, Bcast-Scatter: 0.001613855 s, Gather: 0.000017881 s
+Process 19, calculation: 0.000021935 s, Bcast-Scatter: 0.001594067 s, Gather: 0.000020027 s
+Process 18, calculation: 0.000013113 s, Bcast-Scatter: 0.001569986 s, Gather: 0.000049829 s
+Process 21, calculation: 0.000011921 s, Bcast-Scatter: 0.001667023 s, Gather: 0.000019073 s
+Process 23, calculation: 0.000013113 s, Bcast-Scatter: 0.001680851 s, Gather: 0.000019073 s
+Process 20, calculation: 0.000012159 s, Bcast-Scatter: 0.001673937 s, Gather: 0.000177860 s
+Process 22, calculation: 0.000013113 s, Bcast-Scatter: 0.001682997 s, Gather: 0.000074863 s
+Process 16, calculation: 0.000012875 s, Bcast-Scatter: 0.001646042 s, Gather: 0.000276089 s
+Process 9, calculation: 0.000013113 s, Bcast-Scatter: 0.016743898 s, Gather: 0.000017881 s
+Process 10, calculation: 0.000013113 s, Bcast-Scatter: 0.015969992 s, Gather: 0.000865936 s
+Process 11, calculation: 0.000014067 s, Bcast-Scatter: 0.016802073 s, Gather: 0.000023842 s
+Process 13, calculation: 0.000014067 s, Bcast-Scatter: 0.016804934 s, Gather: 0.000019073 s
+Process 15, calculation: 0.000014067 s, Bcast-Scatter: 0.016546965 s, Gather: 0.000020981 s
+Process 14, calculation: 0.000012875 s, Bcast-Scatter: 0.016805172 s, Gather: 0.000095129 s
+Process 29, calculation: 0.000011921 s, Bcast-Scatter: 0.016898870 s, Gather: 0.000020027 s
+Process 25, calculation: 0.000012875 s, Bcast-Scatter: 0.016860962 s, Gather: 0.000018120 s
+Process 12, calculation: 0.000091076 s, Bcast-Scatter: 0.016923904 s, Gather: 0.000028849 s
+Process 27, calculation: 0.000013113 s, Bcast-Scatter: 0.016739845 s, Gather: 0.000020981 s
+Process 26, calculation: 0.000013113 s, Bcast-Scatter: 0.016837835 s, Gather: 0.000247955 s
+Process 31, calculation: 0.000013113 s, Bcast-Scatter: 0.017127991 s, Gather: 0.000019073 s
+Process 30, calculation: 0.000011921 s, Bcast-Scatter: 0.016879082 s, Gather: 0.000272036 s
+Process 28, calculation: 0.000012875 s, Bcast-Scatter: 0.016782045 s, Gather: 0.000375032 s
+Process 24, calculation: 0.000012875 s, Bcast-Scatter: 0.016718864 s, Gather: 0.000447035 s
+Process 8, calculation: 0.000013113 s, Bcast-Scatter: 0.013429880 s, Gather: 0.003946066 s
+Process 0, calculation: 0.000012159 s, Bcast-Scatter: 0.002393961 s, Gather: 0.002532959 s
+TOTAL TIME : 0.004940987 s
+
+collective matrix-matrix multiplication (row)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) A . I = C
+Process 1, calculation: 0.006424189 s, Bcast-Scatter: 0.019374847 s, Gather: 0.000025988 s
+Process 7, calculation: 0.006502151 s, Bcast-Scatter: 0.019448996 s, Gather: 0.000020027 s
+Process 5, calculation: 0.007221937 s, Bcast-Scatter: 0.019431114 s, Gather: 0.000020027 s
+Process 9, calculation: 0.006342888 s, Bcast-Scatter: 0.023391008 s, Gather: 0.000023842 s
+Process 15, calculation: 0.006376982 s, Bcast-Scatter: 0.023421049 s, Gather: 0.000019789 s
+Process 6, calculation: 0.008193016 s, Bcast-Scatter: 0.019458055 s, Gather: 0.000068903 s
+Process 3, calculation: 0.006505966 s, Bcast-Scatter: 0.022154093 s, Gather: 0.000021935 s
+Process 2, calculation: 0.006436110 s, Bcast-Scatter: 0.019399881 s, Gather: 0.002938986 s
+Process 21, calculation: 0.006453991 s, Bcast-Scatter: 0.026082039 s, Gather: 0.000021935 s
+Process 17, calculation: 0.006418943 s, Bcast-Scatter: 0.026673079 s, Gather: 0.000019073 s
+Process 25, calculation: 0.006444931 s, Bcast-Scatter: 0.029886007 s, Gather: 0.000024080 s
+Process 11, calculation: 0.006506920 s, Bcast-Scatter: 0.029889822 s, Gather: 0.000021935 s
+Process 10, calculation: 0.006409168 s, Bcast-Scatter: 0.023355961 s, Gather: 0.006723881 s
+Process 29, calculation: 0.006494045 s, Bcast-Scatter: 0.030831099 s, Gather: 0.000020027 s
+Process 31, calculation: 0.006505966 s, Bcast-Scatter: 0.031007051 s, Gather: 0.000020027 s
+Process 14, calculation: 0.014309883 s, Bcast-Scatter: 0.023352146 s, Gather: 0.000057936 s
+Process 19, calculation: 0.006548882 s, Bcast-Scatter: 0.028634071 s, Gather: 0.000020027 s
+Process 18, calculation: 0.006453037 s, Bcast-Scatter: 0.027760983 s, Gather: 0.001156092 s
+Process 30, calculation: 0.006445169 s, Bcast-Scatter: 0.031023979 s, Gather: 0.002583981 s
+Process 4, calculation: 0.018059969 s, Bcast-Scatter: 0.019319057 s, Gather: 0.000085115 s
+Process 27, calculation: 0.006414175 s, Bcast-Scatter: 0.036304951 s, Gather: 0.000021935 s
+Process 26, calculation: 0.006430864 s, Bcast-Scatter: 0.029782057 s, Gather: 0.006642818 s
+Process 28, calculation: 0.006467819 s, Bcast-Scatter: 0.029883146 s, Gather: 0.006667137 s
+Process 13, calculation: 0.013303041 s, Bcast-Scatter: 0.029870987 s, Gather: 0.000021935 s
+Process 12, calculation: 0.006412029 s, Bcast-Scatter: 0.023332119 s, Gather: 0.013518810 s
+Process 8, calculation: 0.006382942 s, Bcast-Scatter: 0.023194075 s, Gather: 0.014496088 s
+Process 23, calculation: 0.006406069 s, Bcast-Scatter: 0.039061069 s, Gather: 0.000020981 s
+Process 22, calculation: 0.006455183 s, Bcast-Scatter: 0.032652855 s, Gather: 0.006664991 s
+Process 20, calculation: 0.006514072 s, Bcast-Scatter: 0.026063919 s, Gather: 0.013272047 s
+Process 24, calculation: 0.006511927 s, Bcast-Scatter: 0.029762983 s, Gather: 0.013415098 s
+Process 16, calculation: 0.006440878 s, Bcast-Scatter: 0.025928974 s, Gather: 0.014974117 s
+Process 0, calculation: 0.006369114 s, Bcast-Scatter: 0.018511057 s, Gather: 0.021826982 s
+TOTAL TIME : 0.046712160 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) A . I = C
+Process 3, calculation: 0.006448030 s, Bcast-Scatter: 0.017496109 s, Gather: 0.000024080 s
+Process 1, calculation: 0.006474972 s, Bcast-Scatter: 0.017425060 s, Gather: 0.000020027 s
+Process 5, calculation: 0.006456137 s, Bcast-Scatter: 0.017518044 s, Gather: 0.000020981 s
+Process 9, calculation: 0.006430149 s, Bcast-Scatter: 0.020914793 s, Gather: 0.000022888 s
+Process 13, calculation: 0.006428957 s, Bcast-Scatter: 0.021023989 s, Gather: 0.000020981 s
+Process 27, calculation: 0.006525993 s, Bcast-Scatter: 0.020110846 s, Gather: 0.000021219 s
+Process 7, calculation: 0.006544113 s, Bcast-Scatter: 0.024064064 s, Gather: 0.000025988 s
+Process 21, calculation: 0.006469965 s, Bcast-Scatter: 0.024137974 s, Gather: 0.000025034 s
+Process 17, calculation: 0.006526947 s, Bcast-Scatter: 0.024120092 s, Gather: 0.000020981 s
+Process 23, calculation: 0.006519794 s, Bcast-Scatter: 0.024019003 s, Gather: 0.000079155 s
+Process 2, calculation: 0.006413937 s, Bcast-Scatter: 0.017410994 s, Gather: 0.006848097 s
+Process 22, calculation: 0.006506920 s, Bcast-Scatter: 0.024060965 s, Gather: 0.000138998 s
+Process 6, calculation: 0.013661861 s, Bcast-Scatter: 0.017481089 s, Gather: 0.000056028 s
+Process 4, calculation: 0.006546021 s, Bcast-Scatter: 0.017448902 s, Gather: 0.007259130 s
+Process 11, calculation: 0.006460190 s, Bcast-Scatter: 0.026331902 s, Gather: 0.000021935 s
+Process 10, calculation: 0.006500006 s, Bcast-Scatter: 0.020992041 s, Gather: 0.005367041 s
+Process 26, calculation: 0.007694960 s, Bcast-Scatter: 0.018491030 s, Gather: 0.006675005 s
+Process 15, calculation: 0.006567001 s, Bcast-Scatter: 0.027533054 s, Gather: 0.000021935 s
+Process 19, calculation: 0.006487131 s, Bcast-Scatter: 0.030745983 s, Gather: 0.000020981 s
+Process 18, calculation: 0.006479979 s, Bcast-Scatter: 0.024080038 s, Gather: 0.006698132 s
+Process 20, calculation: 0.007266998 s, Bcast-Scatter: 0.024027824 s, Gather: 0.005993128 s
+Process 25, calculation: 0.019833088 s, Bcast-Scatter: 0.018154860 s, Gather: 0.000023127 s
+Process 29, calculation: 0.011942863 s, Bcast-Scatter: 0.027481079 s, Gather: 0.000022173 s
+Process 14, calculation: 0.012036085 s, Bcast-Scatter: 0.027302027 s, Gather: 0.000057936 s
+Process 12, calculation: 0.013254166 s, Bcast-Scatter: 0.021030903 s, Gather: 0.005452871 s
+Process 31, calculation: 0.012175083 s, Bcast-Scatter: 0.027225971 s, Gather: 0.000022888 s
+Process 8, calculation: 0.006445885 s, Bcast-Scatter: 0.020808935 s, Gather: 0.013277054 s
+Process 30, calculation: 0.019749880 s, Bcast-Scatter: 0.018023014 s, Gather: 0.003651142 s
+Process 28, calculation: 0.019726038 s, Bcast-Scatter: 0.018074989 s, Gather: 0.003829002 s
+Process 24, calculation: 0.007682085 s, Bcast-Scatter: 0.018527985 s, Gather: 0.016988993 s
+Process 16, calculation: 0.006539106 s, Bcast-Scatter: 0.024081945 s, Gather: 0.013726950 s
+Process 0, calculation: 0.006437063 s, Bcast-Scatter: 0.016686916 s, Gather: 0.020544052 s
+TOTAL TIME : 0.043673038 s
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Perkalian matriks (256x256) A . I = C
+Process 17, calculation: 0.006369114 s, Bcast-Scatter: 0.021147013 s, Gather: 0.000029802 s
+Process 19, calculation: 0.006455183 s, Bcast-Scatter: 0.021011829 s, Gather: 0.000020027 s
+Process 18, calculation: 0.006462097 s, Bcast-Scatter: 0.021174908 s, Gather: 0.000068903 s
+Process 5, calculation: 0.006494045 s, Bcast-Scatter: 0.022748947 s, Gather: 0.000021935 s
+Process 29, calculation: 0.006369114 s, Bcast-Scatter: 0.028600931 s, Gather: 0.000022888 s
+Process 1, calculation: 0.006483078 s, Bcast-Scatter: 0.027688026 s, Gather: 0.000025034 s
+Process 3, calculation: 0.006436825 s, Bcast-Scatter: 0.028305054 s, Gather: 0.000020027 s
+Process 31, calculation: 0.006471157 s, Bcast-Scatter: 0.032866001 s, Gather: 0.000021935 s
+Process 2, calculation: 0.006644964 s, Bcast-Scatter: 0.021981001 s, Gather: 0.006690025 s
+Process 23, calculation: 0.006422043 s, Bcast-Scatter: 0.034725904 s, Gather: 0.000022173 s
+Process 21, calculation: 0.006487131 s, Bcast-Scatter: 0.032799959 s, Gather: 0.000020981 s
+Process 7, calculation: 0.012999058 s, Bcast-Scatter: 0.028491974 s, Gather: 0.000020981 s
+Process 6, calculation: 0.006522894 s, Bcast-Scatter: 0.028489113 s, Gather: 0.006544113 s
+Process 25, calculation: 0.020384073 s, Bcast-Scatter: 0.026654959 s, Gather: 0.000022888 s
+Process 22, calculation: 0.013073921 s, Bcast-Scatter: 0.028454065 s, Gather: 0.000059128 s
+Process 20, calculation: 0.006479979 s, Bcast-Scatter: 0.027639151 s, Gather: 0.009165049 s
+Process 4, calculation: 0.006458044 s, Bcast-Scatter: 0.021977901 s, Gather: 0.015069962 s
+Process 30, calculation: 0.006407976 s, Bcast-Scatter: 0.032876968 s, Gather: 0.008664131 s
+Process 9, calculation: 0.006398916 s, Bcast-Scatter: 0.044826984 s, Gather: 0.000020027 s
+Process 13, calculation: 0.006414890 s, Bcast-Scatter: 0.044948101 s, Gather: 0.000020981 s
+Process 11, calculation: 0.006505966 s, Bcast-Scatter: 0.051491976 s, Gather: 0.000020981 s
+Process 10, calculation: 0.006495953 s, Bcast-Scatter: 0.044938087 s, Gather: 0.006633997 s
+Process 27, calculation: 0.019217968 s, Bcast-Scatter: 0.039280891 s, Gather: 0.000022173 s
+Process 26, calculation: 0.013058901 s, Bcast-Scatter: 0.039171934 s, Gather: 0.006278992 s
+Process 28, calculation: 0.030472994 s, Bcast-Scatter: 0.026780128 s, Gather: 0.001302004 s
+Process 24, calculation: 0.006335974 s, Bcast-Scatter: 0.026910067 s, Gather: 0.026514053 s
+Process 15, calculation: 0.011697054 s, Bcast-Scatter: 0.051254034 s, Gather: 0.000022888 s
+Process 14, calculation: 0.008419991 s, Bcast-Scatter: 0.051429987 s, Gather: 0.003350019 s
+Process 12, calculation: 0.006474972 s, Bcast-Scatter: 0.044889927 s, Gather: 0.011831999 s
+Process 8, calculation: 0.006438971 s, Bcast-Scatter: 0.044832945 s, Gather: 0.013020039 s
+Process 16, calculation: 0.013247013 s, Bcast-Scatter: 0.020992041 s, Gather: 0.026278019 s
+Process 0, calculation: 0.008210897 s, Bcast-Scatter: 0.020329952 s, Gather: 0.030619144 s
+TOTAL TIME : 0.059170008 s
