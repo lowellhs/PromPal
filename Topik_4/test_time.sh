@@ -15,7 +15,7 @@ echo "#define file_test   \"${test}\""  >>  init.c
 echo "#define rows_train  ${n}"         >>  init.c
 echo "#define rows_test   $(cat $test | wc -l)"            >>  init.c
 
-mpicc -o knn.o knn.c -lm
+mpicc -o $PWD/knn.o $PWD/knn.c -lm
 
 fileOut="$PWD/test_output/${env}_time_${n}.txt"
 
@@ -35,5 +35,5 @@ do
   echo >> $fileOut
 done
 
-rm $PWD/init.c
-rm $PWD/knn.o
+rm -f $PWD/init.c
+rm -f $PWD/knn.o

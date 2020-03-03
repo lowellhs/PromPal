@@ -1,14 +1,11 @@
 #include "mpi.h"
 #include "./helper.c"
+#include "./init.c"
 
 #define MAX_LEN     100
 #define K           4
 #define num_labels  3
 #define cols        5
-#define file_train  "test_input/Iris_150.csv"
-#define file_test   "test_input/Iris_test.csv"
-#define rows_train  150
-#define rows_test   15
 
 int     labels_to_num(char[]);
 void    sequential(int, int, int);
