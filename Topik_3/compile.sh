@@ -9,3 +9,5 @@ echo >> init_jacobi.c
 
 mpicc -o jacobi/sequential.o jacobi/sequential.c -lm
 mpicc -o jacobi/mpi_nonopt.o jacobi/mpi_nonopt.c -lm
+
+rm init_jacobi.c
