@@ -1,0 +1,48 @@
+PROCESSOR 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000306294 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000390743 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000310232 s, difference y_test and y_predict : 0.000000000
+
+PROCESSOR 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000277441 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000246122 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000285525 s, difference y_test and y_predict : 0.000000000
+
+PROCESSOR 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000187131 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000236033 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000199654 s, difference y_test and y_predict : 0.000000000
+
+PROCESSOR 10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000313098 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000315321 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000834395 s, difference y_test and y_predict : 0.000000000
+
+PROCESSOR 15
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000554891 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000454563 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000394450 s, difference y_test and y_predict : 0.000000000
+
+PROCESSOR 30
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000690135 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000572915 s, difference y_test and y_predict : 0.000000000
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TOTAL TIME : 0.000439625 s, difference y_test and y_predict : 0.000000000
+
