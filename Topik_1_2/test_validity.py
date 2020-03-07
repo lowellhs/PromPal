@@ -3,6 +3,7 @@ import os
 import sys
 
 hostfile = sys.argv[1]
+methods = sys.argv[2]
 
 def run(cmd):
   os.system(cmd)
@@ -52,52 +53,54 @@ for procs in [2, 3]:
   valid_matrix  = read_matrix(matrix)
   valid_vector  = read_vector(vector)
 
-  # MATRIX-VECTOR
-  cmds = [
-    'mpirun --hostfile {0} -np {1} sequential/seq_matvec.o 1 0 {2} {3}',
-    'mpirun --hostfile {0} -np {1} point_to_point/mpi_matvec_row.o 1 0 {2} {3}',
-    'mpirun --hostfile {0} -np {1} point_to_point/mpi_matvec_col.o 1 0 {2} {3}',
-    'mpirun --hostfile {0} -np {1} collective/mpi_matvec_row.o 1 0 {2} {3}',
-    'mpirun --hostfile {0} -np {1} collective/mpi_matvec_col.o 1 0 {2} {3}',
-  ]
-  cmds[0] = cmds[0].format(hostfile, "1", matrix_i, vector)
-  for i in range(1, len(cmds)):
-    cmds[i] = cmds[i].format(hostfile, str(procs), matrix_i, vector)
+  if methods == "matvec":
+    # MATRIX-VECTOR
+    cmds = [
+      'mpirun --hostfile {0} -np {1} sequential/seq_matvec.o 1 0 {2} {3}',
+      'mpirun --hostfile {0} -np {1} point_to_point/mpi_matvec_row.o 1 0 {2} {3}',
+      'mpirun --hostfile {0} -np {1} point_to_point/mpi_matvec_col.o 1 0 {2} {3}',
+      'mpirun --hostfile {0} -np {1} collective/mpi_matvec_row.o 1 0 {2} {3}',
+      'mpirun --hostfile {0} -np {1} collective/mpi_matvec_col.o 1 0 {2} {3}',
+    ]
+    cmds[0] = cmds[0].format(hostfile, "1", matrix_i, vector)
+    for i in range(1, len(cmds)):
+      cmds[i] = cmds[i].format(hostfile, str(procs), matrix_i, vector)
 
-  results = []
-  for cmd in cmds:
-    results.append([float(x) for x in output(cmd)])
+    results = []
+    for cmd in cmds:
+      results.append([float(x) for x in output(cmd)])
 
-  print("\nDifferences with valid vector (Ix = b) -> (x == b)?")
-  print("--------------------------------------------------")
-  print("{:40s}: {:.6f}".format("Sequential", diff_vector(valid_vector, results[0])))
-  print("{:40s}: {:.6f}".format("Row-wise (point-to-point) "+str(procs)+" processors", diff_vector(valid_vector, results[1])))
-  print("{:40s}: {:.6f}".format("Col-wise (point-to-point) "+str(procs)+" processors", diff_vector(valid_vector, results[2])))
-  print("{:40s}: {:.6f}".format("Row-wise (collective) "+str(procs)+" processors", diff_vector(valid_vector, results[3])))
-  print("{:40s}: {:.6f}".format("Col-wise (collective) "+str(procs)+" processors", diff_vector(valid_vector, results[4])))
+    print("\nMatrix size : {}x{}".format(m, m))
+    print("Differences with valid vector (Ix = b) -> (x == b)?")
+    print("--------------------------------------------------")
+    print("{:40s}: {:.6f}".format("Sequential", diff_vector(valid_vector, results[0])))
+    print("{:40s}: {:.6f}".format("Row-wise (point-to-point) "+str(procs)+" processors", diff_vector(valid_vector, results[1])))
+    print("{:40s}: {:.6f}".format("Col-wise (point-to-point) "+str(procs)+" processors", diff_vector(valid_vector, results[2])))
+    print("{:40s}: {:.6f}".format("Row-wise (collective) "+str(procs)+" processors", diff_vector(valid_vector, results[3])))
+    print("{:40s}: {:.6f}".format("Col-wise (collective) "+str(procs)+" processors", diff_vector(valid_vector, results[4])))
+  elif methods == "matmat":
+    # MATRIX-MATRIX
+    cmds = [
+      'mpirun --hostfile {0} -np {1} sequential/seq_matmat.o 1 0 {2} {3}',
+      'mpirun --hostfile {0} -np {1} point_to_point/mpi_matmat_row.o 1 0 {2} {3}',
+      'mpirun --hostfile {0} -np {1} collective/mpi_matmat_row.o 1 0 {2} {3}',
+    ]
+    cmds[0] = cmds[0].format(hostfile, "1", matrix_i, matrix)
+    for i in range(1, len(cmds)):
+      cmds[i] = cmds[i].format(hostfile, str(procs), matrix_i, matrix)
 
-  # MATRIX-MATRIX
-  cmds = [
-    'mpirun --hostfile {0} -np {1} sequential/seq_matmat.o 1 0 {2} {3}',
-    'mpirun --hostfile {0} -np {1} point_to_point/mpi_matmat_row.o 1 0 {2} {3}',
-    'mpirun --hostfile {0} -np {1} collective/mpi_matmat_row.o 1 0 {2} {3}',
-  ]
-  cmds[0] = cmds[0].format(hostfile, "1", matrix_i, matrix)
-  for i in range(1, len(cmds)):
-    cmds[i] = cmds[i].format(hostfile, str(procs), matrix_i, matrix)
+    results = []
+    for cmd in cmds:
+      lines = output(cmd)
+      temp = []
+      for line in lines:
+        temp.append([float(x) for x in line.split(" ")])
+      results.append(temp)
 
-  results = []
-  for cmd in cmds:
-    lines = output(cmd)
-    temp = []
-    for line in lines:
-      temp.append([float(x) for x in line.split(" ")])
-    results.append(temp)
-
-  print("\nDifferences with valid matrix (IB = C) -> (B == C)?")
-  print("--------------------------------------------------")
-  print("{:40s}: {:.6f}".format("Sequential", diff_matrix(valid_matrix, results[0])))
-  print("{:40s}: {:.6f}".format("Row-wise (point-to-point) "+str(procs)+" processors", diff_matrix(valid_matrix, results[1])))
-  print("{:40s}: {:.6f}".format("Row-wise (collective) "+str(procs)+" processors", diff_matrix(valid_matrix, results[2])))
-
+    print("\nMatrix size : {}x{}".format(m, m))
+    print("Differences with valid matrix (IB = C) -> (B == C)?")
+    print("--------------------------------------------------")
+    print("{:40s}: {:.6f}".format("Sequential", diff_matrix(valid_matrix, results[0])))
+    print("{:40s}: {:.6f}".format("Row-wise (point-to-point) "+str(procs)+" processors", diff_matrix(valid_matrix, results[1])))
+    print("{:40s}: {:.6f}".format("Row-wise (collective) "+str(procs)+" processors", diff_matrix(valid_matrix, results[2])))
 print()
