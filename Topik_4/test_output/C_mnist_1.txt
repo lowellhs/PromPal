@@ -1,0 +1,43 @@
+READING TRAIN DATA...
+READING TEST DATA...
+Sequential, 250 data tested, current total time : 4.262098074 s
+Sequential, 500 data tested, current total time : 8.523736477 s
+Sequential, 750 data tested, current total time : 12.786570787 s
+Sequential, 1000 data tested, current total time : 17.050351620 s
+Sequential, 1250 data tested, current total time : 21.314429283 s
+Sequential, 1500 data tested, current total time : 25.577765226 s
+Sequential, 1750 data tested, current total time : 29.840919018 s
+Sequential, 2000 data tested, current total time : 34.104289532 s
+Sequential, 2250 data tested, current total time : 38.366948128 s
+Sequential, 2500 data tested, current total time : 42.628790379 s
+Sequential, 2750 data tested, current total time : 46.890937805 s
+Sequential, 3000 data tested, current total time : 51.154267788 s
+Sequential, 3250 data tested, current total time : 55.416921854 s
+Sequential, 3500 data tested, current total time : 59.679297447 s
+Sequential, 3750 data tested, current total time : 63.941647291 s
+Sequential, 4000 data tested, current total time : 68.203912258 s
+Sequential, 4250 data tested, current total time : 72.467509031 s
+Sequential, 4500 data tested, current total time : 76.730531216 s
+Sequential, 4750 data tested, current total time : 80.994061708 s
+Sequential, 5000 data tested, current total time : 85.257642746 s
+Sequential, 5250 data tested, current total time : 89.521373987 s
+Sequential, 5500 data tested, current total time : 93.787305117 s
+Sequential, 5750 data tested, current total time : 98.051503897 s
+Sequential, 6000 data tested, current total time : 102.315810442 s
+Sequential, 6250 data tested, current total time : 106.580009460 s
+Sequential, 6500 data tested, current total time : 110.844309568 s
+Sequential, 6750 data tested, current total time : 115.109023571 s
+Sequential, 7000 data tested, current total time : 119.373075247 s
+Sequential, 7250 data tested, current total time : 123.638106585 s
+Sequential, 7500 data tested, current total time : 127.902795553 s
+Sequential, 7750 data tested, current total time : 132.166274548 s
+Sequential, 8000 data tested, current total time : 136.432843447 s
+Sequential, 8250 data tested, current total time : 140.698161125 s
+Sequential, 8500 data tested, current total time : 144.962173700 s
+Sequential, 8750 data tested, current total time : 149.226555824 s
+Sequential, 9000 data tested, current total time : 153.492078543 s
+Sequential, 9250 data tested, current total time : 157.758062363 s
+Sequential, 9500 data tested, current total time : 162.021972656 s
+Sequential, 9750 data tested, current total time : 166.286805868 s
+Sequential, 10000 data tested, current total time : 170.549640656 s
+Accuracy score : 96.180000000

@@ -1,0 +1,43 @@
+READING TRAIN DATA...
+READING TEST DATA...
+2 processors, 250 data tested, current total time : 2.474155188 s
+2 processors, 500 data tested, current total time : 4.600283384 s
+2 processors, 750 data tested, current total time : 6.724512339 s
+2 processors, 1000 data tested, current total time : 8.856052637 s
+2 processors, 1250 data tested, current total time : 10.975905657 s
+2 processors, 1500 data tested, current total time : 13.100660801 s
+2 processors, 1750 data tested, current total time : 15.219534397 s
+2 processors, 2000 data tested, current total time : 17.344331503 s
+2 processors, 2250 data tested, current total time : 19.469265938 s
+2 processors, 2500 data tested, current total time : 21.596547365 s
+2 processors, 2750 data tested, current total time : 23.727481604 s
+2 processors, 3000 data tested, current total time : 25.851716995 s
+2 processors, 3250 data tested, current total time : 27.977193832 s
+2 processors, 3500 data tested, current total time : 30.100266457 s
+2 processors, 3750 data tested, current total time : 32.221811056 s
+2 processors, 4000 data tested, current total time : 34.342563629 s
+2 processors, 4250 data tested, current total time : 36.465234280 s
+2 processors, 4500 data tested, current total time : 38.591810465 s
+2 processors, 4750 data tested, current total time : 40.716488600 s
+2 processors, 5000 data tested, current total time : 42.844016552 s
+2 processors, 5250 data tested, current total time : 44.974634647 s
+2 processors, 5500 data tested, current total time : 47.103495598 s
+2 processors, 5750 data tested, current total time : 49.235531807 s
+2 processors, 6000 data tested, current total time : 51.355183363 s
+2 processors, 6250 data tested, current total time : 53.481104136 s
+2 processors, 6500 data tested, current total time : 55.600980282 s
+2 processors, 6750 data tested, current total time : 57.724209785 s
+2 processors, 7000 data tested, current total time : 59.848074436 s
+2 processors, 7250 data tested, current total time : 61.970523834 s
+2 processors, 7500 data tested, current total time : 64.093515158 s
+2 processors, 7750 data tested, current total time : 66.220846415 s
+2 processors, 8000 data tested, current total time : 68.347295284 s
+2 processors, 8250 data tested, current total time : 70.475763321 s
+2 processors, 8500 data tested, current total time : 72.601304293 s
+2 processors, 8750 data tested, current total time : 74.721473217 s
+2 processors, 9000 data tested, current total time : 76.845618248 s
+2 processors, 9250 data tested, current total time : 78.965667725 s
+2 processors, 9500 data tested, current total time : 81.091291428 s
+2 processors, 9750 data tested, current total time : 83.219928503 s
+2 processors, 10000 data tested, current total time : 85.345733404 s
+Accuracy score : 96.180000000
