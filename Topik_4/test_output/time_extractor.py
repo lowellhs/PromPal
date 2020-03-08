@@ -14,21 +14,25 @@ def findMin(arr):
 
 def extractTime(lines):
   totalTime = []
-  procs = [1, 2, 4, 8, 16, 32]
+  commTime = []
+  procs = [1, 2, 5, 10, 15, 30]
   currProcs = 0
   currLine = 1
   while currProcs < len(procs) and currLine < len(lines):
     totals = []
+    comms = []
     while lines[currLine] != "":
       splitted = lines[currLine].split(" ")
       if splitted[0] == "TOTAL":
         totals.append(float(splitted[3]))
+        comms.append(float(splitted[8]))
       currLine += 1
     minTot, ix = findMin(totals)
     totalTime.append(minTot)
+    commTime.append(comms[ix])
     currProcs += 1
     currLine += 1
-  return totalTime
+  return totalTime, commTime
 
 env = sys.argv[1]
 sizes = [int(x) for x in sys.argv[2::]]
@@ -45,5 +49,6 @@ for out in os.listdir():
 for size in sizes:
   with open(files[size], "r") as ff:
     lines = ff.read().split("\n")
-  totalTime = extractTime(lines)
+  totalTime, commTime = extractTime(lines)
   print(" ".join(["%.6f" % (x) for x in totalTime]))
+  print(" ".join(["%.6f" % (x) for x in commTime]))
