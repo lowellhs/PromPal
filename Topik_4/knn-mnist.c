@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
       comp_time += (MPI_Wtime() - start);
       if (my_rank == 0) {
         if ((i+1) % 250 == 0) {
-          printf("Sequential, %d data tested, current total time : %.9f s\n", i+1, comp_time);
+          printf("%d processors, %d data tested, current total time : %.9f s\n", num_procs, i+1, comp_time);
         }
       }
     }
