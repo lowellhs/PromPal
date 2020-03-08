@@ -36,4 +36,4 @@ do
 done
 
 rm -f $PWD/init.c
-rm -f $PWD/knn.o
+rm -f $PWD/knn*.o

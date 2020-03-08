@@ -139,6 +139,17 @@ void print_vector_int(int n, int v[n]) {
   }
 }
 
+double accuracy(int n, int veca[n], int vecb[n]) {
+  int i, equals;
+  equals = 0;
+  for (i=0; i<n; i++) {
+    if (veca[i] == vecb[i]) {
+      equals += 1;
+    }
+  }
+  return (equals*1.0/n * 100);
+}
+
 double norm_vector(int n, double veca[n], double vecb[n]) {
   int i;
   double sum, diff;
