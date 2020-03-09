@@ -1,48 +1,48 @@
 PROCESSOR 1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.005167763 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000842971 s, COMM TIME : 0.000000000 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.005165158 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000858871 s, COMM TIME : 0.000000000 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.004855127 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.001081910 s, COMM TIME : 0.000000000 s, accuracy : 100.0000
 
 PROCESSOR 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.002755359 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000700855 s, COMM TIME : 0.000263344 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.002726845 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000705153 s, COMM TIME : 0.000263074 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.002827514 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000622217 s, COMM TIME : 0.000057867 s, accuracy : 100.0000
 
-PROCESSOR 4
+PROCESSOR 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.001691583 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000321864 s, COMM TIME : 0.000120145 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.001344863 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000360837 s, COMM TIME : 0.000135946 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.001985946 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000256271 s, COMM TIME : 0.000120526 s, accuracy : 100.0000
 
-PROCESSOR 8
+PROCESSOR 10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.000685416 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000322255 s, COMM TIME : 0.000232776 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.000898796 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000250450 s, COMM TIME : 0.000184528 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.000910728 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000293300 s, COMM TIME : 0.000233248 s, accuracy : 100.0000
 
-PROCESSOR 16
+PROCESSOR 15
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.000716825 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000401884 s, COMM TIME : 0.000303519 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.000679314 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000329488 s, COMM TIME : 0.000256211 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.000726122 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000288651 s, COMM TIME : 0.000239961 s, accuracy : 100.0000
 
-PROCESSOR 32
+PROCESSOR 30
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.000777940 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000357130 s, COMM TIME : 0.000313398 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.000615896 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000350577 s, COMM TIME : 0.000306957 s, accuracy : 100.0000
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TOTAL TIME : 0.000584746 s, difference y_test and y_predict : 0.000000000
+TOTAL TIME : 0.000299672 s, COMM TIME : 0.000257805 s, accuracy : 100.0000
 

@@ -6,8 +6,8 @@
 #define file_test   "test_input/MNIST_test_10k.csv"
 #define rows_train  60000
 #define rows_test   10000
-#define cols        17
-#define K           11
+#define cols        33
+#define K           5
 #define num_labels  10
 
 void    sequential(int, int, int);
