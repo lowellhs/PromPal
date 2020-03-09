@@ -53,3 +53,5 @@ dkms.conf
 
 test_*.txt
 analysis.txt
+env
+Topik_4/test_input/.ipynb_checkpoints/
