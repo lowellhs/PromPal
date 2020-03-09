@@ -27,6 +27,8 @@ int main(int argc, char **argv) {
   int    i, j, num_procs, my_rank, print_flag, rows, row_start, row_limit;
 
   print_flag = atoi(argv[1]);
+  comm_time = 0.0;
+  comp_time = 0.0;
 
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &num_procs);
