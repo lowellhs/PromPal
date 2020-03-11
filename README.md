@@ -6,7 +6,7 @@
 ~~~
 ___
 
-### Dokummen PR1 Group 7
+### Dokumen PR1 Group 7
 ___
 Anggota Kelompok :<br>
 Alif Fadila Safriyanto - 1506688765<br>
