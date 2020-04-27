@@ -1,19 +1,9 @@
-@everywhere using DistributedArrays
-@everywhere using LinearAlgebra
-@everywhere using BenchmarkTools
+@everywhere using DistributedArrays, LinearAlgebra
+# using CUDAnative, CuArrays, CUDAdrv
+using BenchmarkTools, Test
 
 @everywhere function matmul(A, B)
-    A_rows, A_cols = size(A)
-    B_rows, B_cols = size(B)
-    C = zeros(A_rows, B_cols)
-    for i = 1:A_rows
-        for j = 1:B_cols
-            for k = 1:B_rows
-                C[i, j] += A[i, k] * B[k, j]
-            end
-        end
-    end
-    return C
+    return A*B
 end
 
 @everywhere function matmul_par(A, B)
@@ -33,23 +23,19 @@ end
     return C
 end
 
-function checkIsEqual(A, B)
-    if length(A) != length(B)
-        return "Not Equal"
-    end
-    for i=1:length(A)
-        if abs(A[i] - B[i]) > 1e-6
-            return "Not Equal"
-        end
-    end
-    return "Equal"
-end
+n     = parse(Int, ARGS[1])
+A_seq = Matrix{Int}(I,n,n)
+B_seq = randn(n,n)
 
-n   = parse(Int, ARGS[1])
-A   = Matrix{Int}(I,n,n)
-A_d = distribute(A, procs=workers(), dist=[nworkers(), 1])
-B   = randn(n,n)
+# Multicore data
+A_par = distribute(A_seq, procs=workers(), dist=[nworkers(), 1])
 
-C_seq = @btime matmul(A, B)
-C_par = @btime matmul_par(A_d, B)
-println("Sequential and Parallel are ", checkIsEqual(C_seq, C_par))
+# GPU data
+# A_gpu = CuMatrix(A_seq)
+# B_gpu = CuMatrix(B_seq)
+
+C_seq = @btime matmul(A_seq, B_seq)
+C_par = @btime matmul_par(A_par, B_seq)
+# C_gpu = @btime A_gpu*B_gpu
+
+println("Test equality: ", @test all(C_seq .== C_par))
