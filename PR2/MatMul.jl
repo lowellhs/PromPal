@@ -1,5 +1,5 @@
 @everywhere using DistributedArrays, LinearAlgebra
-# using CUDAnative, CuArrays, CUDAdrv
+using CUDAnative, CuArrays, CUDAdrv
 using BenchmarkTools, Test
 
 @everywhere function matmul(A, B)
@@ -31,11 +31,11 @@ B_seq = randn(n,n)
 A_par = distribute(A_seq, procs=workers(), dist=[nworkers(), 1])
 
 # GPU data
-# A_gpu = CuMatrix(A_seq)
-# B_gpu = CuMatrix(B_seq)
+A_gpu = CuMatrix(A_seq)
+B_gpu = CuMatrix(B_seq)
 
-C_seq = @btime matmul(A_seq, B_seq)
-C_par = @btime matmul_par(A_par, B_seq)
-# C_gpu = @btime A_gpu*B_gpu
+C_seq = @btime matmul(A_seq, B_seq) samples=1 evals=1
+C_par = @btime matmul_par(A_par, B_seq) samples=1 evals=1
+C_gpu = @btime A_gpu*B_gpu samples=1 evals=1
 
-println("Test equality: ", @test all(C_seq .== C_par))
+println("Test equality: ", @test all(C_seq .== C_par .== Array(C_gpu)))
