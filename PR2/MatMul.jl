@@ -1,6 +1,6 @@
 @everywhere using DistributedArrays, LinearAlgebra
 using CUDAnative, CuArrays, CUDAdrv
-using BenchmarkTools, Test
+using BenchmarkTools, Test, DelimitedFiles, Printf
 
 @everywhere function matmul(A, B)
     return A*B
@@ -24,8 +24,8 @@ end
 end
 
 n     = parse(Int, ARGS[1])
-A_seq = Matrix{Int}(I,n,n)
-B_seq = randn(n,n)
+A_seq = readdlm(@sprintf("./data/matrix_%dx%d_a.txt",n,n))
+B_seq = readdlm(@sprintf("./data/matrix_%dx%d_b.txt",n,n))
 
 # Multicore data
 A_par = distribute(A_seq, procs=workers(), dist=[nworkers(), 1])
@@ -34,8 +34,8 @@ A_par = distribute(A_seq, procs=workers(), dist=[nworkers(), 1])
 A_gpu = CuMatrix(A_seq)
 B_gpu = CuMatrix(B_seq)
 
-C_seq = @btime matmul(A_seq, B_seq) samples=1 evals=1
-C_par = @btime matmul_par(A_par, B_seq) samples=1 evals=1
-C_gpu = @btime A_gpu*B_gpu samples=1 evals=1
+C_seq = @btime matmul(A_seq, B_seq) samples=10 evals=10
+C_par = @btime matmul_par(A_par, B_seq) samples=10 evals=10
+C_gpu = @btime A_gpu*B_gpu samples=10 evals=10
 
 println("Test equality: ", @test all(C_seq .== C_par .== Array(C_gpu)))
