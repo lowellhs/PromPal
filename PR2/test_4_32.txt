@@ -1,0 +1,4 @@
+  52.100 μs (1 allocation: 8.13 KiB)
+  840.000 μs (1197 allocations: 113.65 KiB)
+  5.530 μs (7 allocations: 336 bytes)
+Test equality sequential and parallel: Test Passed

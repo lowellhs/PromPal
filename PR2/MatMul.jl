@@ -3,7 +3,17 @@ using CUDAnative, CuArrays, CUDAdrv
 using BenchmarkTools, Test, DelimitedFiles, Printf
 
 @everywhere function matmul(A, B)
-    return A*B
+	A_rows, A_cols = size(A)
+    B_rows, B_cols = size(B)
+    C = zeros(A_rows, B_cols)
+    for i = 1:A_rows
+        for j = 1:B_cols
+            for k = 1:B_rows
+                C[i, j] += A[i, k] * B[k, j]
+            end
+        end
+    end
+    return C
 end
 
 @everywhere function matmul_par(A, B)
@@ -38,4 +48,4 @@ C_seq = @btime matmul(A_seq, B_seq) samples=10 evals=10
 C_par = @btime matmul_par(A_par, B_seq) samples=10 evals=10
 C_gpu = @btime A_gpu*B_gpu samples=10 evals=10
 
-println("Test equality: ", @test all(C_seq .== C_par .== Array(C_gpu)))
+println("Test equality sequential and parallel: ", @test all(C_seq ≈ C_par ≈ Array(C_gpu)))
