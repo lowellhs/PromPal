@@ -38,13 +38,14 @@ int main(void)
   cudaMemcpy(a_d, a_h, sizeof(float)*N, cudaMemcpyHostToDevice);
   
   
-  gettimeofday(&t1, 0);  
+  gettimeofday(&t1, 0);
   // do calculation on host
   incrementArrayOnHost(a_h, N);
   gettimeofday(&t2, 0);
   double time = (1000000.0*(t2.tv_sec-t1.tv_sec) + t2.tv_usec-t1.tv_usec)/1000.0;
   printf("Time to generate:  %3.1f ms \n", time);
 
+  gettimeofday(&t1, 0);
   // do calculation on device:
   // Part 1 of 2. Compute execution configuration
   int blockSize = 4;
@@ -53,6 +54,11 @@ int main(void)
   incrementArrayOnDevice <<< nBlocks, blockSize >>> (a_d, N);
   // Retrieve result from device and store in b_h
   cudaMemcpy(b_h, a_d, sizeof(float)*N, cudaMemcpyDeviceToHost);
+  HANDLE_ERROR(cudaThreadSynchronize();)
+  gettimeofday(&t2, 0);
+  double time = (1000000.0*(t2.tv_sec-t1.tv_sec) + t2.tv_usec-t1.tv_usec)/1000.0;
+  printf("Time to generate:  %3.1f ms \n", time);
+
   // check results
   for (i=0; i<N; i++) assert(a_h[i] == b_h[i]);
   // cleanup
