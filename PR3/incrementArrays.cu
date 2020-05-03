@@ -23,7 +23,7 @@ int main(void)
 {
   float *a_h, *b_h; // pointers to host memory
   float *a_d; // pointer to device memory
-  int i, N = 1e+6;
+  int i, N = 1e+9;
   size_t size = N*sizeof(float);
 
   // allocate arrays on host
@@ -42,22 +42,22 @@ int main(void)
   // do calculation on host
   incrementArrayOnHost(a_h, N);
   gettimeofday(&t2, 0);
-  double time = (1000000.0*(t2.tv_sec-t1.tv_sec) + t2.tv_usec-t1.tv_usec)/1000.0;
-  printf("Time to generate:  %3.1f ms \n", time);
+  double time1 = (1000000.0*(t2.tv_sec-t1.tv_sec) + t2.tv_usec-t1.tv_usec)/1000.0;
+  printf("Time to generate:  %3.1f ms \n", time1);
 
   gettimeofday(&t1, 0);
   // do calculation on device:
   // Part 1 of 2. Compute execution configuration
-  int blockSize = 4;
+  int blockSize = 8;
   int nBlocks = N/blockSize + (N%blockSize == 0?0:1);
   // Part 2 of 2. Call incrementArrayOnDevice kernel
   incrementArrayOnDevice <<< nBlocks, blockSize >>> (a_d, N);
   // Retrieve result from device and store in b_h
   cudaMemcpy(b_h, a_d, sizeof(float)*N, cudaMemcpyDeviceToHost);
-  HANDLE_ERROR(cudaThreadSynchronize();)
+  cudaDeviceSynchronize();
   gettimeofday(&t2, 0);
-  double time = (1000000.0*(t2.tv_sec-t1.tv_sec) + t2.tv_usec-t1.tv_usec)/1000.0;
-  printf("Time to generate:  %3.1f ms \n", time);
+  double time2 = (1000000.0*(t2.tv_sec-t1.tv_sec) + t2.tv_usec-t1.tv_usec)/1000.0;
+  printf("Time to generate:  %3.1f ms \n", time2);
 
   // check results
   for (i=0; i<N; i++) assert(a_h[i] == b_h[i]);
