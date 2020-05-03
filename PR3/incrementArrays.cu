@@ -17,7 +17,7 @@ __global__ void incrementArrayOnDevice(float *a, int N)
   if (idx<N) a[idx] = a[idx]+1.f;
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
   float *a_h, *b_h; // pointers to host memory
   float *a_d; // pointer to device memory
@@ -40,7 +40,7 @@ int main(void)
 
   // do calculation on device:
   // Part 1 of 2. Compute execution configuration
-  int blockSize = 4;
+  int blockSize = atoi(argv[1]);
   int nBlocks = N/blockSize + (N%blockSize == 0?0:1);
   // Part 2 of 2. Call incrementArrayOnDevice kernel
   incrementArrayOnDevice <<< nBlocks, blockSize >>> (a_d, N);
