@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <assert.h>
 #include <cuda.h>
+#include <sys/time.h>
+
+struct timeval t1, t2;
 
 void incrementArrayOnHost(float *a, int N)
 {
@@ -20,7 +23,7 @@ int main(void)
 {
   float *a_h, *b_h; // pointers to host memory
   float *a_d; // pointer to device memory
-  int i, N = 10;
+  int i, N = 1e+6;
   size_t size = N*sizeof(float);
 
   // allocate arrays on host
@@ -34,8 +37,13 @@ int main(void)
   // copy data from host to device
   cudaMemcpy(a_d, a_h, sizeof(float)*N, cudaMemcpyHostToDevice);
   
+  
+  gettimeofday(&t1, 0);  
   // do calculation on host
   incrementArrayOnHost(a_h, N);
+  gettimeofday(&t2, 0);
+  double time = (1000000.0*(t2.tv_sec-t1.tv_sec) + t2.tv_usec-t1.tv_usec)/1000.0;
+  printf("Time to generate:  %3.1f ms \n", time);
 
   // do calculation on device:
   // Part 1 of 2. Compute execution configuration
