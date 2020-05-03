@@ -1,5 +1,5 @@
 # PromPal
 
-### PR1
-### PR2
-### PR3
+#### PR1 : MPI Programming
+#### PR2 : Julia (Parallel Programming)
+#### PR3 : CUDA (GPU Programming)
