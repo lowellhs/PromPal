@@ -1,5 +1,8 @@
 import os
 import re
+import sys
+
+name = sys.argv[1]
 
 def toSeconds(timeStr):
   match = re.match('([0-9\.]*)(s|ms|us|ns)', timeStr)
@@ -16,7 +19,7 @@ def toSeconds(timeStr):
 
 res = []
 for filePath in os.listdir('./result'):
-  match = re.match('result\_incArr\_([0-9]+)\_([0-9]+)\_([0-9]+).txt', filePath)
+  match = re.match('result\_'+name+'\_([0-9]+)\_([0-9]+)\_([0-9]+).txt', filePath)
   if match:
     with open("result/"+filePath, "r") as fObj:
       textLine = fObj.readlines()

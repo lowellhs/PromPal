@@ -1,18 +1,18 @@
-==16339== NVPROF is profiling process 16339, command: ./incrementArrays.o 1048576 4096 256
-==16339== Profiling application: ./incrementArrays.o 1048576 4096 256
-==16339== Profiling result:
+==28914== NVPROF is profiling process 28914, command: ./incrementArrays.o 1048576 4096
+==28914== Profiling application: ./incrementArrays.o 1048576 4096
+==28914== Profiling result:
             Type  Time(%)      Time     Calls       Avg       Min       Max  Name
- GPU activities:   75.46%  1.1532ms         1  1.1532ms  1.1532ms  1.1532ms  [CUDA memcpy DtoH]
-                   22.40%  342.35us         1  342.35us  342.35us  342.35us  [CUDA memcpy HtoD]
-                    2.13%  32.577us         1  32.577us  32.577us  32.577us  incrementArrayOnDevice(float*, int)
-      API calls:   97.71%  159.18ms         1  159.18ms  159.18ms  159.18ms  cudaMalloc
-                    1.47%  2.3890ms         2  1.1945ms  322.01us  2.0670ms  cudaMemcpy
-                    0.40%  644.46us         2  322.23us  303.32us  341.14us  cuDeviceTotalMem
-                    0.30%  482.93us       194  2.4890us     136ns  172.51us  cuDeviceGetAttribute
-                    0.08%  131.00us         1  131.00us  131.00us  131.00us  cudaFree
-                    0.03%  46.172us         2  23.086us  17.076us  29.096us  cuDeviceGetName
-                    0.01%  24.217us         1  24.217us  24.217us  24.217us  cudaLaunchKernel
-                    0.00%  4.4210us         2  2.2100us  1.6020us  2.8190us  cuDeviceGetPCIBusId
-                    0.00%  2.9190us         3     973ns     269ns  2.0470us  cuDeviceGetCount
-                    0.00%  1.4250us         4     356ns     172ns     808ns  cuDeviceGet
-                    0.00%     512ns         2     256ns     201ns     311ns  cuDeviceGetUuid
+ GPU activities:   77.83%  1.3126ms         1  1.3126ms  1.3126ms  1.3126ms  [CUDA memcpy DtoH]
+                   20.28%  342.03us         1  342.03us  342.03us  342.03us  [CUDA memcpy HtoD]
+                    1.89%  31.905us         1  31.905us  31.905us  31.905us  incrementArrayOnDevice(float*, int)
+      API calls:   97.65%  172.31ms         1  172.31ms  172.31ms  172.31ms  cudaMalloc
+                    1.55%  2.7431ms         2  1.3715ms  357.35us  2.3857ms  cudaMemcpy
+                    0.38%  669.79us         2  334.89us  333.30us  336.49us  cuDeviceTotalMem
+                    0.30%  521.17us       194  2.6860us     162ns  183.23us  cuDeviceGetAttribute
+                    0.07%  114.74us         1  114.74us  114.74us  114.74us  cudaFree
+                    0.03%  52.837us         2  26.418us  18.420us  34.417us  cuDeviceGetName
+                    0.02%  29.247us         1  29.247us  29.247us  29.247us  cudaLaunchKernel
+                    0.00%  5.6270us         2  2.8130us  2.3030us  3.3240us  cuDeviceGetPCIBusId
+                    0.00%  2.2860us         3     762ns     380ns  1.4680us  cuDeviceGetCount
+                    0.00%  1.8770us         4     469ns     236ns  1.0040us  cuDeviceGet
+                    0.00%     496ns         2     248ns     198ns     298ns  cuDeviceGetUuid

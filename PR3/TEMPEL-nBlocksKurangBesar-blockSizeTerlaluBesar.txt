@@ -1,0 +1,10 @@
+root@group-07-nfs-cuda:/var/nfs/group07/PromPal/PR3# nvprof ./incrementArrays.o 1048576 512
+==29743== NVPROF is profiling process 29743, command: ./incrementArrays.o 1048576 512
+N: 1048576, nBlocks: 512
+incrementArrays.o: incrementArrays.cu:54: int main(int, char**): Assertion `a_h[i] == b_h[i]' failed.
+==29743== Profiling application: ./incrementArrays.o 1048576 512
+==29743== Profiling result:
+No kernels were profiled.
+No API activities were profiled.
+==29743== Warning: Some profiling data are not recorded. Make sure cudaProfilerStop() or cuProfilerStop() is called before application exit to flush profile data.
+======== Error: Application received signal 134

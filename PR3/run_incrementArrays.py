@@ -17,3 +17,4 @@ for size in [2**20]:
 		cmd = 'nvprof --log-file result/result_incArr2_{0}_{1}_{2}.txt ./incrementArrays_2d.o {0} {3} {3}'.format(size, nBlocks, blockSize, dim).split(" ")
 		res = subprocess.check_output(cmd)
 		print(" ".join([line.decode("utf-8") for line in res.splitlines()]))
+
