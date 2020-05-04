@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 {
   float *a_h, *b_h; // pointers to host memory
   float *a_d; // pointer to device memory
-  int i, N = pow(2, 30);
+  int i, N = atoi(argv[1]);
   size_t size = N*sizeof(float);
 
   // allocate arrays on host
@@ -40,8 +40,10 @@ int main(int argc, char **argv)
 
   // do calculation on device:
   // Part 1 of 2. Compute execution configuration
-  int blockSize = atoi(argv[1]);
-  int nBlocks = N/blockSize + (N%blockSize == 0?0:1);
+  int blockSize = atoi(argv[3]);
+  int nBlocks = atoi(argv[2]);
+  printf("N: %d, nBlocks: %d\n", N, nBlocks);
+
   // Part 2 of 2. Call incrementArrayOnDevice kernel
   incrementArrayOnDevice <<< nBlocks, blockSize >>> (a_d, N);
   // Retrieve result from device and store in b_h
