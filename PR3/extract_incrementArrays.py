@@ -28,7 +28,7 @@ for filePath in os.listdir('./result'):
     nBlocks = int(match.group(2))
     blockSize = int(match.group(3))
     res.append((size, nBlocks, blockSize, time))
-res.sort(key=lambda tup: tup[1])
+res.sort(key=lambda tup: (tup[0], tup[1]))
 
 for i in res:
   print("%20s %20s %10s %10s" % i)
