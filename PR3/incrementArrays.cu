@@ -40,8 +40,9 @@ int main(int argc, char **argv)
 
   // do calculation on device:
   // Part 1 of 2. Compute execution configuration
-  int blockSize = atoi(argv[2]);
-  int nBlocks = N/blockSize + (N%blockSize==0?0:1);
+  int nBlocks = atoi(argv[2]);
+  int blockSize = N/nBlocks;
+  nBlocks = nBlocks + (N%blockSize==0?0:1);
   printf("N: %d, nBlocks: %d\n", N, nBlocks);
 
   // Part 2 of 2. Call incrementArrayOnDevice kernel

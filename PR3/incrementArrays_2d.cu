@@ -47,6 +47,7 @@ int main(int argc, char **argv)
   int gridDim = gridDimX * gridDimY;
   dim3 blockSize = dim3(N/gridDim + ((N%gridDim)?1:0));
   dim3 gridSize = dim3(gridDimX,gridDimY);
+  printf("N: %d, nBlocks: %d\n", N, gridDim);
 
   // Part 2 of 2. Call incrementArrayOnDevice kernel
   incrementArrayOnDevice <<< gridSize, blockSize >>> (a_d, N);
