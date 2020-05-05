@@ -14,7 +14,8 @@ void incrementArrayOnHost(float *a, int N)
 __global__ void incrementArrayOnDevice(float *a, int N)
 {
   int idx = blockIdx.x*blockDim.x + threadIdx.x;
-  int id  = blockIdx.y*gridDim.x*blockDim.x + idx;
+  int idy = blockIdx.y*blockDim.y + threadIdx.y;
+  int id  = idy*gridDim.x*blockDim.x + idx;
   //printf("block: (%d,%d), thread:(%d), id: %d, val: %.6f\n", blockIdx.x, blockIdx.y, idx, id, a[id]);
   if (id<N) a[id] = a[id]+1.f;
 }
@@ -42,12 +43,14 @@ int main(int argc, char **argv)
 
   // do calculation on device:
   // Part 1 of 2. Compute execution configuration
-  int gridDimX = atoi(argv[2]);
-  int gridDimY = atoi(argv[3]);
-  int gridDim = gridDimX * gridDimY;
-  dim3 blockSize = dim3(N/gridDim + ((N%gridDim)?1:0));
-  dim3 gridSize = dim3(gridDimX,gridDimY);
-  printf("N: %d, nBlocks: %d\n", N, gridDim);
+  int blockDimX = atoi(argv[2]);
+  int blockDimY = atoi(argv[3]);
+  int gridDimX = atoi(argv[4]);
+  int gridDimY = atoi(argv[5]);
+
+  dim3 blockSize = dim3(blockDimX, blockDimY);
+  dim3 gridSize = dim3(gridDimX, gridDimY);
+  printf("blockDim: (%d,%d), gridDim: (%d,%d)\n", blockDimX, blockDimY, gridDimX, gridDimY);
 
   // Part 2 of 2. Call incrementArrayOnDevice kernel
   incrementArrayOnDevice <<< gridSize, blockSize >>> (a_d, N);

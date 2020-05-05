@@ -1,0 +1,19 @@
+==22959== NVPROF is profiling process 22959, command: ./incrementArrays_2d.o 1048576 128 8 128 8
+==22959== Profiling application: ./incrementArrays_2d.o 1048576 128 8 128 8
+==22959== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   80.75%  1.5834ms         1  1.5834ms  1.5834ms  1.5834ms  [CUDA memcpy DtoH]
+                   17.53%  343.66us         1  343.66us  343.66us  343.66us  [CUDA memcpy HtoD]
+                    1.72%  33.730us         1  33.730us  33.730us  33.730us  incrementArrayOnDevice(float*, int)
+      API calls:   97.37%  171.81ms         1  171.81ms  171.81ms  171.81ms  cudaMalloc
+                    1.81%  3.2020ms         2  1.6010ms  357.35us  2.8447ms  cudaMemcpy
+                    0.39%  690.13us         2  345.07us  331.52us  358.61us  cuDeviceTotalMem
+                    0.29%  514.67us       194  2.6520us     159ns  179.19us  cuDeviceGetAttribute
+                    0.07%  123.48us         1  123.48us  123.48us  123.48us  cudaFree
+                    0.03%  48.910us         2  24.455us  17.951us  30.959us  cuDeviceGetName
+                    0.02%  43.258us         1  43.258us  43.258us  43.258us  cudaLaunchKernel
+                    0.00%  5.3170us         2  2.6580us  1.7550us  3.5620us  cuDeviceGetPCIBusId
+                    0.00%  4.8030us         1  4.8030us  4.8030us  4.8030us  cudaDeviceSynchronize
+                    0.00%  1.6920us         4     423ns     158ns  1.1450us  cuDeviceGet
+                    0.00%  1.4600us         3     486ns     211ns     975ns  cuDeviceGetCount
+                    0.00%     566ns         2     283ns     235ns     331ns  cuDeviceGetUuid
