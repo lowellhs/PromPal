@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <cuda.h>
 #include <math.h>
-#include <time.h>
+#include <sys/time.h>
 
 __global__ void matmulOnDevice(int n, float *A, float *B, float *C)
 {
@@ -61,6 +61,8 @@ float errorMatrix(int n, float *A, float *B)
 
 int main(int argc, char **argv)
 {
+  struct timeval startCPU, stopCPU, startGPU, stopGPU;
+
   float *A_h, *B_h, *C_h, *C2_h;  // pointers to host memory
   float *A_d, *B_d, *C_d;         // pointers to device memory
 
@@ -89,7 +91,8 @@ int main(int argc, char **argv)
       if (i==j) A_h[n*i+j] = 1.0;
     }
   }
-
+  
+  gettimeofday(&startGPU, 0);
   // copy data from host to device
   cudaMemcpy(A_d, A_h, n*n*sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(B_d, B_h, n*n*sizeof(float), cudaMemcpyHostToDevice);
@@ -108,19 +111,22 @@ int main(int argc, char **argv)
   matmulOnDevice<<<gridSize, blockSize>>>(n, A_d, B_d, C_d);
   cudaMemcpy(C2_h, C_d, n*n*sizeof(float), cudaMemcpyDeviceToHost);
 
-  // print matrix OR check matrix OR print time
   cudaDeviceSynchronize();
+  gettimeofday(&stopGPU, 0);
+
+  // print matrix OR check matrix OR print time
   if (argc == 7 && atoi(argv[6]) == 0) printMatrix(n, C2_h);
   if (argc == 7 && atoi(argv[6]) == 1)
   {
-    struct timeval start, stop;
     // do calculation on host
-    gettimeofday(&start, 0);
+    gettimeofday(&startCPU, 0);
     matmul(n, A_h, B_h, C_h);
     float err = errorMatrix(n, C2_h, C_h);
-    gettimeofday(&stop, 0);
-    printf("CPU time : %.6f\n", (stop.tv_sec+stop.tv_usec*1e-6)-(start.tv_sec+start.tv_usec*1e-6));
-    printf("error    : %.6f", err);
+    gettimeofday(&stopCPU, 0);
+
+    printf("CPU time : %.6f\n", (stopCPU.tv_sec+stopCPU.tv_usec*1e-6)-(startCPU.tv_sec+startCPU.tv_usec*1e-6));
+    printf("GPU time : %.6f\n", (stopGPU.tv_sec+stopGPU.tv_usec*1e-6)-(startGPU.tv_sec+startGPU.tv_usec*1e-6));
+    printf("error    : %.6f\n", err);
   }
   if (argc == 7 && atoi(argv[6]) == 2) printf("time");
 
