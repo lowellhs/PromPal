@@ -116,7 +116,7 @@ int main(int argc, char **argv)
 
   // print matrix OR check matrix OR print time
   if (argc == 7 && atoi(argv[6]) == 0) printMatrix(n, C2_h);
-  if (argc == 7 && atoi(argv[6]) == 1)
+  if (argc == 7 && atoi(argv[6]) == 1) // compare to CPU time and CPU result
   {
     // do calculation on host
     gettimeofday(&startCPU, 0);
@@ -125,10 +125,14 @@ int main(int argc, char **argv)
     gettimeofday(&stopCPU, 0);
 
     printf("CPU time : %.6f\n", (stopCPU.tv_sec+stopCPU.tv_usec*1e-6)-(startCPU.tv_sec+startCPU.tv_usec*1e-6));
-    printf("GPU time : %.6f\n", (stopGPU.tv_sec+stopGPU.tv_usec*1e-6)-(startGPU.tv_sec+startGPU.tv_usec*1e-6));
     printf("error    : %.6f\n", err);
   }
-  if (argc == 7 && atoi(argv[6]) == 2) printf("time");
+  if (argc == 7 && atoi(argv[6]) == 2) // if I.B = C means B should equals C (A is identity matrix)
+  {
+    float err = errorMatrix(n, C2_h, B_h);
+    printf("error    : %.6f\n", err);
+  }
+  printf("GPU time : %.6f\n", (stopGPU.tv_sec+stopGPU.tv_usec*1e-6)-(startGPU.tv_sec+startGPU.tv_usec*1e-6));
 
   // Cleanup
   free(A_h);
@@ -140,3 +144,4 @@ int main(int argc, char **argv)
   cudaFree(C_d);
 
 }
+
