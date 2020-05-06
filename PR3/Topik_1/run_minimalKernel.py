@@ -13,6 +13,11 @@ r  = [
 ]
 for item in r:
     n, block, thread = item
-    cmd = 'nvprov --log-file result/minimalKernel/result_minimalKernel_{0}_{1}.txt ./minimalKernel.o {0} {1}'.format(block, thread).split(" ")
+    cmd = './minimalKernel.o {0} {1} {2}'.format(n, block, thread).split(" ")
     res = subprocess.check_output(cmd)
-    print(" ".join([line.decode("utf-8") for line in res.splitlines()]))
+    #orig_sys = sys.stdout
+    print('<<<{0}, {1}>>>'.format(block, thread))
+    print(res.decode('utf-8'))
+    print()
+    #file = open('result/minimalKernel/result_minimalKernel_{0}_{1}.txt'.format(block, thread), 'w') 
+    #file.write(res)
