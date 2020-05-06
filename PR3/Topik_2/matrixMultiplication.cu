@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <cuda.h>
 #include <math.h>
+#include <time.h>
 
 __global__ void matmulOnDevice(int n, float *A, float *B, float *C)
 {
@@ -45,15 +46,17 @@ void printMatrix(int n, float *A)
   }
 }
 
-void checkMatrix(int n, float *A, float *B)
+float errorMatrix(int n, float *A, float *B)
 {
+  float res = 0.0;
   for (int i=0; i<n; i++)
   {
     for (int j=0; j<n; j++)
     {
-      assert(A[n*i+j] == B[n*i+j]);
+      res += (A[n*i+j] - B[n*i+j]);
     }
   }
+  return res;
 }
 
 int main(int argc, char **argv)
@@ -110,9 +113,14 @@ int main(int argc, char **argv)
   if (argc == 7 && atoi(argv[6]) == 0) printMatrix(n, C2_h);
   if (argc == 7 && atoi(argv[6]) == 1)
   {
+    struct timeval start, stop;
     // do calculation on host
+    gettimeofday(&start, 0);
     matmul(n, A_h, B_h, C_h);
-    checkMatrix(n, C2_h, C_h);
+    float err = errorMatrix(n, C2_h, C_h);
+    gettimeofday(&stop, 0);
+    printf("CPU time : %.6f\n", (stop.tv_sec+stop.tv_usec*1e-6)-(start.tv_sec+start.tv_usec*1e-6));
+    printf("error    : %.6f", err);
   }
   if (argc == 7 && atoi(argv[6]) == 2) printf("time");
 
