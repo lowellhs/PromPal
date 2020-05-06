@@ -50,14 +50,14 @@ void printArr(int *a, int N)
   printf("\n");
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-  for (int kk=0; kk<5; kk++)
+  int N = atoi(argv[1]);
+  for (int k=0; k<5; k++)
   {
     int *a_h, *b_h; //pointers to host memory
     int *a_d; //pointers to device memory
     int i;
-    int N = 24;
     size_t size = N*sizeof(int);
     
     //allocate array on host
@@ -74,13 +74,14 @@ int main(void)
     cudaMemcpy(a_d, a_h, sizeof(int)*N, cudaMemcpyHostToDevice);
     
     //do calculation on host
-    dim3 dimGrid = dim3(2,2);
-    dim3 dimBlock = dim3(3,2);
-    if (kk==0) kernelId<<<dimGrid,dimBlock>>>(a_d);
-    if (kk==1) kernelBlockIdxX<<<dimGrid,dimBlock>>>(a_d);
-    if (kk==2) kernelBlockIdxY<<<dimGrid,dimBlock>>>(a_d);
-    if (kk==3) kernelThreadIdxX<<<dimGrid,dimBlock>>>(a_d);
-    if (kk==4) kernelThreadIdxY<<<dimGrid,dimBlock>>>(a_d);
+    dim3 dimGrid = dim3(atoi(argv[2]), atoi(argv[3]));
+    dim3 dimBlock = dim3(atoi(argv[4]), atoi(argv[5]));
+
+    if (k==0) kernelId<<<dimGrid,dimBlock>>>(a_d);
+    if (k==1) kernelBlockIdxX<<<dimGrid,dimBlock>>>(a_d);
+    if (k==2) kernelBlockIdxY<<<dimGrid,dimBlock>>>(a_d);
+    if (k==3) kernelThreadIdxX<<<dimGrid,dimBlock>>>(a_d);
+    if (k==4) kernelThreadIdxY<<<dimGrid,dimBlock>>>(a_d);
 
     //retrieve result from device and store in b_h
     cudaMemcpy(b_h, a_d, sizeof(int)*N, cudaMemcpyDeviceToHost);
