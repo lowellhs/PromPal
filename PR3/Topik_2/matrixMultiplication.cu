@@ -20,10 +20,13 @@ __global__ void matmulOnDevice(int n, float *A, float *B, float *C)
 
 void matmul(int n, float *A, float *B, float *C)
 {
-  for (int k=0; k<n; k++) {
-    for (int j=0; j<n; j++) {
+  for (int k=0; k<n; k++)
+  {
+    for (int j=0; j<n; j++)
+    {
       C[n*k+j] = 0;
-      for (int i=0; i<n; i++) {
+      for (int i=0; i<n; i++)
+      {
         C[n*k+j] = C[n*k+j] + A[n*k+i] * B[n*i+j];
       }
     }
@@ -36,7 +39,7 @@ void printMatrix(int n, float *A)
   {
     for (int j=0; j<n; j++)
     {
-      printf("%10.4f ", A[n*i+j]);
+      printf("%10.3f ", A[n*i+j]);
     }
     printf("\n");
   }
@@ -78,17 +81,15 @@ int main(int argc, char **argv)
   {
     for (int j=0; j<n; j++)
     {
-      A_h[n*i+j] = (float)n*i+j;
-      B_h[n*i+j] = (float)n*i+j;
+      A_h[n*i+j] = 0.0;
+      B_h[n*i+j] = n*i+j;
+      if (i==j) A_h[n*i+j] = 1.0;
     }
   }
 
   // copy data from host to device
   cudaMemcpy(A_d, A_h, n*n*sizeof(float), cudaMemcpyHostToDevice);
   cudaMemcpy(B_d, B_h, n*n*sizeof(float), cudaMemcpyHostToDevice);
-
-  // do calculation on host
-  matmul(n, A_h, B_h, C_h);
 
   // do calculation on device
   // Part 1 of 2. Compute execution configuration
@@ -107,7 +108,12 @@ int main(int argc, char **argv)
   // print matrix OR check matrix OR print time
   cudaDeviceSynchronize();
   if (argc == 7 && atoi(argv[6]) == 0) printMatrix(n, C2_h);
-  if (argc == 7 && atoi(argv[6]) == 1) checkMatrix(n, C2_h, C_h);
+  if (argc == 7 && atoi(argv[6]) == 1)
+  {
+    // do calculation on host
+    matmul(n, A_h, B_h, C_h);
+    checkMatrix(n, C2_h, C_h);
+  }
   if (argc == 7 && atoi(argv[6]) == 2) printf("time");
 
   // Cleanup
