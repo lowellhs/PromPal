@@ -6,31 +6,6 @@
 #include <math.h>
 #include <sys/time.h>
 
-void randomMatrixGenerator(int n, float *A)
-{
-  srand(time(0));
-  for (int i=0; i<n; i++)
-  {
-    for (int j=0; j<n; j++) 
-    {
-      A[n*i+j] = rand();
-    }
-  }
-}
-
-void initIdentityMatrix(int n, float *I)
-{
-  for(int i=0; i<n; i++)
-  {
-    for(int j=0; j<n; j++)
-    {
-      if(i==j) I[n*i+j] = 1.0;
-      else I[n*i+j] = 0.0;
-    }
-  }
-  
-}
-
 __global__ void matmulOnDevice(int n, float *A, float *B, float *C)
 {
   int idx = blockIdx.x*blockDim.x + threadIdx.x;
@@ -61,31 +36,6 @@ void matmul(int n, float *A, float *B, float *C)
   }
 }
 
-void printMatrix(int n, float *A)
-{
-  for (int i=0; i<n; i++)
-  {
-    for (int j=0; j<n; j++)
-    {
-      printf("%10.3f ", A[n*i+j]);
-    }
-    printf("\n");
-  }
-}
-
-float errorMatrix(int n, float *A, float *B)
-{
-  float res = 0.0;
-  for (int i=0; i<n; i++)
-  {
-    for (int j=0; j<n; j++)
-    {
-      res += (A[n*i+j] - B[n*i+j]);
-    }
-  }
-  return res;
-}
-
 int main(int argc, char **argv)
 {
   struct timeval startCPU, stopCPU, startGPU, stopGPU;
@@ -109,15 +59,8 @@ int main(int argc, char **argv)
   cudaMalloc((void **) &C_d, size);
 
   // initializtion of host data
-  for (int i=0; i<n; i++)
-  {
-    for (int j=0; j<n; j++)
-    {
-      A_h[n*i+j] = 0.0;
-      B_h[n*i+j] = n*i+j;
-      if (i==j) A_h[n*i+j] = 1.0;
-    }
-  }
+  initIdentityMatrix(n, A_h);
+  initRandomMatrix(n, B_h);
   
   gettimeofday(&startGPU, 0);
   // copy data from host to device

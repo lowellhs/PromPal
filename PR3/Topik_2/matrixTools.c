@@ -1,4 +1,7 @@
-void randomMatrixGenerator(int n, float *A)
+#include <stdio.h>
+#include <stdlib.h>
+
+void initRandomMatrix(int n, float *A)
 {
   srand(time(0));
   for (int i=0; i<n; i++)
@@ -19,7 +22,7 @@ void initIdentityMatrix(int n, float *I)
       if(i==j) I[n*i+j] = 1.0;
       else I[n*i+j] = 0.0;
     }
-  } 
+  }
 }
 
 void printMatrix(int n, float *A)
