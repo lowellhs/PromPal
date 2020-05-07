@@ -23,7 +23,7 @@ for item in r:
         res = subprocess.check_output(cmd)
         result_file = os.path.join(MINIMALKERNEL_RESULT_PATH, 'result_minimalKernel_{0}_{1}.txt'.format(block, thread))
         file = open(result_file, 'w') 
-        file.write(res)
+        file.write(res.decode('utf-8'))
         file.close()
         print('<<<{0}, {1}>>>'.format(block, thread))
         print(res.decode('utf-8'))
