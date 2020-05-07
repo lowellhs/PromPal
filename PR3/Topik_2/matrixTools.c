@@ -49,3 +49,18 @@ float errorMatrix(int n, float *A, float *B)
   }
   return res;
 }
+
+void matmul(int n, float *A, float *B, float *C)
+{
+  for (int k=0; k<n; k++)
+  {
+    for (int j=0; j<n; j++)
+    {
+      C[n*k+j] = 0;
+      for (int i=0; i<n; i++)
+      {
+        C[n*k+j] = C[n*k+j] + A[n*k+i] * B[n*i+j];
+      }
+    }
+  }
+}

@@ -21,21 +21,6 @@ __global__ void matmulOnDevice(int n, float *A, float *B, float *C)
   }
 }
 
-void matmul(int n, float *A, float *B, float *C)
-{
-  for (int k=0; k<n; k++)
-  {
-    for (int j=0; j<n; j++)
-    {
-      C[n*k+j] = 0;
-      for (int i=0; i<n; i++)
-      {
-        C[n*k+j] = C[n*k+j] + A[n*k+i] * B[n*i+j];
-      }
-    }
-  }
-}
-
 int main(int argc, char **argv)
 {
   struct timeval startCPU, stopCPU, startGPU, stopGPU;
@@ -69,24 +54,37 @@ int main(int argc, char **argv)
 
   // do calculation on device
   // Part 1 of 2. Compute execution configuration
-  int gridDimX = atoi(argv[2]);
-  int gridDimY = atoi(argv[3]);
-  int blockDimX = atoi(argv[4]);
-  int blockDimY = atoi(argv[5]);
-  dim3 gridSize = dim3(gridDimX, gridDimY);
-  dim3 blockSize = dim3(blockDimX, blockDimY);
-  printf("blockDim: (%d,%d), gridDim: (%d,%d)\n", blockDimX, blockDimY, gridDimX, gridDimY);
-
+  dim3 gridDim, blockDim;
+  if (argc == 7)
+  {
+    gridDim = dim3(atoi(argv[3]), atoi(argv[4]));
+    blockDim = dim3(atoi(argv[5]), atoi(argv[6]));
+  }
+  else
+  {
+    if (n*n <= 1024)
+    {
+      gridDim = dim3(1, 1);
+      blockDim = dim3(n, n);
+    }
+    else
+    {
+      gridDim = dim3((int)ceil(n/32.0), (int)ceil(n/32.0));
+      blockDim = dim3(32, 32);
+    }
+  }
+  printf("gridDim: (%d,%d), blockDim: (%d,%d)\n", gridDim.x, gridDim.y, blockDim.x, blockDim.y);
+  
   // Part 2 of 2. Call matmulOnDevice kernel
-  matmulOnDevice<<<gridSize, blockSize>>>(n, A_d, B_d, C_d);
+  matmulOnDevice<<<gridDim, blockDim>>>(n, A_d, B_d, C_d);
   cudaMemcpy(C2_h, C_d, n*n*sizeof(float), cudaMemcpyDeviceToHost);
 
   cudaDeviceSynchronize();
   gettimeofday(&stopGPU, 0);
 
   // print matrix OR check matrix OR print time
-  if (argc == 7 && atoi(argv[6]) == 0) printMatrix(n, C2_h);
-  if (argc == 7 && atoi(argv[6]) == 1) // compare to CPU time and CPU result
+  if (atoi(argv[2]) == 0) printMatrix(n, C2_h);
+  if (atoi(argv[2]) == 1) // compare to CPU time and CPU result
   {
     // do calculation on host
     gettimeofday(&startCPU, 0);
@@ -97,7 +95,7 @@ int main(int argc, char **argv)
     printf("CPU time : %.6f\n", (stopCPU.tv_sec+stopCPU.tv_usec*1e-6)-(startCPU.tv_sec+startCPU.tv_usec*1e-6));
     printf("error    : %.6f\n", err);
   }
-  if (argc == 7 && atoi(argv[6]) == 2) // if I.B = C means B should equals C (A is identity matrix)
+  if (atoi(argv[2]) == 2) // if I.B = C means B should equals C (A is identity matrix)
   {
     float err = errorMatrix(n, C2_h, B_h);
     printf("error    : %.6f\n", err);
@@ -105,13 +103,7 @@ int main(int argc, char **argv)
   printf("GPU time : %.6f\n", (stopGPU.tv_sec+stopGPU.tv_usec*1e-6)-(startGPU.tv_sec+startGPU.tv_usec*1e-6));
 
   // Cleanup
-  free(A_h);
-  free(B_h);
-  free(C_h);
-  free(C2_h);
-  cudaFree(A_d);
-  cudaFree(B_d);
-  cudaFree(C_d);
-
+  free(A_h); free(B_h); free(C_h); free(C2_h);
+  cudaFree(A_d); cudaFree(B_d); cudaFree(C_d);
 }
 
