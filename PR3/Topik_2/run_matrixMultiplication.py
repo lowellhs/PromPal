@@ -8,6 +8,7 @@ def findingOptimalGridBlock():
     size = 2**sizePow
     gridsDimPow = [sizePow-i for i in blocksDimPow]
     print("\n{0} * {0}".format(size))
+    arr.append("{0} * {0}".format(size))
     for counter in range(5):
       blockDim = 2**blocksDimPow[counter]
       gridDim = 2**gridsDimPow[counter]
