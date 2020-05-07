@@ -4,16 +4,18 @@
 #include <assert.h>
 #include <cuda.h>
 #include <math.h>
-#include <sys/time.h>
 #include <cstdlib>
 #include "cublas_v2.h"
 
 int main(int argc, char **argv)
 {
   int sizeCounter = atoi(argv[1]);
-  for (int counter=2; counter < 2+sizeCounter; counter++)
+  int tests = atoi(argv[2]);
+  for (int counter=3; counter < 3+sizeCounter; counter++)
   {
-    struct timeval startGPU, stopGPU;
+    for (int testCounter=0; testCounter < tests; testCounter++)
+    {
+    cudaEvent_t start, stop;
 
     float *A_h, *B_h, *C_h, *C2_h;  // pointers to host memory
     float *A_d, *B_d, *C_d;         // pointers to device memory
@@ -37,11 +39,10 @@ int main(int argc, char **argv)
     initIdentityMatrix(n, A_h);
     initRandomMatrix(n, B_h);
     
-    cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
-    gettimeofday(&startGPU, 0);
     cudaEventRecord(start);
+
     // copy data from host to device
     cudaMemcpy(A_d, A_h, n*n*sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(B_d, B_h, n*n*sizeof(float), cudaMemcpyHostToDevice);
@@ -57,22 +58,20 @@ int main(int argc, char **argv)
     cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, n, n, n, alpha, A_d, lda, B_d, ldb, beta, C_d, ldc);
     cublasDestroy(handle);
     cudaMemcpy(C2_h, C_d, n*n*sizeof(float), cudaMemcpyDeviceToHost);
+
     cudaEventRecord(stop);
     cudaEventSynchronize(stop);
-    float milliseconds = 0;
-    cudaEventElapsedTime(&milliseconds, start, stop);
-
+    float milliseconds = 0; cudaEventElapsedTime(&milliseconds, start, stop);
     cudaDeviceSynchronize();
-    gettimeofday(&stopGPU, 0);
 
     float err = errorMatrix(n, C2_h, B_h);
     printf("%d ", n);
-    //printf("%.6f ", (stopGPU.tv_sec+stopGPU.tv_usec*1e-6)-(startGPU.tv_sec+startGPU.tv_usec*1e-6));
-    printf("%.6f ", milliseconds*1e-6);
+    printf("%.6f ", milliseconds*1e-3);
     printf("%.6f\n", err);
 
     // Cleanup
     free(A_h); free(B_h); free(C_h); free(C2_h);
     cudaFree(A_d); cudaFree(B_d); cudaFree(C_d);
+    }
   }
 }
