@@ -2,7 +2,7 @@ import subprocess
 
 def findingOptimalGridBlock():
   arr = []
-  sizesPow = [8, 9, 10, 11, 12, 13]
+  sizesPow = [5, 7, 9, 11, 13]
   blocksDimPow = [5, 4, 3, 2, 1]
   for sizePow in sizesPow:
     size = 2**sizePow

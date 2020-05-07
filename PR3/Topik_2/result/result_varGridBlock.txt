@@ -1,42 +1,35 @@
-256 * 256
-gridDim: (8,8), blockDim: (32,32)        error    : 0.000000 GPU time : 0.000371
-gridDim: (16,16), blockDim: (16,16)      error    : 0.000000 GPU time : 0.000365
-gridDim: (32,32), blockDim: (8,8)        error    : 0.000000 GPU time : 0.000398
-gridDim: (64,64), blockDim: (4,4)        error    : 0.000000 GPU time : 0.000552
-gridDim: (128,128), blockDim: (2,2)      error    : 0.000000 GPU time : 0.001248
+32 * 32
+gridDim: (1,1), blockDim: (32,32)        error    : 0.000000 GPU time : 0.000060
+gridDim: (2,2), blockDim: (16,16)        error    : 0.000000 GPU time : 0.000054
+gridDim: (4,4), blockDim: (8,8)          error    : 0.000000 GPU time : 0.000056
+gridDim: (8,8), blockDim: (4,4)          error    : 0.000000 GPU time : 0.000053
+gridDim: (16,16), blockDim: (2,2)        error    : 0.000000 GPU time : 0.000054
+
+128 * 128
+gridDim: (4,4), blockDim: (32,32)        error    : 0.000000 GPU time : 0.000138
+gridDim: (8,8), blockDim: (16,16)        error    : 0.000000 GPU time : 0.000125
+gridDim: (16,16), blockDim: (8,8)        error    : 0.000000 GPU time : 0.000135
+gridDim: (32,32), blockDim: (4,4)        error    : 0.000000 GPU time : 0.000148
+gridDim: (64,64), blockDim: (2,2)        error    : 0.000000 GPU time : 0.000254
 
 512 * 512
-gridDim: (16,16), blockDim: (32,32)      error    : 0.000000 GPU time : 0.001564
-gridDim: (32,32), blockDim: (16,16)      error    : 0.000000 GPU time : 0.001517
-gridDim: (64,64), blockDim: (8,8)        error    : 0.000000 GPU time : 0.001964
-gridDim: (128,128), blockDim: (4,4)      error    : 0.000000 GPU time : 0.003262
-gridDim: (256,256), blockDim: (2,2)      error    : 0.000000 GPU time : 0.009002
-
-1024 * 1024
-gridDim: (32,32), blockDim: (32,32)      error    : 0.000000 GPU time : 0.007955
-gridDim: (64,64), blockDim: (16,16)      error    : 0.000000 GPU time : 0.008599
-gridDim: (128,128), blockDim: (8,8)      error    : 0.000000 GPU time : 0.014846
-gridDim: (256,256), blockDim: (4,4)      error    : 0.000000 GPU time : 0.026025
-gridDim: (512,512), blockDim: (2,2)      error    : 0.000000 GPU time : 0.073613
+gridDim: (16,16), blockDim: (32,32)      error    : 0.000000 GPU time : 0.001552
+gridDim: (32,32), blockDim: (16,16)      error    : 0.000000 GPU time : 0.001816
+gridDim: (64,64), blockDim: (8,8)        error    : 0.000000 GPU time : 0.001981
+gridDim: (128,128), blockDim: (4,4)      error    : 0.000000 GPU time : 0.003217
+gridDim: (256,256), blockDim: (2,2)      error    : 0.000000 GPU time : 0.009123
 
 2048 * 2048
-gridDim: (64,64), blockDim: (32,32)      error    : 0.000000 GPU time : 0.052481
-gridDim: (128,128), blockDim: (16,16)    error    : 0.000000 GPU time : 0.063877
-gridDim: (256,256), blockDim: (8,8)      error    : 0.000000 GPU time : 0.118449
-gridDim: (512,512), blockDim: (4,4)      error    : 0.000000 GPU time : 0.179905
-gridDim: (1024,1024), blockDim: (2,2)    error    : 0.000000 GPU time : 0.419623
-
-4096 * 4096
-gridDim: (128,128), blockDim: (32,32)    error    : 0.000000 GPU time : 0.518517
-gridDim: (256,256), blockDim: (16,16)    error    : 0.000000 GPU time : 0.637753
-gridDim: (512,512), blockDim: (8,8)      error    : 0.000000 GPU time : 0.903149
-gridDim: (1024,1024), blockDim: (4,4)    error    : 0.000000 GPU time : 1.322752
-gridDim: (2048,2048), blockDim: (2,2)    error    : 0.000000 GPU time : 3.314671
+gridDim: (64,64), blockDim: (32,32)      error    : 0.000000 GPU time : 0.052729
+gridDim: (128,128), blockDim: (16,16)    error    : 0.000000 GPU time : 0.064676
+gridDim: (256,256), blockDim: (8,8)      error    : 0.000000 GPU time : 0.118863
+gridDim: (512,512), blockDim: (4,4)      error    : 0.000000 GPU time : 0.180007
+gridDim: (1024,1024), blockDim: (2,2)    error    : 0.000000 GPU time : 0.416515
 
 8192 * 8192
-gridDim: (256,256), blockDim: (32,32)    error    : 0.000000 GPU time : 7.538044
-gridDim: (512,512), blockDim: (16,16)    error    : 0.000000 GPU time : 7.871629
-gridDim: (1024,1024), blockDim: (8,8)    error    : 0.000000 GPU time : 9.601182
-gridDim: (2048,2048), blockDim: (4,4)    error    : 0.000000 GPU time : 12.598103
-gridDim: (4096,4096), blockDim: (2,2)    error    : 0.000000 GPU time : 27.706002
+gridDim: (256,256), blockDim: (32,32)    error    : 0.000000 GPU time : 7.534458
+gridDim: (512,512), blockDim: (16,16)    error    : 0.000000 GPU time : 7.847954
+gridDim: (1024,1024), blockDim: (8,8)    error    : 0.000000 GPU time : 9.566049
+gridDim: (2048,2048), blockDim: (4,4)    error    : 0.000000 GPU time : 21.200515
+gridDim: (4096,4096), blockDim: (2,2)    error    : 0.000000 GPU time : 27.683820
 
