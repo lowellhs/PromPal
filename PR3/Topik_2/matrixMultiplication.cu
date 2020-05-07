@@ -64,7 +64,7 @@ int main(int argc, char **argv)
     // do calculation on device
     // Part 1 of 2. Compute execution configuration
     dim3 gridDim, blockDim;
-    if (argc == (2+sizeCounter+4))
+    if (argc == (3+sizeCounter+4))
     {
       gridDim = dim3(atoi(argv[argc-4]), atoi(argv[argc-3]));
       blockDim = dim3(atoi(argv[argc-2]), atoi(argv[argc-1]));
