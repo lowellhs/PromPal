@@ -1,0 +1,9 @@
+./matrixMultiplication.o
+gridDim: (128,128), blockDim: (32,32)
+error    : 0.000000
+GPU time : 0.532374
+
+./matrixMultiplication_cublas.o
+error    : 0.000000
+GPU time : 0.416464
+
