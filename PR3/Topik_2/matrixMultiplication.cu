@@ -1,8 +1,35 @@
+#include "matrixTools.c"
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include <cuda.h>
 #include <math.h>
 #include <sys/time.h>
+
+void randomMatrixGenerator(int n, float *A)
+{
+  srand(time(0));
+  for (int i=0; i<n; i++)
+  {
+    for (int j=0; j<n; j++) 
+    {
+      A[n*i+j] = rand();
+    }
+  }
+}
+
+void initIdentityMatrix(int n, float *I)
+{
+  for(int i=0; i<n; i++)
+  {
+    for(int j=0; j<n; j++)
+    {
+      if(i==j) I[n*i+j] = 1.0;
+      else I[n*i+j] = 0.0;
+    }
+  }
+  
+}
 
 __global__ void matmulOnDevice(int n, float *A, float *B, float *C)
 {
