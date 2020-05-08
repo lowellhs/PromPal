@@ -48,9 +48,9 @@ int main(int argc, char **argv)
     //do calculation on host
     int nBlocks = atoi(argv[2]);
     int blockSize = atoi(argv[3]);
-    if (k==0) kernelId<<<nBlocks,blockSize>>>(a_d);
-    if (k==1) kernelBlockIdx<<<nBlocks,blockSize>>>(a_d);
-    if (k==2) kernelThreadIdx<<<nBlocks,blockSize>>>(a_d);
+    if (k==0) { kernelId<<<nBlocks,blockSize>>>(a_d); printf("%s      :", "a[i]"); }
+    if (k==1) { kernelBlockIdx<<<nBlocks,blockSize>>>(a_d); printf("%s  :", "blockIdx"); }
+    if (k==2) { kernelThreadIdx<<<nBlocks,blockSize>>>(a_d); printf("%s :", "threadIdx"); }
 
     //retrieve result from device and store in b_h
     cudaMemcpy(b_h, a_d, sizeof(int)*N, cudaMemcpyDeviceToHost);

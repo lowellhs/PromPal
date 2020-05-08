@@ -3,8 +3,8 @@ import sys
 import os
 import re
 
-'''
-for sizePow in [28, 30]:
+
+for sizePow in [22]:
         size = 2**sizePow
         for nBlocksPow in range(sizePow-10, sizePow+1, 2):
                 nBlocks = 2**nBlocksPow
@@ -28,3 +28,4 @@ for sizePow in [20]:
                 cmd = 'nvprof --log-file result/result_incArr2_{0}_{1}-{2}_{3}-{4}.txt ./incrementArrays_2d.o {0} {1} {2} {3} {4}'.format(size, blockDimX, blockDimY, gridDimX, gridDimY).split(" ")
                 res = subprocess.check_output(cmd)
                 print(" ".join([line.decode("utf-8") for line in res.splitlines()]))
+'''
