@@ -10,7 +10,7 @@ def findingOptimalGridBlock():
     for counter in range(5):
       blockDim = 2**blocksDimPow[counter]
       gridDim = 2**gridsDimPow[counter]
-      cmd = "./matrixMultiplication.o 1 {0} {1} {1} {2} {2}".format(size, gridDim, blockDim)
+      cmd = "./matrixMultiplication_nonshared.o 1 {0} {1} {1} {2} {2}".format(size, gridDim, blockDim)
       res = subprocess.check_output(cmd.split(" "))
       arr.append(res.decode("utf-8").strip())
       print(arr[-1])
