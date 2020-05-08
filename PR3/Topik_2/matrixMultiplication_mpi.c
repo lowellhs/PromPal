@@ -60,9 +60,11 @@ int main(int argc, char **argv)
   MPI_Finalize();
 
   if (my_rank == 0) {
-    float err = errorMatrix(n, B, C);
-    printf("TOTAL TIME : %.6f s\n", stop - start);
-    printf("err : %.6f\n", err);
+    float err = errorMatrix(n, C, B);
+    printf("%d ", n);
+    printf("%.6f ", stop-start);
+    printf("%.6f\n", err);
+
   }
 
   free(A); free(B); free(C);
