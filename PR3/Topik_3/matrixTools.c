@@ -57,13 +57,11 @@ int read_vector(int n, float *v, char *filename, char *delim) {
 }
 
 float norm_vector(int n, float *veca, float *vecb) {
-  int i;
-  float sum, diff;
-  sum = 0.0;
-  for (i=0; i<n; i++) {
-    diff = vecb[i] - veca[i];
-    sum = sum + diff*diff;
+  float maxNorm = 0.0, diff;
+  for (int i=0; i<n; i++) {
+    diff = fabs(vecb[i]-veca[i]);
+    if (diff > maxNorm) maxNorm = diff;
   }
-  return sqrt(sum);
+  return maxNorm;
 }
 

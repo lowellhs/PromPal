@@ -7,19 +7,22 @@
 #define TOL 1e-6
 #define limit_iter 10000
 
-__global__ void jacobiOnDevice(int n, float *A, float *b, float *x_iter, float *x_iter_new)
+__device__ int flag;
+
+__global__ void jacobiOnDevice(int n, float *A, float *b, float *x_iter)
 {
-  int idx = blockIdx.x*blockDim.x + threadIdx.x;
-  if (idx < n)
+  float sigma = 0, newValue;
+  int i = blockIdx.x*blockDim.x + threadIdx.x;
+  if (i < n)
   {
-    x_iter_new[idx] = b[idx];
     for (int j=0; j<n; j++) {
-      if (j != idx) {
-        x_iter_new[idx] -= (A[idx*n+j] * x_iter[j]);
+      if (j != i) {
+        sigma = sigma + A[i*n+j]*x_iter[j];
       }
     }
-    x_iter_new[idx] /= A[idx*n+idx];
-    x_iter[idx] = x_iter_new[idx];
+    newValue = (b[i]-sigma)/A[i*n+i];
+    if (fabs(x_iter[i]-newValue) > TOL) flag = 0;
+    x_iter[i] = newValue;
   }
 }
 
@@ -33,20 +36,18 @@ int main(int argc, char **argv)
     {
       cudaEvent_t start, stop;
       
-      float *A, *b, *x, *x_iter, *x_iter_new;
-      float *A_d, *b_d, *x_iter_d, *x_iter_new_d;
-      float dist;
+      float *A, *b, *x, *x_iter;
+      float *A_d, *b_d, *x_iter_d;
 
       int n = atoi(argv[counter]);
       A = (float *)malloc(sizeof(float)*n*n);
       b = (float *)malloc(sizeof(float)*n);
       x = (float *)malloc(sizeof(float)*n);
       x_iter = (float *)malloc(sizeof(float)*n);
-      x_iter_new = (float *)malloc(sizeof(float)*n);
+
       cudaMalloc((void **) &A_d, sizeof(float)*n*n);
       cudaMalloc((void **) &b_d, sizeof(float)*n);
       cudaMalloc((void **) &x_iter_d, sizeof(float)*n);
-      cudaMalloc((void **) &x_iter_new_d, sizeof(float)*n);
       
       char file_A[80], file_b[80], file_x[80];
       sprintf(file_A, "test_input/matrix_A_%dx%d.txt", n, n);
@@ -55,7 +56,7 @@ int main(int argc, char **argv)
       read_matrix(n, A, file_A, " ");
       read_vector(n, b, file_b, " ");
       read_vector(n, x, file_x, " ");
-      for (int i=0; i<n; i++) x_iter[i] = 0.0;
+      for (int i=0; i<n; i++) x_iter[i] = 2.0;
     
       cudaEventCreate(&start);
       cudaEventCreate(&stop);
@@ -66,18 +67,18 @@ int main(int argc, char **argv)
       cudaMemcpy(x_iter_d, x_iter, n*sizeof(float), cudaMemcpyHostToDevice);
 
 
-      int k = 0;
+      int k = 0, isConverged;
       do {
+        isConverged = 1;
+
+        cudaMemcpyToSymbol(flag, &isConverged, sizeof(int));
+        jacobiOnDevice<<<(int)ceil(n/1024.0),1024>>>(n, A_d, b_d, x_iter_d);
+        cudaMemcpyFromSymbol(&isConverged, flag, sizeof(int));
+
         k++;
+      } while (k < limit_iter && !isConverged);
 
-        jacobiOnDevice<<<(int)ceil(n/1024.0),1024>>>(n, A_d, b_d, x_iter_d, x_iter_new_d);
-        cudaDeviceSynchronize();
-        cudaMemcpy(x_iter_new, x_iter_new_d, n*sizeof(float), cudaMemcpyDeviceToHost);
-        cudaDeviceSynchronize();
-
-        dist = norm_vector(n, x_iter_new, x_iter);
-        for (int i=0; i<n; i++) x_iter[i] = x_iter_new[i];
-      } while (k < limit_iter && dist > TOL);
+      cudaMemcpy(x_iter, x_iter_d, n*sizeof(float), cudaMemcpyDeviceToHost);
 
       cudaEventRecord(stop);
       cudaEventSynchronize(stop);
@@ -88,8 +89,8 @@ int main(int argc, char **argv)
       printf("%.6f ", milliseconds*1e-3);
       printf("%.9f ", norm_vector(n, x_iter, x));
       printf("%d\n", k);
-      free(A); free(b); free(x); free(x_iter); free(x_iter_new);
-      cudaFree(A_d); cudaFree(b_d); cudaFree(x_iter); cudaFree(x_iter_new);
+      free(A); free(b); free(x); free(x_iter);
+      cudaFree(A_d); cudaFree(b_d); cudaFree(x_iter_d);
     }
   }
   return 0;
