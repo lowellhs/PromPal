@@ -35,9 +35,9 @@ int main(int argc, char **argv)
       for (int i=0; i<n; i++) x_iter[i] = 0.0;
 
       gettimeofday(&startCPU, 0);
-      int k = 0;
+      int k = 0, isConverged;
       do {
-        k++;
+        isConverged = 1;
         for (int i=0; i<n; i++) {
           x_iter_new[i] = b[i];
           for (int j=0; j<n; j++) {
@@ -47,11 +47,13 @@ int main(int argc, char **argv)
           }
           x_iter_new[i] /= A[i*n+i];
         }
-        dist = norm_vector(n, x_iter_new, x_iter);
+
         for (int i=0; i<n; i++) {
+          if (fabs(x_iter[i]-x_iter_new[i]) > TOL) isConverged = 0;
           x_iter[i] = x_iter_new[i];
         }
-      } while (k < limit_iter && dist > TOL);
+        k++;
+      } while (k < limit_iter && !isConverged);
       gettimeofday(&stopCPU, 0);
 
       printf("%d ", n);
@@ -63,3 +65,4 @@ int main(int argc, char **argv)
   }
   return 0;
 }
+
