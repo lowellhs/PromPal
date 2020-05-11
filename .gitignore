@@ -1,3 +1,5 @@
 .DS_Store
 PR3/Topik_1/*.o
 PR3/Topik_1/.nfs*
+PR3/Topik_2/*.o
+PR3/Topik_3/*.o
