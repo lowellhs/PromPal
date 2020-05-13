@@ -55,10 +55,10 @@ int main(int argc, char **argv)
       sendx[i] = recb[i];
       for (j=0; j<n; j++) {
         if ((my_rank*rows+i) != j) {
-          sendx[i] -= (recA[i*rows+j] * x_iter[j]);
+          sendx[i] -= (recA[i*n+j] * x_iter[j]);
         }
       }
-      sendx[i] /= recA[i*rows+(my_rank*rows+i)];
+      sendx[i] /= recA[i*n+(my_rank*rows+i)];
     }
     MPI_Allgather(&(sendx[0]), rows, MPI_FLOAT, &(x_iter_new[0]), rows, MPI_FLOAT, MPI_COMM_WORLD);
     for (int i=0; i<n; i++) {
@@ -77,6 +77,10 @@ int main(int argc, char **argv)
     printf("%.9f ", norm_vector(n, x_iter, x));
     printf("%d\n", k);
   }
+
+  free(A); free(b); free(x);
+  free(x_iter); free(x_iter_new);
+  free(recA); free(recb); free(sendx);
 
   return 0;
 }
