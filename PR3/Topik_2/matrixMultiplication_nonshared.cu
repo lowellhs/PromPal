@@ -93,9 +93,7 @@ int main(int argc, char **argv)
     cudaDeviceSynchronize();
 
     float err = errorMatrix(n, C2_h, B_h);
-    printf("%d (%d,%d) (%d,%d) ", n, gridDim.x, gridDim.y, blockDim.x, blockDim.y);
-    printf("%.6f ", milliseconds*1e-3);
-    printf("%.6f\n", err);
+    printf("%d %.6f %.6f (%d,%d) (%d,%d)\n", n, milliseconds*1e-3, err, gridDim.x, gridDim.y, blockDim.x, blockDim.y);
 
     // Cleanup
     free(A_h); free(B_h); free(C_h); free(C2_h);

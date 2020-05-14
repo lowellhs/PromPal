@@ -13,18 +13,29 @@ __global__ void matmulOnDevice(int n, float *A, float *B, float *C)
   __shared__ float  a[TILE_WIDTH][TILE_WIDTH], b[TILE_WIDTH][TILE_WIDTH];
   int I =  blockIdx.x*blockDim.x + threadIdx.x;
   int J =  blockIdx.y*blockDim.y + threadIdx.y;
-  if ((I < n) && (J < n))
+
+  float c = 0.0f;
+  for (int k=0; k < (TILE_WIDTH+n-1)/TILE_WIDTH; k++)
   {
-    float c = 0.0f;
-    for (int k=0; k < gridDim.y; k++)
-    {
-      a[threadIdx.x][threadIdx.y] = A[I*n+k*blockDim.y+threadIdx.y];
-      b[threadIdx.y][threadIdx.x] = B[J+n*(k*blockDim.x+threadIdx.x)];
-      __syncthreads();
-      for (int kk=0; kk< blockDim.x; kk++) c += a[kk][threadIdx.x]*b[threadIdx.y][kk]; 
-      __syncthreads();
-    }
-    C[I*n+J] = c;
+    if (k*TILE_WIDTH + threadIdx.x < n && J < n)
+      a[threadIdx.y][threadIdx.x] = A[J*n+k*TILE_WIDTH+threadIdx.x];
+    else
+      a[threadIdx.y][threadIdx.x] = 0.0;
+
+    if (k*TILE_WIDTH + threadIdx.y < n && I < n)
+      b[threadIdx.y][threadIdx.x] = B[I+n*(k*TILE_WIDTH+threadIdx.y)];
+    else
+      b[threadIdx.y][threadIdx.x] = 0.0;
+    __syncthreads();
+
+    for (int kk=0; kk<TILE_WIDTH; ++kk)
+      c += a[threadIdx.y][kk]*b[kk][threadIdx.x]; 
+    __syncthreads();
+  }
+
+  if (I < n && J < n)
+  {
+    C[J*n+I] = c;
   }
 }
 
@@ -100,9 +111,7 @@ int main(int argc, char **argv)
     cudaDeviceSynchronize();
 
     float err = errorMatrix(n, C2_h, B_h);
-    printf("%d (%d,%d) (%d,%d) ", n, gridDim.x, gridDim.y, blockDim.x, blockDim.y);
-    printf("%.6f ", milliseconds*1e-3);
-    printf("%.6f\n", err);
+    printf("%d %.6f %.6f (%d,%d) (%d,%d)\n", n, milliseconds*1e-3, err, gridDim.x, gridDim.y, blockDim.x, blockDim.y);
 
     // Cleanup
     free(A_h); free(B_h); free(C_h); free(C2_h);
