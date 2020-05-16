@@ -52,6 +52,7 @@ int main(int argc, char **argv)
           if (fabs(x_iter[i]-x_iter_new[i]) > TOL) isConverged = 0;
           x_iter[i] = x_iter_new[i];
         }
+        printVector(n, x_iter); printf("\n");
         k++;
       } while (k < limit_iter && !isConverged);
       gettimeofday(&stopCPU, 0);

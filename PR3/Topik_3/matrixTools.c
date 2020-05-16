@@ -65,3 +65,22 @@ float norm_vector(int n, float *veca, float *vecb) {
   return maxNorm;
 }
 
+void printMatrix(int n, float *A)
+{
+  for (int i=0; i<n; i++)
+  {
+    for (int j=0; j<n; j++)
+    {
+      printf("%10.3f ", A[n*i+j]);
+    }
+    printf("\n");
+  }
+}
+
+void printVector(int n, float *x)
+{
+  for (int i=0; i<n; i++)
+  {
+    printf("%10.3f\n", x[i]);
+  }
+}
