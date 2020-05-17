@@ -21,6 +21,7 @@ __global__ void jacobiOnDevice(int n, float *A, float *b, float *x_iter)
       }
     }
     newValue = (b[i]-sigma)/A[i*n+i];
+    __syncthreads();
     if (fabs(x_iter[i]-newValue) > TOL) flag = 0;
     x_iter[i] = newValue;
   }
@@ -56,7 +57,7 @@ int main(int argc, char **argv)
       read_matrix(n, A, file_A, " ");
       read_vector(n, b, file_b, " ");
       read_vector(n, x, file_x, " ");
-      for (int i=0; i<n; i++) x_iter[i] = 2.0;
+      for (int i=0; i<n; i++) x_iter[i] = 0.0;
     
       cudaEventCreate(&start);
       cudaEventCreate(&stop);
@@ -65,6 +66,7 @@ int main(int argc, char **argv)
       cudaMemcpy(A_d, A, n*n*sizeof(float), cudaMemcpyHostToDevice);
       cudaMemcpy(b_d, b, n*sizeof(float), cudaMemcpyHostToDevice);
       cudaMemcpy(x_iter_d, x_iter, n*sizeof(float), cudaMemcpyHostToDevice);
+      cudaDeviceSynchronize();
 
 
       int k = 0, isConverged;
@@ -72,8 +74,9 @@ int main(int argc, char **argv)
         isConverged = 1;
 
         cudaMemcpyToSymbol(flag, &isConverged, sizeof(int));
-        jacobiOnDevice<<<(int)ceil(n/1024.0),1024>>>(n, A_d, b_d, x_iter_d);
+        jacobiOnDevice<<<dim3((int)ceil(n/1024.0),1,1),dim3(1024,1,1)>>>(n, A_d, b_d, x_iter_d);
         cudaMemcpyFromSymbol(&isConverged, flag, sizeof(int));
+        cudaDeviceSynchronize();
 
         k++;
       } while (k < limit_iter && !isConverged);
