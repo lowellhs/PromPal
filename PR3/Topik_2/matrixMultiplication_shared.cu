@@ -11,19 +11,19 @@
 __global__ void matmulOnDevice(int n, float *A, float *B, float *C)
 {
   __shared__ float  a[TILE_WIDTH][TILE_WIDTH], b[TILE_WIDTH][TILE_WIDTH];
-  int I =  blockIdx.x*blockDim.x + threadIdx.x;
-  int J =  blockIdx.y*blockDim.y + threadIdx.y;
+  int col =  blockIdx.x*blockDim.x + threadIdx.x;
+  int row =  blockIdx.y*blockDim.y + threadIdx.y;
 
   float c = 0.0f;
   for (int k=0; k < (TILE_WIDTH+n-1)/TILE_WIDTH; k++)
   {
-    if (k*TILE_WIDTH + threadIdx.x < n && J < n)
-      a[threadIdx.y][threadIdx.x] = A[J*n+k*TILE_WIDTH+threadIdx.x];
+    if (k*TILE_WIDTH + threadIdx.x < n && row < n)
+      a[threadIdx.y][threadIdx.x] = A[row*n+k*TILE_WIDTH+threadIdx.x];
     else
       a[threadIdx.y][threadIdx.x] = 0.0;
 
-    if (k*TILE_WIDTH + threadIdx.y < n && I < n)
-      b[threadIdx.y][threadIdx.x] = B[I+n*(k*TILE_WIDTH+threadIdx.y)];
+    if (k*TILE_WIDTH + threadIdx.y < n && col < n)
+      b[threadIdx.y][threadIdx.x] = B[col+n*(k*TILE_WIDTH+threadIdx.y)];
     else
       b[threadIdx.y][threadIdx.x] = 0.0;
     __syncthreads();
@@ -33,9 +33,9 @@ __global__ void matmulOnDevice(int n, float *A, float *B, float *C)
     __syncthreads();
   }
 
-  if (I < n && J < n)
+  if (row < n && col < n)
   {
-    C[J*n+I] = c;
+    C[row*n+col] = c;
   }
 }
 
