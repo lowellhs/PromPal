@@ -55,7 +55,7 @@ int main(int argc, char **argv)
     const float *beta = &bet;
     cublasHandle_t handle;
     cublasCreate(&handle);
-    cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, n, n, n, alpha, A_d, lda, B_d, ldb, beta, C_d, ldc);
+    cublasSgemm(handle, CUBLAS_OP_N, CUBLAS_OP_N, n, n, n, alpha, B_d, lda, A_d, ldb, beta, C_d, ldc);
     cublasDestroy(handle);
     cudaMemcpy(C2_h, C_d, n*n*sizeof(float), cudaMemcpyDeviceToHost);
 
