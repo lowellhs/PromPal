@@ -84,6 +84,8 @@ int main(int argc, char **argv)
       float milliseconds = 0; cudaEventElapsedTime(&milliseconds, start, stop);
       cudaDeviceSynchronize();
 
+      // cudaError_t code=cudaGetLastError();
+      // printf("%s\n", cudaGetErrorString(code));
       printf("%d ", n);
       printf("%.6f ", milliseconds*1e-3);
       printf("%.9f ", norm_vector(n, x_iter, x));
