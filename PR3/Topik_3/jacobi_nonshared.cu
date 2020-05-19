@@ -6,6 +6,7 @@
 
 #define TOL 1e-6
 #define limit_iter 10000
+#define BLOCK_SIZE 50
 
 __device__ int flag;
 
@@ -67,12 +68,13 @@ int main(int argc, char **argv)
       cudaEventCreate(&stop);
       cudaEventRecord(start);
       int k = 0, isConverged;
+      int gridSize = (int)ceil(1.0*n/BLOCK_SIZE);
       do {
         isConverged = 1;
 
         cudaMemcpyToSymbol(flag, &isConverged, sizeof(int));
-        jacobiOnDevice<<<dim3((int)ceil(n/1024.0),1,1), dim3(1024,1,1)>>>(n, A, b, x_iter, x_iter_new);
-        checkConvergence<<<dim3((int)ceil(n/1024.0),1,1), dim3(1024,1,1)>>>(n, x_iter, x_iter_new);
+        jacobiOnDevice<<<gridSize, BLOCK_SIZE>>>(n, A, b, x_iter, x_iter_new);
+        checkConvergence<<<gridSize, BLOCK_SIZE>>>(n, x_iter, x_iter_new);
         cudaMemcpyFromSymbol(&isConverged, flag, sizeof(int));
         cudaDeviceSynchronize();
 
