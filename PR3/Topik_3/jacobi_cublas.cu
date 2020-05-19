@@ -7,6 +7,7 @@
 
 #define TOL 1e-6
 #define limit_iter 10000
+#define BLOCK_SIZE 50
 
 __device__ int flag;
 
@@ -76,12 +77,12 @@ int main(int argc, char **argv)
 
       int blockDim = 32;
       int gridDim = (int)ceil(n/32.0);
-			dim3 aa = dim3(gridDim,gridDim);
+      dim3 aa = dim3(gridDim,gridDim);
       dim3 bb = dim3(blockDim,blockDim);
       getDLU<<<aa,bb>>>(n, A, D_inv, LU);
       cudaDeviceSynchronize();
 
-
+      int gridSize = (int)ceil(1.0*n/BLOCK_SIZE);
       cublasHandle_t handle;
       cublasCreate(&handle);
       al = 1.0f, bet = 0.0f;
@@ -95,7 +96,7 @@ int main(int argc, char **argv)
         cudaMemcpyToSymbol(flag, &isConverged, sizeof(int));
         cublasSgemv(handle, CUBLAS_OP_T, n, n, &al, T, n, x_iter, 1, &bet, x_iter_new, 1);
         cublasSaxpy(handle, n, &al, c, 1, x_iter_new, 1);
-        checkConvergence<<<(int)ceil(n/1024.0), 1024>>>(n, x_iter, x_iter_new);
+        checkConvergence<<<gridSize, BLOCK_SIZE>>>(n, x_iter, x_iter_new);
         cublasScopy(handle, n, x_iter_new, 1, x_iter, 1);
         cudaMemcpyFromSymbol(&isConverged, flag, sizeof(int));
         cudaDeviceSynchronize();
