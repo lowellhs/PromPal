@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <cuda.h>
+#include <math.h>
 #include "cublas_v2.h"
 #include "helper.c"
 
@@ -10,7 +11,7 @@
 __global__ void getSquaredNorm(int m, int n, float *X, float *normX)
 {
   int idx = blockIdx.x*gridDim.x + threadIdx.x;
-  if (idx < m*n)
+  if (idx < m)
   {
     float norm = 0.0;
     for (int j=0; j<n; j++)
@@ -19,6 +20,18 @@ __global__ void getSquaredNorm(int m, int n, float *X, float *normX)
       norm += (val*val);
     }
     normX[idx] = norm;
+  }
+}
+
+__global__ void calculateDistance(int m, int t, float *normX, float *normY, float *xTy)
+{
+  int idx = blockIdx.x*gridDim.x + threadIdx.x;
+  if (idx < m*t)
+  {
+    int i = idx/t, j = idx%t;
+    float squaredDist = normX[i] + normY[j] + xTy[idx];
+    float dist = sqrt(squaredDist);
+    xTy[idx] = dist;
   }
 }
 
@@ -43,14 +56,26 @@ void getTopKRows(int m, int k, float *distances, int *indices)
   cublasDestroy(handle);
 }
 
+void matmulTrainTest(int m, int n, int k, float *A, float *B, float *C)
+{
+  cublasHandle_t handle;
+  cublasCreate(&handle);
+  float al = -2.0f, bet = 0.0f;
+  cublasSgemm(handle, CUBLAS_OP_T, CUBLAS_OP_N, n, m, k, &al, B, k, A, k, &bet, C, n);
+  cublasDestroy(handle); 
+}
+
 int main(int argc, char **argv)
 {
   int m = 150;
   int t = 3;
   int n = 5;
   
-  float *X_train = mallocUniY(m*(n-1)), *X_test = mallocUniY(t*(n-1));
-  float *y_train = mallocUniY(m), *y_test = mallocUniY(t), *distances = mallocUniY(m);
+  float *X_train = mallocUni(m*(n-1)), *X_test = mallocUni(t*(n-1));
+  float *y_train = mallocUni(m), *y_test = mallocUni(t);
+  float *distances = mallocUni(m);
+  float *normX_train = mallocUni(m), *normX_test = mallocUni(t);
+  float *trainTtest = mallocUni(m*t);
 
   char **data_train = mallocData(m, n, MAX_LEN);
   char **data_test = mallocData(t, n, MAX_LEN);
@@ -58,24 +83,19 @@ int main(int argc, char **argv)
   read_csv(t, n, data_test, "test_input/Iris_test.csv");
   getXandY(m, n, data_train, X_train, y_train);
   getXandY(t, n, data_test, X_test, y_test);
-  for(int i=0; i<t; i++)
-  {
-    for (int j=0; j<(n-1); j++)
-    {
-      printf("%.6f ", X_test[i*(n-1)+j]);
-    }
-    printf("\n");
-  }
-  printf("\n");
-  for(int i=0; i<t; i++)
-  {
-    printf("%.6f\n", y_train[i]);
-  }
   freeData(m, n, data_train);
   freeData(t, n, data_test);
 
-  freeUniY(X_train); freeUniY(X_test);
-  freeUniY(y_train); freeUniY(y_test);
+  getSquaredNorm<<<(int)ceil(m/1024.0), 1024>>>(m, n-1, X_train, normX_train);
+  getSquaredNorm<<<(int)ceil(m/1024.0), 1024>>>(t, n-1, X_test, normX_test);
+  matmulTrainTest(m, t, n-1, X_train, X_test, trainTtest);
+  calculateDistance<<<(int)ceil(m/1024.0), 1024>>>(m, t, normX_train, normX_test, trainTtest);
+  cudaDeviceSynchronize();
+  print_matrix(m, t, trainTtest);
+
+  print_vector(t, normX_test);
+  freeUni(X_train); freeUni(X_test);
+  freeUni(y_train); freeUni(y_test);
 
   /*
   int m = atoi(argv[1]);

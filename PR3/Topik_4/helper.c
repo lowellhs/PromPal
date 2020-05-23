@@ -49,26 +49,13 @@ void freeData(int m, int n, char **data)
   free(data);
 }
 
-float** mallocUniX(int m, int n)
-{
-  float **X;
-  cudaMallocManaged((void **)&X, m*sizeof(float *));
-  for (int i=0; i<m; i++) cudaMallocManaged((void **)&(X[i]), n*sizeof(float));
-  return X;
-}
-void freeUniX(int m, float **X)
-{
-  for (int i = 0; i < m; i++) cudaFree(X[i]);
-  cudaFree(X);
-}
-
-float* mallocUniY(int m)
+float* mallocUni(int m)
 {
   float *y;
   cudaMallocManaged((void **)&y, m*sizeof(float));
   return y;
 }
-void freeUniY(float *y)
+void freeUni(float *y)
 {
   cudaFree(y);
 }
@@ -83,6 +70,28 @@ void getXandY(int m, int n, char **data, float *X, float *y)
     }
     y[i] = strtof(data[i*n+(n-1)], NULL);
   }
+}
+
+void print_matrix(int m, int n, float *X)
+{
+  for(int i=0; i<m; i++)
+  {
+    for (int j=0; j<n; j++)
+    {
+      printf("%.6f ", X[i*n+j]);
+    }
+    printf("\n");
+  }
+  printf("\n");
+}
+
+void print_vector(int m, float *y)
+{
+  for(int i=0; i<m; i++)
+  {
+    printf("%.6f\n", y[i]);
+  }
+  printf("\n");
 }
 
 /*
