@@ -73,15 +73,15 @@ void freeUniY(float *y)
   cudaFree(y);
 }
 
-void getXandY(int m, int n, char **data, float **X, float *y)
+void getXandY(int m, int n, char **data, float *X, float *y)
 {
   for (int i=0; i<m; i++)
   {
     for (int j=0; j<(n-1); j++)
     {
-      X[i][j] = strtof(data[i*n+j], NULL);
+      X[i*(n-1)+j] = strtof(data[i*n+j], NULL);
     }
-    X[i][n-1] = strtof(data[i*n+(n-1)], NULL);
+    y[i] = strtof(data[i*n+(n-1)], NULL);
   }
 }
 

@@ -7,14 +7,19 @@
 
 #define MAX_LEN 1000
 
-__global__ void calculateDistances(cublasHandle_t handle, int m, int n, float **X_train, float *row_test, float *distances)
+__global__ void getSquaredNorm(int m, int n, float *X, float *normX)
 {
-  int id = blockIdx.x*gridDim.x + threadIdx.x;
-  float al = -1.0;
-  float dist;
-  cublasSaxpy(handle, n, &al, X_train[id], 1, row_test, 1);
-  cublasSnrm2(handle, n, row_test, 1, &dist);
-  distances[id] = dist;
+  int idx = blockIdx.x*gridDim.x + threadIdx.x;
+  if (idx < m*n)
+  {
+    float norm = 0.0;
+    for (int j=0; j<n; j++)
+    {
+      float val = X[idx*n+j];
+      norm += (val*val);
+    }
+    normX[idx] = norm;
+  }
 }
 
 void getTopKRows(int m, int k, float *distances, int *indices)
@@ -44,7 +49,7 @@ int main(int argc, char **argv)
   int t = 3;
   int n = 5;
   
-  float **X_train = mallocUniX(m, n-1), **X_test = mallocUniX(t, n-1);
+  float *X_train = mallocUniY(m*(n-1)), *X_test = mallocUniY(t*(n-1));
   float *y_train = mallocUniY(m), *y_test = mallocUniY(t), *distances = mallocUniY(m);
 
   char **data_train = mallocData(m, n, MAX_LEN);
@@ -53,16 +58,23 @@ int main(int argc, char **argv)
   read_csv(t, n, data_test, "test_input/Iris_test.csv");
   getXandY(m, n, data_train, X_train, y_train);
   getXandY(t, n, data_test, X_test, y_test);
+  for(int i=0; i<t; i++)
+  {
+    for (int j=0; j<(n-1); j++)
+    {
+      printf("%.6f ", X_test[i*(n-1)+j]);
+    }
+    printf("\n");
+  }
+  printf("\n");
+  for(int i=0; i<t; i++)
+  {
+    printf("%.6f\n", y_train[i]);
+  }
   freeData(m, n, data_train);
   freeData(t, n, data_test);
 
-  cublasHandle_t handle;
-  cublasCreate(&handle);
-  calculateDistances<<<1,150>>>(handle, m, n, X_train, X_test[0], distances);
-  cudaDeviceSynchronize();
-  cublasDestroy(handle);  
-
-  freeUniX(m, X_train); freeUniX(t, X_test);
+  freeUniY(X_train); freeUniY(X_test);
   freeUniY(y_train); freeUniY(y_test);
 
   /*
