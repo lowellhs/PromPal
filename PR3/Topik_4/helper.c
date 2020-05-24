@@ -60,6 +60,17 @@ void freeUni(float *y)
   cudaFree(y);
 }
 
+int* mallocUni_int(int m)
+{
+  int *y;
+  cudaMallocManaged((void **)&y, m*sizeof(int));
+  return y;
+}
+void freeUni_int(int *y)
+{
+  cudaFree(y);
+}
+
 int* mallocY(int m)
 {
   return (int *)malloc(m*sizeof(int));
@@ -88,6 +99,19 @@ void print_matrix(int m, int n, float *X)
     for (int j=0; j<n; j++)
     {
       printf("%.6f ", X[i*n+j]);
+    }
+    printf("\n");
+  }
+  printf("\n");
+}
+
+void print_matrix_int(int m, int n, int *X)
+{
+  for(int i=0; i<m; i++)
+  {
+    for (int j=0; j<n; j++)
+    {
+      printf("%d ", X[i*n+j]);
     }
     printf("\n");
   }

@@ -35,25 +35,33 @@ __global__ void calculateDistance(int m, int t, float *normX, float *normY, floa
   }
 }
 
-void getTopKRows(int m, int k, float *distances, int *indices)
+__global__ void parallel_sort(int t, int m, int k, float *matrix, int *result)
 {
-  cublasHandle_t handle;
-  cublasCreate(&handle);
-
-  int idxMin, idxMax;
-  float maxVal;
-  cublasIsamax(handle, m, distances, 1, &idxMax);
-  cudaDeviceSynchronize();
-  maxVal = distances[idxMax-1];
-  for (int i=0; i<k; i++)
+  int idx = blockIdx.x*blockDim.x + threadIdx.x;
+  if (idx < t)
   {
-    cublasIsamin(handle, m, distances, 1, &idxMin);
-    cudaDeviceSynchronize();
-    indices[i] = idxMin-1;
-    distances[idxMin-1] = maxVal;
+    for (int i=0; i<k; i++)
+    {
+      int min_idx = -1, min_idx_g = -1;
+      float min_val;
+      for (int j=0; j<m; j++)
+      {
+        int valid = 1;
+        for (int jj=0; jj<i; jj++) valid = valid && (j != result[idx*k+jj]);
+        if (valid)
+        {
+          float val = matrix[idx*m+j];
+          if ((min_idx == -1) || (val < min_val))
+          {
+            min_val = val;
+            min_idx = idx*m+j;
+            min_idx_g = j;
+          }
+        }
+      }
+      result[idx*k+i] = min_idx_g;
+    }
   }
-
-  cublasDestroy(handle);
 }
 
 void matmulTrainTest(int m, int n, int k, float *A, float *B, float *C)
@@ -65,6 +73,16 @@ void matmulTrainTest(int m, int n, int k, float *A, float *B, float *C)
   cublasDestroy(handle); 
 }
 
+float accuracy(int n, int *y1, int *y2) {
+  int equals = 0;
+  for (int i=0; i<n; i++) {
+    if (y1[i] == y2[i]) {
+      equals += 1;
+    }
+  }
+  return (equals*1.0/n * 100);
+}
+
 int main(int argc, char **argv)
 {
   int m = 60000;
@@ -72,9 +90,14 @@ int main(int argc, char **argv)
   int n = 33;
   int k = 5;
   int labels = 10;
+  // int m = 150;
+  // int t = 3;
+  // int n = 5;
+  // int k = 5;
+  // int labels = 3;
   
   float *X_train = mallocUni(m*(n-1)), *X_test = mallocUni(t*(n-1));
-  int   *y_train = mallocY(m), *y_test = mallocY(t), *y_pred = mallocY(t);
+  int   *y_train = mallocY(m), *y_test = mallocY(t), *y_pred = mallocY(t), *result = mallocUni_int(t*k);
   float *normX_train = mallocUni(m), *normX_test = mallocUni(t);
   float *trainTtest = mallocUni(t*m);
 
@@ -82,36 +105,37 @@ int main(int argc, char **argv)
   char **data_test = mallocData(t, n, MAX_LEN);
   read_csv(m, n, data_train, "test_input/MNIST_train_60k.csv");
   read_csv(t, n, data_test, "test_input/MNIST_test_10k.csv");
+  // read_csv(m, n, data_train, "test_input/Iris_150.csv");
+  // read_csv(t, n, data_test, "test_input/Iris_test.csv");
   getXandY(m, n, data_train, X_train, y_train);
   getXandY(t, n, data_test, X_test, y_test);
   freeData(m, n, data_train);
   freeData(t, n, data_test);
 
-  printf("Start predicting...\n");
+  // printf("Start predicting...\n");
   cudaEvent_t start, stop; cudaEventCreate(&start); cudaEventCreate(&stop); cudaEventRecord(start);
   getSquaredNorm<<<(int)ceil(m/1024.0), 1024>>>(m, n-1, X_train, normX_train);
   getSquaredNorm<<<(int)ceil(m/1024.0), 1024>>>(t, n-1, X_test, normX_test);
   matmulTrainTest(t, m, n-1, X_test, X_train, trainTtest);
   calculateDistance<<<(int)ceil(m/1024.0), 1024>>>(m, t, normX_train, normX_test, trainTtest);
-  cudaEventRecord(stop); cudaEventSynchronize(stop); cudaDeviceSynchronize();
-  float milliseconds = 0; cudaEventElapsedTime(&milliseconds, start, stop);
+  parallel_sort<<<(int)ceil((t)/1024.0), 1024>>>(t, m, k, trainTtest, result);
   cudaDeviceSynchronize();
   for (int i=0; i<t; i++)
   {
-    int *indices = (int *)malloc(k*sizeof(int));
     int *pred_labels = (int *)malloc(k*sizeof(int));
-    getTopKRows(m, k, &(trainTtest[i*m]), indices);
-    for (int j=0; j<k; j++) pred_labels[j] = (int)y_train[indices[j]];
+    for (int j=0; j<k; j++) pred_labels[j] = (int)y_train[result[i*k+j]];
     y_pred[i] = major_num(k, labels, pred_labels);
-    free(indices); free(pred_labels);
+    free(pred_labels);
   }
-  // print_vector_int(t, y_pred);
-  // cudaEventRecord(stop); cudaEventSynchronize(stop); cudaDeviceSynchronize();
-  // float milliseconds = 0; cudaEventElapsedTime(&milliseconds, start, stop);
-  printf("%.6f\n", milliseconds*1e-3);
+  print_vector_int(t, y_pred);
+  cudaEventRecord(stop); cudaEventSynchronize(stop); cudaDeviceSynchronize();
+  float milliseconds = 0; cudaEventElapsedTime(&milliseconds, start, stop);
+  // printf("%.6f\n", milliseconds*1e-3);
+  float acc = accuracy(t, y_test, y_pred);
+  // printf("Acc: %.6f\n", acc);
 
   freeUni(X_train); freeUni(X_test);
-  freeY(y_train); freeY(y_test); freeY(y_pred);
+  freeY(y_train); freeY(y_test); freeY(y_pred); freeUni_int(result);
   freeUni(normX_train); freeUni(normX_test);
   freeUni(trainTtest);
 
