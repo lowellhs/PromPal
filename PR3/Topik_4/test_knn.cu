@@ -28,8 +28,8 @@ __global__ void calculateDistance(int m, int t, float *normX, float *normY, floa
   int idx = blockIdx.x*gridDim.x + threadIdx.x;
   if (idx < m*t)
   {
-    int i = idx/t, j = idx%t;
-    float squaredDist = normX[i] + normY[j] + xTy[idx];
+    int i = idx/m, j = idx%m;
+    float squaredDist = normX[j] + normY[i] + xTy[idx];
     float dist = sqrt(squaredDist);
     xTy[idx] = dist;
   }
@@ -67,55 +67,53 @@ void matmulTrainTest(int m, int n, int k, float *A, float *B, float *C)
 
 int main(int argc, char **argv)
 {
-  int m = 150;
-  int t = 3;
-  int n = 5;
+  int m = 60000;
+  int t = 10000;
+  int n = 33;
+  int k = 5;
+  int labels = 10;
   
   float *X_train = mallocUni(m*(n-1)), *X_test = mallocUni(t*(n-1));
-  float *y_train = mallocUni(m), *y_test = mallocUni(t);
-  float *distances = mallocUni(m);
+  int   *y_train = mallocY(m), *y_test = mallocY(t), *y_pred = mallocY(t);
   float *normX_train = mallocUni(m), *normX_test = mallocUni(t);
-  float *trainTtest = mallocUni(m*t);
+  float *trainTtest = mallocUni(t*m);
 
   char **data_train = mallocData(m, n, MAX_LEN);
   char **data_test = mallocData(t, n, MAX_LEN);
-  read_csv(m, n, data_train, "test_input/Iris_150.csv");
-  read_csv(t, n, data_test, "test_input/Iris_test.csv");
+  read_csv(m, n, data_train, "test_input/MNIST_train_60k.csv");
+  read_csv(t, n, data_test, "test_input/MNIST_test_10k.csv");
   getXandY(m, n, data_train, X_train, y_train);
   getXandY(t, n, data_test, X_test, y_test);
   freeData(m, n, data_train);
   freeData(t, n, data_test);
 
+  printf("Start predicting...\n");
+  cudaEvent_t start, stop; cudaEventCreate(&start); cudaEventCreate(&stop); cudaEventRecord(start);
   getSquaredNorm<<<(int)ceil(m/1024.0), 1024>>>(m, n-1, X_train, normX_train);
   getSquaredNorm<<<(int)ceil(m/1024.0), 1024>>>(t, n-1, X_test, normX_test);
-  matmulTrainTest(m, t, n-1, X_train, X_test, trainTtest);
+  matmulTrainTest(t, m, n-1, X_test, X_train, trainTtest);
   calculateDistance<<<(int)ceil(m/1024.0), 1024>>>(m, t, normX_train, normX_test, trainTtest);
+  cudaEventRecord(stop); cudaEventSynchronize(stop); cudaDeviceSynchronize();
+  float milliseconds = 0; cudaEventElapsedTime(&milliseconds, start, stop);
   cudaDeviceSynchronize();
-  print_matrix(m, t, trainTtest);
-
-  print_vector(t, normX_test);
-  freeUni(X_train); freeUni(X_test);
-  freeUni(y_train); freeUni(y_test);
-
-  /*
-  int m = atoi(argv[1]);
-  int n = atoi(argv[2]);
-  int k = atoi(argv[3]);
-
-  float *X_train, *X_test, *distances;
-  cudaMallocManaged((void **)&X_train, m*n*sizeof(float));
-  cudaMallocManaged((void **)&X_test, m*n*sizeof(float));
-  cudaMallocManaged((void **)&X_test, m*sizeof(float));
-  for (int i=0; i<m; i++)
+  for (int i=0; i<t; i++)
   {
-    for (int j=0; j<n; j++)
-    {
-      X_train[i*n+j] = i*n+j;
-      X_test[i*n+j] = i*n+j+1;
-    }
+    int *indices = (int *)malloc(k*sizeof(int));
+    int *pred_labels = (int *)malloc(k*sizeof(int));
+    getTopKRows(m, k, &(trainTtest[i*m]), indices);
+    for (int j=0; j<k; j++) pred_labels[j] = (int)y_train[indices[j]];
+    y_pred[i] = major_num(k, labels, pred_labels);
+    free(indices); free(pred_labels);
   }
+  // print_vector_int(t, y_pred);
+  // cudaEventRecord(stop); cudaEventSynchronize(stop); cudaDeviceSynchronize();
+  // float milliseconds = 0; cudaEventElapsedTime(&milliseconds, start, stop);
+  printf("%.6f\n", milliseconds*1e-3);
 
-  cudaFree(X_train); cudaFree(X_test);
-  */
+  freeUni(X_train); freeUni(X_test);
+  freeY(y_train); freeY(y_test); freeY(y_pred);
+  freeUni(normX_train); freeUni(normX_test);
+  freeUni(trainTtest);
+
   return 0;
 }

@@ -60,7 +60,16 @@ void freeUni(float *y)
   cudaFree(y);
 }
 
-void getXandY(int m, int n, char **data, float *X, float *y)
+int* mallocY(int m)
+{
+  return (int *)malloc(m*sizeof(int));
+}
+void freeY(int *y)
+{
+  free(y);
+}
+
+void getXandY(int m, int n, char **data, float *X, int *y)
 {
   for (int i=0; i<m; i++)
   {
@@ -68,7 +77,7 @@ void getXandY(int m, int n, char **data, float *X, float *y)
     {
       X[i*(n-1)+j] = strtof(data[i*n+j], NULL);
     }
-    y[i] = strtof(data[i*n+(n-1)], NULL);
+    y[i] = atoi(data[i*n+(n-1)]);
   }
 }
 
@@ -92,6 +101,29 @@ void print_vector(int m, float *y)
     printf("%.6f\n", y[i]);
   }
   printf("\n");
+}
+
+void print_vector_int(int m, int *y)
+{
+  for(int i=0; i<m; i++)
+  {
+    printf("%d\n", y[i]);
+  }
+  printf("\n");
+}
+
+int major_num(int n, int maks, int *labels) {
+  int i, indeks, maksValue, arr[maks];
+  for (i=0; i<maks; i++) arr[i] = 0;
+  for (i=0; i<n; i++) arr[labels[i]] += 1;
+  maksValue = -1;
+  for (i=0; i<maks; i++) {
+    if (arr[i] > maksValue) {
+      maksValue = arr[i];
+      indeks = i;
+    }
+  }
+  return indeks;
 }
 
 /*
@@ -227,24 +259,6 @@ double norm_vector_int(int n, int veca[n], int vecb[n]) {
     sum = sum + diff*diff;
   }
   return sqrt(sum);
-}
-
-int major_num(int n, int maks, int labels[n]) {
-  int i, indeks, maksValue, arr[maks];
-  for (i=0; i<maks; i++) {
-    arr[i] = 0;
-  }
-  for (i=0; i<n; i++) {
-    arr[labels[i]] += 1;
-  }
-  maksValue = -1;
-  for (i=0; i<maks; i++) {
-    if (arr[i] > maksValue) {
-      maksValue = arr[i];
-      indeks = i;
-    }
-  }
-  return indeks;
 }
 */
 
