@@ -31,24 +31,21 @@ __global__ void incrementArrayOnDevice(float *a, unsigned long N)
 
 int main(int argc, char **argv)
 {
-  float *a_h, *b_h; // pointers to host memory
-  float *a_d; // pointer to device memory
+  float *a, *b;
   unsigned long i, N = strtoul(argv[1], NULL, 10);
   size_t size = N*sizeof(float);
 
-  // allocate arrays on host
-  a_h = (float *)malloc(size);
-  b_h = (float *)malloc(size);
+  gpuErrchk( cudaMallocManaged((void **) &a, size) );
+  gpuErrchk( cudaMallocManaged((void **) &b, size) );
 
-  // allocate array on device
-  gpuErrchk( cudaMalloc((void **) &a_d, size) );
-  // initialization of host data
-  for (i=0; i<N; i++) a_h[i] = (float)i;
-  // copy data from host to device
-  gpuErrchk( cudaMemcpy(a_d, a_h, sizeof(float)*N, cudaMemcpyHostToDevice) );
+  for (i=0; i<N; i++)
+  {
+    a[i] = (float)i;
+    b[i] = (float)i;
+  }
   
   // do calculation on host
-  incrementArrayOnHost(a_h, N);
+  incrementArrayOnHost(a, N);
 
   // do calculation on device:
   // Part 1 of 2. Compute execution configuration
@@ -62,17 +59,12 @@ int main(int argc, char **argv)
   printf("blockDim: (%lu,%lu), gridDim: (%lu,%lu)\n", blockDimX, blockDimY, gridDimX, gridDimY);
 
   // Part 2 of 2. Call incrementArrayOnDevice kernel
-  incrementArrayOnDevice <<< gridSize, blockSize >>> (a_d, N);
-  // Retrieve result from device and store in b_h
-  gpuErrchk( cudaMemcpy(b_h, a_d, sizeof(float)*N, cudaMemcpyDeviceToHost) );
-
-  // cudaError err = cudaGetLastError();
-  // if ( cudaSuccess != err ) printf("cudaCheckError() failed: %s\n", cudaGetErrorString(err));
+  incrementArrayOnDevice <<< gridSize, blockSize >>> (b, N);
   cudaDeviceSynchronize();
   
   // check results
-  for (i=0; i<N; i++) assert(a_h[i] == b_h[i]);
+  for (i=0; i<N; i++) assert(a[i] == b[i]);
 
   // cleanup
-  free(a_h); free(b_h); cudaFree(a_d);
+  cudaFree(a); cudaFree(b);
 }
