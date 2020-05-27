@@ -74,53 +74,74 @@ void matmulTrainTest(int m, int n, int k, float *A, float *B, float *C)
   cublasDestroy(handle); 
 }
 
+int getInputs_int(char message[])
+{
+  int var;
+  printf("%s", message); scanf("%d", &var);
+  // printf("\n");
+  return var;
+}
+
+void getInputs_str(char message[], char file_path[])
+{
+  printf("%s", message); scanf("%s", file_path);
+  // printf("\n");
+}
+
 int main(int argc, char **argv)
 {
-  int m = atoi(argv[1]);
-  int t = atoi(argv[2]);
-  int n = atoi(argv[3]);
-  int k = atoi(argv[4]);
-  int labels = atoi(argv[5]);
-  
-  float *X_train = mallocUni(m*(n-1)), *X_test = mallocUni(t*(n-1));
-  int   *y_train = mallocY(m), *y_test = mallocY(t), *y_pred = mallocY(t), *result = mallocUni_int(t*k);
-  float *normX_train = mallocUni(m), *normX_test = mallocUni(t);
-  float *trainTtest = mallocUni(t*m);
+  char message[100], file_train[100], file_test[100];
+  sprintf(message, "%-28s : ", "Number of tests");             int counter = getInputs_int(message);
+  sprintf(message, "%-28s : ", "Number of rows (train data)"); int m       = getInputs_int(message);
+  sprintf(message, "%-28s : ", "Number of rows (test data)");  int t       = getInputs_int(message);
+  sprintf(message, "%-28s : ", "Number of cols");              int n       = getInputs_int(message);
+  sprintf(message, "%-28s : ", "k");                           int k       = getInputs_int(message);
+  sprintf(message, "%-28s : ", "Number of labels/classes");    int labels  = getInputs_int(message);
+  sprintf(message, "%-28s : ", "Train data file path");        getInputs_str(message, file_train);
+  sprintf(message, "%-28s : ", "Train data file path");        getInputs_str(message, file_test);
+  printf("\n");
+  for (int counterNum=0; counterNum < counter; counterNum++)
+  { 
+    float *X_train = mallocUni(m*(n-1)), *X_test = mallocUni(t*(n-1));
+    int   *y_train = mallocY(m), *y_test = mallocY(t), *y_pred = mallocY(t), *result = mallocUni_int(t*k);
+    float *normX_train = mallocUni(m), *normX_test = mallocUni(t);
+    float *trainTtest = mallocUni(t*m);
 
-  char **data_train = mallocData(m, n, MAX_LEN);
-  char **data_test = mallocData(t, n, MAX_LEN);
-  read_csv(m, n, data_train, argv[6]);
-  read_csv(t, n, data_test, argv[7]);
-  getXandY(m, n, data_train, X_train, y_train);
-  getXandY(t, n, data_test, X_test, y_test);
-  freeData(m, n, data_train);
-  freeData(t, n, data_test);
+    char **data_train = mallocData(m, n, MAX_LEN);
+    char **data_test = mallocData(t, n, MAX_LEN);
+    read_csv(m, n, data_train, file_train);
+    read_csv(t, n, data_test, file_test);
+    getXandY(m, n, data_train, X_train, y_train);
+    getXandY(t, n, data_test, X_test, y_test);
+    freeData(m, n, data_train);
+    freeData(t, n, data_test);
 
-  printf("Start predicting...\n");
-  cudaEvent_t start, stop; cudaEventCreate(&start); cudaEventCreate(&stop); cudaEventRecord(start);
-  getSquaredNorm<<<(int)ceil((m*1.0)/BLOCK_SIZE), BLOCK_SIZE>>>(m, n-1, X_train, normX_train);
-  getSquaredNorm<<<(int)ceil((m*1.0)/BLOCK_SIZE), BLOCK_SIZE>>>(t, n-1, X_test, normX_test);
-  matmulTrainTest(t, m, n-1, X_test, X_train, trainTtest);
-  calculateDistance<<<(int)ceil((m*t*1.0)/BLOCK_SIZE), BLOCK_SIZE>>>(m, t, normX_train, normX_test, trainTtest);
-  parallel_sort<<<(int)ceil((t*1.0)/BLOCK_SIZE), BLOCK_SIZE>>>(t, m, k, trainTtest, result);
-  cudaDeviceSynchronize();
-  for (int i=0; i<t; i++)
-  {
-    int *pred_labels = (int *)malloc(k*sizeof(int));
-    for (int j=0; j<k; j++) pred_labels[j] = (int)y_train[result[i*k+j]];
-    y_pred[i] = major_num(k, labels, pred_labels);
-    free(pred_labels);
+    printf("Start predicting...\n");
+    cudaEvent_t start, stop; cudaEventCreate(&start); cudaEventCreate(&stop); cudaEventRecord(start);
+    getSquaredNorm<<<(int)ceil((m*1.0)/BLOCK_SIZE), BLOCK_SIZE>>>(m, n-1, X_train, normX_train);
+    getSquaredNorm<<<(int)ceil((m*1.0)/BLOCK_SIZE), BLOCK_SIZE>>>(t, n-1, X_test, normX_test);
+    matmulTrainTest(t, m, n-1, X_test, X_train, trainTtest);
+    calculateDistance<<<(int)ceil((m*t*1.0)/BLOCK_SIZE), BLOCK_SIZE>>>(m, t, normX_train, normX_test, trainTtest);
+    parallel_sort<<<(int)ceil((t*1.0)/BLOCK_SIZE), BLOCK_SIZE>>>(t, m, k, trainTtest, result);
+    cudaDeviceSynchronize();
+    for (int i=0; i<t; i++)
+    {
+      int *pred_labels = (int *)malloc(k*sizeof(int));
+      for (int j=0; j<k; j++) pred_labels[j] = (int)y_train[result[i*k+j]];
+      y_pred[i] = major_num(k, labels, pred_labels);
+      free(pred_labels);
+    }
+    cudaEventRecord(stop); cudaEventSynchronize(stop); cudaDeviceSynchronize();
+    float milliseconds = 0; cudaEventElapsedTime(&milliseconds, start, stop);
+    printf("Done in %.6f s\n", milliseconds*1e-3);
+    float acc = accuracy(t, y_test, y_pred);
+    printf("Accuracy: %.6f %%\n", acc);
+
+    freeUni(X_train); freeUni(X_test);
+    freeY(y_train); freeY(y_test); freeY(y_pred); freeUni_int(result);
+    freeUni(normX_train); freeUni(normX_test);
+    freeUni(trainTtest);
+    printf("\n");
   }
-  cudaEventRecord(stop); cudaEventSynchronize(stop); cudaDeviceSynchronize();
-  float milliseconds = 0; cudaEventElapsedTime(&milliseconds, start, stop);
-  printf("Done in %.6f s\n", milliseconds*1e-3);
-  float acc = accuracy(t, y_test, y_pred);
-  printf("Accuracy: %.6f %%\n", acc);
-
-  freeUni(X_train); freeUni(X_test);
-  freeY(y_train); freeY(y_test); freeY(y_pred); freeUni_int(result);
-  freeUni(normX_train); freeUni(normX_test);
-  freeUni(trainTtest);
-
   return 0;
 }
