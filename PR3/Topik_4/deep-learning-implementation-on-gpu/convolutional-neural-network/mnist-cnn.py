@@ -1,4 +1,11 @@
 from __future__ import print_function
+
+# UNCOMMENT THESE LINES WHEN TO USE GPU
+# -----------------------------------------------------
+import os
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
+
 import keras
 from keras.datasets import mnist
 from keras.models import Sequential
