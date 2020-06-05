@@ -12,7 +12,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
-import Time
+import time
 
 start_time = time.time()
 batch_size = 128
