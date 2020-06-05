@@ -17,7 +17,12 @@ import time
 start_time = time.time()
 batch_size = 128
 num_classes = 10
-epochs = 3
+"""
+Ofcourse one epoch can lead to underfitting,
+but the purpose of this implementation is testing.
+Generating the output files faster is what needed.
+"""
+epochs = 1
 
 # input image dimensions
 img_rows, img_cols = 28, 28
