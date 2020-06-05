@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-# UNCOMMENT THESE LINES WHEN TO USE GPU
+# Use line 5-7 to use GPU instead of CPU.
 # -----------------------------------------------------
 import os
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -12,7 +12,9 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
+import Time
 
+start_time = time.time()
 batch_size = 128
 num_classes = 10
 epochs = 12
@@ -68,3 +70,6 @@ model.fit(x_train, y_train,
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
+# All epochs execution time included.
+print('Execution Time: %s seconds.'  % (time.time() - start_time))
+
