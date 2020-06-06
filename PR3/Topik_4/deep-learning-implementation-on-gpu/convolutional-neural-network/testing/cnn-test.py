@@ -100,7 +100,7 @@ def write_file(file, device_name, file_count):
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 is_null = False
 
-if(input == 'cpu'):
+if(option == 'cpu'):
     device_name = 'CPU'
     RESULT_PATH = os.path.join(THIS_FOLDER, 'results/CPU_results/')
     if not os.path.exists(RESULT_PATH):
