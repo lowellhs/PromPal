@@ -1,0 +1,8 @@
+This is the result number 1 for NVIDIA GeForce RTX 2080 Ti GPU.
+Number of epochs: 12
+x_train shape: (60000, 28, 28, 1)
+60000 train samples
+10000 test samples
+Test loss: 0.0264
+Test accuracy: 0.9918
+Execution Time: 47.9811 seconds.
