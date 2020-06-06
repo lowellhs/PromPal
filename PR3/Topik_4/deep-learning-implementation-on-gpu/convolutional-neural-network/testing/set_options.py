@@ -1,5 +1,5 @@
-import os
 from keras.backend.tensorflow_backend import set_session
+import os
 import tensorflow as tf
 
 
