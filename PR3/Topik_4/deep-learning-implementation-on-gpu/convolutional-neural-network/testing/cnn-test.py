@@ -88,10 +88,10 @@ print('Execution Time: {execution_time:.4f} seconds.'.format(execution_time = (t
 
 def write_file(file, device_name, file_count):
     file.write('This is the result number {0} for {1}.\n'.format(file_count, device_name))
-    file.write('Number of epochs: '+ epochs)
-    file.write('x_train shape: '+ x_train.shape)
-    file.write(x_train.shape[0]+ ' train samples')
-    file.write(x_test.shape[0]+ ' test samples\n')
+    file.write('Number of epochs: '+ str(epochs))
+    file.write('x_train shape: '+ str(x_train.shape))
+    file.write(str(x_train.shape[0])+ ' train samples')
+    file.write(str(x_test.shape[0])+ ' test samples\n')
     file.write('Test loss: {score:.4f}'.format(score = score[0]))
     file.write('Test accuracy: {score:.4f}'.format(score = score[1]))
     file.write('Execution Time: {execution_time:.4f} seconds.'.format(execution_time = (time.time() - start_time)))
