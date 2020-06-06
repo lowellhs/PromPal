@@ -19,10 +19,10 @@ Command example for GPU: gpu 0
 
 option = input('Enter command: ', )
 
-if(option = 'cpu'):
+if(option == 'cpu'):
     print('using cpu')
     set_cpu_option()
-elif(option.split[0] = 'gpu'):
+elif(option.split[0] == 'gpu'):
     print('using gpu ', option.split[1])
     set_gpu_option(option.split[1], 0.4)
 
