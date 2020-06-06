@@ -1,18 +1,16 @@
 from __future__ import print_function
-
-# Use line 5-7 to use GPU instead of CPU.
-# -----------------------------------------------------
-import os
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
-
 import keras
 from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
+import os
 import time
+
+
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 start_time = time.time()
 batch_size = 128
@@ -72,4 +70,3 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 # All epochs execution time included.
 print('Execution Time: %s seconds.'  % (time.time() - start_time))
-

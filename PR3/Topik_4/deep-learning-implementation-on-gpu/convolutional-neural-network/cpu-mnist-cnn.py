@@ -1,10 +1,5 @@
 from __future__ import print_function
 
-# Use line 5-7 to use GPU instead of CPU.
-# -----------------------------------------------------
-import os
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 import keras
 from keras.datasets import mnist
@@ -17,12 +12,7 @@ import time
 start_time = time.time()
 batch_size = 128
 num_classes = 10
-"""
-Ofcourse one epoch can lead to underfitting,
-but the purpose of this implementation is testing.
-Generating the output files faster is what needed.
-"""
-epochs = 1
+epochs = 12
 
 # input image dimensions
 img_rows, img_cols = 28, 28
@@ -77,6 +67,3 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 # All epochs execution time included.
 print('Execution Time: %s seconds.'  % (time.time() - start_time))
-
-
-
