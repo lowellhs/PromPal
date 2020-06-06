@@ -88,19 +88,19 @@ print('Execution Time: {execution_time:.4f} seconds.'.format(execution_time = (t
 
 def write_file(file, device_name, file_count):
     file.write('This is the result number {0} for {1}.\n'.format(file_count, device_name))
-    file.write('Number of epochs: '+ str(epochs))
-    file.write('x_train shape: '+ str(x_train.shape))
-    file.write(str(x_train.shape[0])+ ' train samples')
+    file.write('Number of epochs: '+ str(epochs)+'\n')
+    file.write('x_train shape: '+ str(x_train.shape)+'\n')
+    file.write(str(x_train.shape[0])+ ' train samples\n')
     file.write(str(x_test.shape[0])+ ' test samples\n')
-    file.write('Test loss: {score:.4f}'.format(score = score[0]))
-    file.write('Test accuracy: {score:.4f}'.format(score = score[1]))
+    file.write('Test loss: {score:.4f}\n'.format(score = score[0]))
+    file.write('Test accuracy: {score:.4f}\n'.format(score = score[1]))
     file.write('Execution Time: {execution_time:.4f} seconds.'.format(execution_time = (time.time() - start_time)))
     file.close()
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 is_null = False
 
-if(option.split()[0] == 'cpu'):
+if(input == 'cpu'):
     device_name = 'CPU'
     RESULT_PATH = os.path.join(THIS_FOLDER, 'results/CPU_results/')
     if not os.path.exists(RESULT_PATH):
