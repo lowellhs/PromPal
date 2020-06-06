@@ -24,7 +24,7 @@ if(option == 'cpu'):
     set_cpu_option()
 elif(option.split()[0] == 'gpu'):
     print('using gpu ', option.split()[1])
-    set_gpu_option(option.split()[1])
+    set_gpu_option(int(option.split()[1]))
 
 start_time = time.time()
 batch_size = 128
