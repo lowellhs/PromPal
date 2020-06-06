@@ -1,10 +1,5 @@
 from __future__ import print_function
 
-# Use line 5-7 to use GPU instead of CPU.
-# -----------------------------------------------------
-import os
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 import keras
 from keras.datasets import mnist
@@ -12,17 +7,34 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
+from set_options import set_cpu_option, set_gpu_option
 import time
+
+print('''
+CPU or GPU?
+Type cpu and hit enter to use cpu.
+Type gpu # (0 for NVIDIA GeForce GTX 1080) and hit enter to use gpu.
+Command example for GPU: gpu 0 
+''')
+
+option = input('Enter command: ', )
+
+if(option = 'cpu'):
+    print('using cpu')
+    set_cpu_option()
+elif(option.split[0] = 'gpu'):
+    print('using gpu ', option.split[1])
+    set_gpu_option(option.split[1], 0.4)
 
 start_time = time.time()
 batch_size = 128
 num_classes = 10
 """
-Ofcourse one epoch can lead to underfitting,
+Obviously using only a little amount od epoch can lead to underfitting,
 but the purpose of this implementation is testing.
 Generating the output files faster is what needed.
 """
-epochs = 1
+epochs = 3
 
 # input image dimensions
 img_rows, img_cols = 28, 28
@@ -77,6 +89,3 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 # All epochs execution time included.
 print('Execution Time: %s seconds.'  % (time.time() - start_time))
-
-
-
