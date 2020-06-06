@@ -7,6 +7,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
+import os
 from set_options import set_cpu_option, set_gpu_option
 import time
 
@@ -29,12 +30,7 @@ elif(option.split()[0] == 'gpu'):
 start_time = time.time()
 batch_size = 128
 num_classes = 10
-"""
-Obviously using only a little amount od epoch can lead to underfitting,
-but the purpose of this implementation is testing.
-Generating the output files faster is what needed.
-"""
-epochs = 3
+epochs = 12
 
 # input image dimensions
 img_rows, img_cols = 28, 28
@@ -85,7 +81,49 @@ model.fit(x_train, y_train,
           verbose=1,
           validation_data=(x_test, y_test))
 score = model.evaluate(x_test, y_test, verbose=0)
-print('Test loss:', score[0])
-print('Test accuracy:', score[1])
+print('Test loss: {score:.4f}'.format(score = score[0]))
+print('Test accuracy: {score:.4f}'.format(score = score[1]))
 # All epochs execution time included.
-print('Execution Time: %s seconds.'  % (time.time() - start_time))
+print('Execution Time: {execution_time:.4f} seconds.'.format(execution_time = (time.time() - start_time)))
+
+def write_file(file, device_name, file_count):
+    file.write("This is the result number {0} for {1}.\n".format(file_count, device_name))
+    file.write("Number of epochs: ", epochs)
+    file.write('x_train shape:', x_train.shape)
+    file.write(x_train.shape[0], 'train samples')
+    file.write(x_test.shape[0], 'test samples\n')
+    file.write('Test loss: {score:.4f}'.format(score = score[0]))
+    file.write('Test accuracy: {score:.4f}'.format(score = score[1]))
+    file.write('Execution Time: {execution_time:.4f} seconds.'.format(execution_time = (time.time() - start_time)))
+    file.close()
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+is_null = False
+
+if(input == 'cpu'):
+    device_name = 'CPU'
+    RESULT_PATH = os.path.join(THIS_FOLDER, 'results/CPU_results/')
+    if not os.path.exists(RESULT_PATH):
+        os.makedirs(RESULT_PATH)
+        file_count = 1
+        is_null = True
+    
+    if is_null == False:
+        file_count = len(RESULT_PATH)
+    result_file = os.path.join(RESULT_PATH, 'results_CPU_#{0}.txt'.format(file_count))
+    file = open(result_file, 'w') 
+    write_file(file, device_name, file_count)
+
+elif(option.split()[0] == 'gpu'): # Currently only GTX 1080 available
+    device_name = 'NVIDIA GeForce GTX 1080 GPU'
+    RESULT_PATH = os.path.join(THIS_FOLDER, 'results/GTX1080_results/')
+    if not os.path.exists(RESULT_PATH):
+        os.makedirs(RESULT_PATH)
+        file_count = 1
+        is_null = True
+
+    if is_null == False:
+        file_count = len(RESULT_PATH)
+    result_file = os.path.join(RESULT_PATH, 'results_GTX1080_#{0}.txt'.format(file_count))
+    file = open(result_file, 'w') 
+    write_file(file, device_name, file_count)
