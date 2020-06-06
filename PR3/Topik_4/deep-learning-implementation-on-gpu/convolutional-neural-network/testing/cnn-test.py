@@ -14,7 +14,7 @@ print('''
 CPU or GPU?
 Type cpu and hit enter to use cpu.
 Type gpu # (0 for NVIDIA GeForce GTX 1080) and hit enter to use gpu.
-Command example for GPU: gpu 0 
+Command example for GPU: gpu 0
 ''')
 
 option = input('Enter command: ', )
@@ -24,7 +24,7 @@ if(option == 'cpu'):
     set_cpu_option()
 elif(option.split()[0] == 'gpu'):
     print('using gpu ', option.split()[1])
-    set_gpu_option(option.split()[1], 0.4)
+    set_gpu_option(option.split()[1])
 
 start_time = time.time()
 batch_size = 128
