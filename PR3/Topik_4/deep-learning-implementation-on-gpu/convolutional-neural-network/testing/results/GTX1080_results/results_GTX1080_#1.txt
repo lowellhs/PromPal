@@ -1,0 +1,8 @@
+This is the result number 1 for NVIDIA GeForce GTX 1080 GPU.
+Number of epochs: 12
+x_train shape: (60000, 28, 28, 1)
+60000 train samples
+10000 test samples
+Test loss: 0.0266
+Test accuracy: 0.9922
+Execution Time: 56.7259 seconds.

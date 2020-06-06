@@ -1,0 +1,8 @@
+This is the result number 135 for CPU.
+Number of epochs: 12
+x_train shape: (60000, 28, 28, 1)
+60000 train samples
+10000 test samples
+Test loss: 0.0280
+Test accuracy: 0.9922
+Execution Time: 295.4951 seconds.
