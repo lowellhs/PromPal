@@ -7,7 +7,7 @@
 ## Cara Penggunaan Program
 Kepada Yth. Tim Dosen Pemrograman Paralel. <br>
 #### Untuk menjalankan program:<br>
-Masuk ke pods (sedangkan untuk penjalanan program di CPU semua pods dapat digunakan)
+Masuk ke pods (untuk penjalanan program di CPU semua pods dapat digunakan)
 - Dengan menggunakan GPU NVIDIA GeForce GTX 1080:
 `$ kubectl exec -it group-07-nfs-cuda /bin/bash` <br>
 - Dengan menggunakan GPU NVIDIA GeForce RTX 2080 Ti:
@@ -16,7 +16,7 @@ Masuk ke pods (sedangkan untuk penjalanan program di CPU semua pods dapat diguna
 Kemudian buka direktori dengan _command_ berikut  
 `$ cd /var/nfs/group07/TEMP/PromPal/PR3/Topik_4/deep-learning-implementation-on-gpu/convolutional-neural-network`
 
-Kemudian buka _environment_ TensorFlow GPU dengan commang berikut:  
+Kemudian buka _environment_ TensorFlow GPU dengan _command_ berikut:  
 - Dengan menggunakan GPU NVIDIA GeForce GTX 1080:   
 `$ source activate deeplearning`    
 Lalu jalankan   
