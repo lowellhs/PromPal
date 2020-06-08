@@ -9,27 +9,58 @@ Kepada Yth. Tim Dosen Pemrograman Paralel. <br>
 #### Untuk menjalankan program:<br>
 Masuk ke pods (untuk penjalanan program di CPU semua pods dapat digunakan)
 - Dengan menggunakan GPU NVIDIA GeForce GTX 1080:
-`$ kubectl exec -it group-07-nfs-cuda /bin/bash` <br>
+
+```bash
+$ kubectl exec -it group-07-nfs-cuda /bin/bash
+``` 
+
 - Dengan menggunakan GPU NVIDIA GeForce RTX 2080 Ti:
-`$ kubectl exec -it group-07-nfs-cuda-02 /bin/bash` <br>
+
+```bash
+$ kubectl exec -it group-07-nfs-cuda-02 /bin/bash
+``` 
+<br>
 
 Kemudian buka direktori dengan _command_ berikut  
-`$ cd /var/nfs/group07/TEMP/PromPal/PR3/Topik_4/deep-learning-implementation-on-gpu/convolutional-neural-network`
+```bash 
+cd /var/nfs/group07/TEMP/PromPal/PR3/Topik_4/deep-learning-implementation-on-gpu/convolutional-neural-network
+```
 
 Kemudian buka _environment_ TensorFlow GPU dengan _command_ berikut:  
 - Dengan menggunakan GPU NVIDIA GeForce GTX 1080:   
-`$ source activate deeplearning`    
+```bash
+source activate deeplearning
+```    
 Lalu jalankan   
-`$ conda activate tensorflow_gpu`
+```bash
+conda activate tensorflow_gpu
+```
 - Dengan menggunakan GPU NVIDIA GeForce RTX 2080 Ti:    
-`$ source activate deep2080`    
+```bash
+source activate deep2080
+```  
 Lalu jalankan   
-`$ conda activate tf_gpu2080`
+```bash 
+conda activate tf_gpu2080
+```
 
 #### Menjalankan Program:
-- CPU : jalankan `$ python3 mnist-knn.py`   kemudian input `cpu`
-- GPU NVIDIA GeForce GTX 1080: jalankan `$ python3 mnist-knn.py` input `gpu 0` atau `gpu 1`
-- GPU NVIDIA GeForce RTX 2080 Ti: jalankan `$ python3 cnn2080.py` input `gpu 0` atau `gpu 1`    
+- CPU : jalankan 
+```bash 
+python3 mnist-knn.py
+```   
+kemudian input `cpu`
+- GPU NVIDIA GeForce GTX 1080: jalankan 
+```bash
+python3 mnist-knn.py
+```
+input `gpu 0` atau `gpu 1`
+<br>
+- GPU NVIDIA GeForce RTX 2080 Ti: jalankan 
+```bash 
+python3 cnn2080.py
+``` 
+input `gpu 0` atau `gpu 1`    
 
 #### Hasil Pengujian
 Hasil dapat dilihat pada direktori atau _folder_ ```results/```. 
